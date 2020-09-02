@@ -8,9 +8,11 @@ with your team and get things merged the same day you make the changes.
 
 # Contributing
 
-We welcome corrections to our documentation. If you see an error, fork this repository and propose some changes.
+We use standard markdown for these documents, but you can have a per-programming-language
+section with `<language-tabs>`.
 
-GitHub has a handy guide for making changes: [see here](https://docs.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository)
+For readability, we expect a single h1 (#section) per file.
+Each file is prefixed by a number, and they're rendered into the docs in sequential order.
 
 # License
 See LICENSE
