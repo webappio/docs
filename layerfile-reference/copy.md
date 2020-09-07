@@ -1,0 +1,15 @@
+# COPY 
+
+`COPY [files...] [destination]`
+
+The `COPY` instruction moves files from your repository to the runner.
+
+Files can be:
+- relative (to the layerfile location for sources, and WORKDIR location, or /root if not specified for destination)
+- absolute (from the root of the repository for sources, and filesystem root for destination)
+
+### Examples
+
+- Use `COPY . .` to copy the directory containing the Layerfile to the current working directory (or /root if WORKDIR has not been used)
+- Use `COPY package.json yarn.lock ./` to copy those two files to the current directory.
+- Use `COPY / /root` to copy the entire repository to /root in the runner.

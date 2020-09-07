@@ -1,0 +1,9 @@
+# BUTTON 
+
+`BUTTON [message...]`
+
+The `BUTTON` instruction allows you to block the progress of a run until the button is pressed.
+
+### Examples
+
+- Commonly used for deployment: `BUTTON would you like to deploy?` followed by `RUN ./deploy.sh` would not deploy unless the button was pressed.
