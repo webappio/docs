@@ -13,7 +13,7 @@ RUN sleep 20 && cat file1
 RUN sleep 20 && cat file2
 ```
 
-In this case, we'll make snapshots after lines 12 & 13 and map which files were read back to the snapshots.
+In this case, we'll make snapshots after each line and map which files were read back to the snapshots.
 This means:
 - if you edit any other file than file1 or file2, this entire Layerfile will be skipped.
 - if you edit file1, the last two lines will be rerun (40s)
