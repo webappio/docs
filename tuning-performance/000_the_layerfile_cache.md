@@ -62,7 +62,8 @@ Some other examples:
 - /root/.cache/go-build
 - ~/.npm ~/.next/cache ~/.yarn/cache
 
-### Parallelizing: The SPLIT directive
+## SPLIT
+### Parallelizing directive
 
 Layer gives an exceedingly useful utility to run tests in parallel - `SPLIT 5` duplicates the entire VM 5 times at the point it executes.
 In practice this means that you can run tests in parallel without worrying about race conditions causing flaky tests.
@@ -101,7 +102,8 @@ SPLIT 5
 RUN ./parallel-go-test.sh
 ```
 
-### Restore state from previous runs: RUN REPEATABLE
+## RUN REPEATABLE
+### Restores state from previous runs
 
 Sometimes it's not sufficient to just cache directories (`CACHE`), it'd be best to cache complex state such as running processes or mounted files.
 
