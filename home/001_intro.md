@@ -52,3 +52,8 @@ that you push code.
 Unlike the Docker cache, we monitor all the files that are read by any process at the system level. We'll only re-run a layer if we can't find a previous one which agrees on your commit with the repository's files.
 
 Practically, layers mean that all you have to do is put expensive steps as high up in a Layerfile as possible, and we'll skip as many steps as possible the next time you push code.
+
+
+#### Ready to get started?
+
+[Try our interactive onboarding](/onboarding), it takes less than a minute in total!
