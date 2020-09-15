@@ -2,7 +2,7 @@
 
 `SECRET ENV [secret name...]`
 
-The `SECRET ENV` instruction ads values from secrets to the runner's environment.
+The `SECRET ENV` instruction adds values from secrets to the runner's environment.
 It's useful for authenticating LayerCI with other services on your behalf.
 
 ### Examples
