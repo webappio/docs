@@ -160,8 +160,7 @@ RUN apt-get update && \\
     apt install docker-ce
 
 # install & start k3s
-RUN curl -sfL https://get.k3s.io | sh -
-RUN BACKGROUND k3s server --docker
+RUN curl -sfL https://get.k3s.io | sh -s - --docker
 
 # this script might use helm, kompose, jsonnet, or any other manifest handling logic
 RUN REPEATABLE ./build-images-and-manifests.sh && k3s kubectl apply -f dist/manifests --prune
