@@ -49,19 +49,9 @@ The `calculated_status` of a CI job is one of the following:
 - `SUCCEEDED` means that the runner succeeded
 
 
-## Get most recent CI job for a repository matching the given filters
+## Get most recent CI job for a repository matching a search query
 
 It's often useful to get the most recent CI job given specific filters. This API endpoint allows for that.
-
-Possible filters are:
-
-- `calculated_status=SUCCEEDED` (calculated status is success, any other value is also usable here)
-- `branch=master` (branch is only set for commits actually made to the branch, not for merge requests opened against that branch)
-- `status=ERROR` (see status vs calculated status section above)
-- `done=true` (the calculated status is neither NEW, STARTING_RUNNERS, nor RUNNING)
-- `failed=true` (the calculated status is JOB_ERROR, BAD_LAYERFILE, FAILURE, or RUNNER_ERROR)
-
-You can include multiple filters to require multiple conditions to be true.
 
 <language-tabs>
 
@@ -70,7 +60,7 @@ require 'faraday'
 require 'json'
 
 # get the most recent failing jobs
-res = Faraday.get 'https://layerci.com/api/v1/run/repo_name/latest?calculated_status=FAILURE&layertoken=(your api key)'
+res = Faraday.get 'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken=(your api key)'
 
 res = JSON.parse(res.body)
 ```
@@ -81,20 +71,20 @@ import requests
 # get the most recent failing job
 my_token="(your API key)"
 res = requests.get(
-    f'https://layerci.com/api/v1/jobs/github/repo_owner/repo_name/latest?done=true&layertoken={my_token}', 
+    f'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken={my_token}', 
 ).json()
 ```
 
 ```shell
 # get the most recent failing job
 my_token="(your API key)"
-curl "https://layerci.com/api/v1/run/repo_name/latest?calculated_status=FAILURE&layertoken=${my_token}"
+curl 'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken=${my_token}' | python -m json.tool
 ```
 
 ```javascript
 let apiKey="(your API key)"
 fetch(
-    'https://layerci.com/api/v1/run/repo_name/latest?calculated_status=FAILURE&layertoken='+apiKey,
+    'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken='+apiKey,
 ).then(res => res.json()).then(json => console.log(json))
 ```
 
@@ -121,7 +111,30 @@ Output:
 }
 ```
 
-`status` can be one of `"ok"` or `"error"`. If the latter exists, an `"error"` value will be included with an explanation.
+-- or --
+```json
+{
+    "error": "There are no runs in layerdemo/layerci-example matching the given filters.",
+    "status": "error"
+}
+```
+
+## Search Filters
+The search query for /search and the main dashboard's searchbar are the same, and can include:
+
+1. natural text
+2. "quoted exact text"
+3. -minus -some -terms that should not appear in the author, commit body, or title of the commit.
+4. repo:(the repository name) to match an exact repository name
+5. branch:(the branch name) to match an exact (case sensitive) branch name
+6. id:(the id) to match an exact run id
+7. status:(status) to match a [calculated status](#status-vs.-calculated_status)
+8. `running` to match a run which is running
+9. `done` to match a run which is not running
+10. `failed` to match a run which has suffered a failure or error
+
+##### Example query
+`text to find in commit body "exact text" -layer -ci repo:layer-example-repo branch:main id:10 status:running done running failed`
 
 ## Create a CI job for a given repository
 
