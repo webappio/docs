@@ -2,7 +2,7 @@
 
 `WORKDIR [directory]`
 
-The `WORKDIR` instruction changes the locatation from which files are resolved in the runner.
+The `WORKDIR` instruction changes the location from which files are resolved in the runner.
 
 ### Examples
 
