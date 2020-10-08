@@ -128,7 +128,7 @@ The search query for /search and the main dashboard's searchbar are the same, an
 4. repo:(the repository name) to match an exact repository name
 5. branch:(the branch name) to match an exact (case sensitive) branch name
 6. id:(the id) to match an exact run id
-7. status:(status) to match a [calculated status](#status-vs.-calculated_status)
+7. status:(status) to match a [calculated status](#status-vs-calculated-status)
 8. `running` to match a run which is running
 9. `done` to match a run which is not running
 10. `failed` to match a run which has suffered a failure or error

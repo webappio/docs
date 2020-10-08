@@ -11,7 +11,7 @@ On future runs, if no files or instructions have changed since the snapshot was 
 ### Examples
 
 - Use `CHECKPOINT disabled` to disable checkpointing from that point onwards
-- Use `CHECKPOINT deploy` to create a checkpoint named "deploy", which can be triggered as a lambda from [our api](/docs/api#create a-ci-job-for-a-given-repository)
+- Use `CHECKPOINT deploy` to create a checkpoint named "deploy", which can be triggered as a lambda from [our api](/docs/api#create-a-ci-job-for-a-given-repository)
 - Use `CHECKPOINT` to expliticly take a checkpoint at a specific point (which happens automatically by default), or re-enable checkpointing after `CHECKPOINT disabled`
 
 See [the tuning performance documentation](/docs/tuning-performance) for more details.
