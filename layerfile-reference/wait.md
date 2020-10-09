@@ -36,7 +36,7 @@ RUN ./deploy.sh
 
 #### What the job view will look like with WAIT
 
-![Advanced workflow graph example](/resources/layerfile-statuses.png)
+![Advanced workflow graph example](/docs/resources/layerfile-statuses.png)
 
 - Notice that deploy only occurs after all of the other layerfiles have succeeded.
 - [This layerfile is available here](https://github.com/distributed-containers-inc/layer-dag-example/blob/794172ae63a6fd59f46d714fcfbefc0a848f98ef/deploy/Layerfile)

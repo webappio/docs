@@ -30,7 +30,7 @@ EXPOSE WEBSITE localhost:8080
 
 When commited to a repository, they will create the following execution graph, where each node is created by a layerfile:
 
-![Advanced workflow graph example](/resources/advanced-workflows-intro-graph.svg)
+![Advanced workflow graph example](/docs/resources/advanced-workflows-intro-graph.svg)
 
 Here, LayerCI has searched for files named 'Layerfile', discovered all three of these files, and linked them based on their parents (look at the FROM lines)
 
