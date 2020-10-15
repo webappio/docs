@@ -2,7 +2,7 @@
 
 ## The Layerfile cache
 
-LayerCI as extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
+LayerCI has extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
 
 Consider the following Layerfile:
 
@@ -135,10 +135,23 @@ In particular, docker would see that it had been used multiple times, and would 
 #### RUN REPEATABLE for docker-compose
 
 ```Layerfile
-# install docker-compose
+FROM vm/ubuntu:18.04
+
+RUN apt-get update && \
+    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+    apt-get update && \
+    apt install docker-ce
+
+RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
 
 COPY . .
-RUN REPEATABLE docker-compose up -d --build --remove-orphans --force-recreate
+
+RUN REPEATABLE docker-compose up -d --build --force-recreate --remove-orphans && sleep 5
+
+EXPOSE WEBSITE localhost:8000
 ```
 
 In this Layerfile, all of these things are reused from the moment immediately after the previous invocation:
