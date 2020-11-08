@@ -1,4 +1,4 @@
-# Layerfile reference
+# Intro
 
 This page contains a reference for each directive which can appear in a Layerfile.
 

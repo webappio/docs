@@ -1,6 +1,4 @@
-# Tuning Performance
-
-## The Layerfile cache
+# The Layerfile cache
 
 LayerCI has extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
 
@@ -21,7 +19,7 @@ This means:
 - if you edit the layerfile, we'll invalidate the cache at the point of the edit.
 
 
-### Differences from Docker
+## Differences from Docker
 
 Here are the major differences between Layerfiles and Dockerfiles for use in CI:
 
@@ -30,7 +28,7 @@ Here are the major differences between Layerfiles and Dockerfiles for use in CI:
 3. `COPY` in LayerCI does not invalidate the cache when it runs, instead the files copied are monitored for read/write starting at that point. This means that `COPY . .` is much more common in Layerfiles than Dockerfiles
 4. You can copy files from parent directories (`COPY /file1 .` or `COPY ../.. .`) and inherit from other Layerfiles `FROM ../../other/Layerfile`
 
-### Faster installs: The CACHE directive
+## Faster installs: The CACHE directive
 
 Sometimes there are steps which will run repeatedly because their constituent files change often, usually source files.
 Consider this Layerfile:
@@ -62,128 +60,3 @@ Some other examples:
 - /var/cache/apt
 - /root/.cache/go-build
 - ~/.npm ~/.next/cache ~/.yarn/cache
-
-## SPLIT
-### Parallelizing directive
-
-Layer gives an exceedingly useful utility to run tests in parallel - `SPLIT 5` duplicates the entire VM 5 times at the point it executes.
-In practice this means that you can run tests in parallel without worrying about race conditions causing flaky tests.
-
-#### Rails: knapsack
-
-See [knapsack pro](https://github.com/KnapsackPro/rails-app-with-knapsack)
-
-1. Install the gem
-2. Run `KNAPSACK_GENERATE_REPORT=true bundle exec rspec spec` on your local computer
-3. `git add knapsack_rspec_report.json && git commit -m 'knapsack' && git push origin master`
-
-Your Layerfile will look something like this:
-
-```Layerfile
-# install ruby, bundle install, etc
-
-COPY . .
-SPLIT 5
-ENV CI_NODE_TOTAL=$SPLIT_NUM CI_NODE_INDEX=$SPLIT
-RUN bundle exec knapsack:rspec
-```
-
-
-#### Go: custom test runner
-
-See [this file](https://github.com/distributed-containers-inc/layer-dag-example/blob/master/service-one/parallel-go-test.sh) for an example parallel test runner for go.
-
-The Layerfile from that example:
-
-```Layerfile
-FROM ../base/Layerfile
-
-COPY . .
-SPLIT 5
-RUN ./parallel-go-test.sh
-```
-
-## RUN REPEATABLE
-### Restores state from previous runs
-
-Sometimes it's not sufficient to just cache directories (`CACHE`), it'd be best to cache complex state such as running processes or mounted files.
-
-LayerCI provides this powerful but dangerous caching mechanism via `RUN REPEATABLE`. It's particularly useful for complicated declarative cluster state like `docker`, `docker-compose` and `kubectl`.
-
-It's recommended to combine RUN REPEATABLE with [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) for large performance improvements.
-
-#### RUN REPEATABLE for Docker
-
-```Layerfile
-# install docker
-
-COPY . .
-RUN REPEATABLE docker build -t myimage
-RUN docker run -d -p 8080:8080 myimage
-```
-
-In this Layerfile, the docker cache from previous runs will be reused because RUN REPEATABLE uses the cache from *after* the last time this step ran.
-
-If you had three pipelines at 9am, 10am, and 11am, the effective steps run would look like this:
-
-- 9am pipeline: cp (9am files) . && docker build -t myimage
-- 10am pipeline: cp -a (9am files) . && docker build -t myimage && cp -a (10am files) . && docker build -t myimage
-- 10am pipeline: cp -a (9am files) . && docker build -t myimage && cp -a (10am files) . && docker build -t myimage && cp -a (11am files) . && docker build -t myimage
-
-In particular, docker would see that it had been used multiple times, and would be able to re-use the docker cache from previous invocations to greatly improve build speed.
-
-#### RUN REPEATABLE for docker-compose
-
-```Layerfile
-FROM vm/ubuntu:18.04
-
-RUN apt-get update && \
-    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-    apt-get update && \
-    apt install docker-ce
-
-RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
-
-COPY . .
-
-RUN REPEATABLE docker-compose up -d --build --force-recreate --remove-orphans && sleep 5
-
-EXPOSE WEBSITE localhost:8000
-```
-
-In this Layerfile, all of these things are reused from the moment immediately after the previous invocation:
-- The docker layer cache (e.g., pulled images)
-- Any created networks or volumes
-
-
-#### RUN REPEATABLE for kubernetes (kubectl, k8s, k3s)
-
-```Layerfile
-FROM vm/ubuntu:18.04
-
-# install the latest version of Docker, as in the official Docker installation tutorial.
-RUN apt-get update && \\
-    apt-get install apt-transport-https ca-certificates curl software-properties-common && \\
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \\
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \\
-    apt-get update && \\
-    apt install docker-ce
-
-# install & start k3s
-RUN curl -sfL https://get.k3s.io | sh -s - --docker
-
-# this script might use helm, kompose, jsonnet, or any other manifest handling logic
-RUN REPEATABLE ./build-images-and-manifests.sh && k3s kubectl apply -f dist/manifests --prune
-
-EXPOSE WEBSITE localhost:8000
-```
-
-*RUN REPEATABLE gives 50-95% speedups here.*
-
-In this Layerfile, we'd set up a kubernetes cluster for you and then snapshot it after you'd started all of your services.
-
-The next time you push, kubernetes' own declarative logic would figure out which pods to delete/restart given the manifests created.
-This means that if you had 20 microservices and only changed one, it'd be the only one that is re-deployed with this Layerfile.

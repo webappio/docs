@@ -1,6 +1,4 @@
-# Advanced workflows
-
-## Intro
+# Intro
 Layerfiles can be composed into arbitrarily powerful workflows.
 
 Consider these three Layerfiles:

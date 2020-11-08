@@ -1,0 +1,39 @@
+# SPLIT
+### Parallelizing directive
+
+Layer gives an exceedingly useful utility to run tests in parallel - `SPLIT 5` duplicates the entire VM 5 times at the point it executes.
+In practice this means that you can run tests in parallel without worrying about race conditions causing flaky tests.
+
+#### Rails: knapsack
+
+See [knapsack pro](https://github.com/KnapsackPro/rails-app-with-knapsack)
+
+1. Install the gem
+2. Run `KNAPSACK_GENERATE_REPORT=true bundle exec rspec spec` on your local computer
+3. `git add knapsack_rspec_report.json && git commit -m 'knapsack' && git push origin master`
+
+Your Layerfile will look something like this:
+
+```Layerfile
+# install ruby, bundle install, etc
+
+COPY . .
+SPLIT 5
+ENV CI_NODE_TOTAL=$SPLIT_NUM CI_NODE_INDEX=$SPLIT
+RUN bundle exec knapsack:rspec
+```
+
+
+#### Go: custom test runner
+
+See [this file](https://github.com/distributed-containers-inc/layer-dag-example/blob/master/service-one/parallel-go-test.sh) for an example parallel test runner for go.
+
+The Layerfile from that example:
+
+```Layerfile
+FROM ../base/Layerfile
+
+COPY . .
+SPLIT 5
+RUN ./parallel-go-test.sh
+```
