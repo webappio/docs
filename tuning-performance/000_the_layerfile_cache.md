@@ -39,7 +39,7 @@ FROM vm/ubuntu:18.04
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \\
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \\
     curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
-    apt-get install nodejs
+    apt-get install nodejs yarn
 
 MEMORY 2G
 ENV NODE_OPTIONS=--max-old-space-size=8192
