@@ -58,7 +58,7 @@ RUN curl -Lo /usr/local/bin/fast-git-download https://gist.githubusercontent.com
     chmod 755 /usr/local/bin/fast-git-download
 
 # download the latest version of the frontend's "master" branch and build and start it.
-RUN REPEATABLE fast-git-clone frontend-repo-name /frontend origin/master && \
+RUN REPEATABLE fast-git-download frontend-repo-name /frontend origin/master && \
     cd /frontend && \
     docker build -t frontend && docker run -d -p 80:80 frontend
 
