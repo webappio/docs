@@ -24,19 +24,12 @@ Because the configuration looks like a Dockerfile, you don't need to configure a
 
 You simply write a `Layerfile`, similar to a `Dockerfile`, and we'll use memory snapshots to automatically reuse the work done the last time the pipeline ran.
 
-## What does installation look like?
+## Is it hard to get started?
 
-We integrate seamlessly with GitHub. Getting a "hello world" VM created only takes three steps:
+We integrate seamlessly with GitHub and GitLab. Getting a "hello world" VM created only takes about five minutes:
 
 1. Log in to LayerCI with your GitHub account
 2. Install LayerCI onto a relevant source code repository.
 3. Create a file named 'Layerfile' anywhere in your repository
 
-Try this file to get started:
-```Layerfile
-FROM vm/ubuntu:18.04
-
-RUN echo "hello world!"
-```
-
-The easiest way to get started is to [try our interactive tutorial](/onboarding). It takes about five minutes in total.
+<a class="btn btn-lg btn-success" href="/onboarding">Try an interactive tutorial</a>
