@@ -1,20 +1,20 @@
 # Use-cases
 
-LayerCI is an all-in-one devops platform, but we provide three main value propositions to our users:
+LayerCI is an all-in-one DevOps platform. We provide three main value propositions to our users:
 
 1. Run e2e tests on every commit.
-2. Collaborate easier with per-PR staging environments.
-3. Set up CI/CD to build and deploy to production
+2. Collaborate more easily with per-PR staging environments.
+3. Set up CI/CD to build and deploy to production.
 
 ### Installation
-Layer is very simple to set up. It only takes three steps:
+You can easily set up Layer in three steps:
 
-- Sign up (with buttons to the top right, if not already signed in.)
-- Install Layer onto a relevant source code repository (e.g., [GitHub](https://github.com/apps/layerci/installations/new))
-- Create a file named 'Layerfile' anywhere in your repository
+- [Sign up](https://layerci.com/login).
+- Install Layer onto a relevant source code repository (e.g., [GitHub](https://github.com/apps/layerci/installations/new)).
+- Create a file named 'Layerfile' anywhere in your repository.
 
-### Per-use-case examples
-We've built a simple [full-stack chat messaging example](https://github.com/layer-devops/livechat-example/) based on [Slack](https://slack.com), it includes three layerfiles:
+### Start from our examples
+We've built a simple [full-stack chat messaging example](https://github.com/layer-devops/livechat-example/) based on [Slack](https://slack.com). It includes three layerfiles:
 
 1. Run e2e tests on every commit:
   - [/layerfiles/base/Layerfile (shared)](https://github.com/layer-devops/livechat-example/blob/main/layerfiles/base/Layerfile)

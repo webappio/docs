@@ -4,12 +4,12 @@
 
 There are a few ways of thinking about these files named 'Layerfile':
 
-1. Auto-discovered Dockerfiles that build entire virtual machines instead of containers, just as quickly.
-2. Define a tree of virtual machines. Each subsequent layer can inherit all the running processes in its parents.
-3. Trigger specific actions like build, push, test, and deploy in parallel every time you push new code.
+1. As auto-discovered Dockerfiles that build entire virtual machines instead of containers, just as quickly.
+2. As a defined tree of virtual machines. Each subsequent layer can inherit all the running processes in its parents.
+3. As a trigger for specific actions: e.g. `build`, `push`, `test`, and `deploy` in parallel every time you push new code.
 
 
-#### A sample
+#### A minimal sample with `cat`
 
 ```Layerfile
 
@@ -25,15 +25,15 @@ COPY file hello
 RUN cat hello
 ```
 
+#### How layers work
 
-#### Layers
+Behind the scenes, Layerfiles define a linear series of "layers" that stack on top of each other, starting at the top of the Layerfile.
 
-Behind the scenes, Layerfiles define a linear series of "layers" that stack on top of each other starting at the top of the Layerfile.
-After every 20 seconds, we'll snapshot all the files and processes in the VM and store them for later.
-In practice, this means that we'll be able to avoid re-running repetitive steps like database migrations the next time 
-that you push code.
+Every 20 seconds, we'll snapshot all the files and processes in the VM and store them for later.
+
+In practice, this means that we'll be able to avoid re-running repetitive steps such as database migrations for each push.
 
 Unlike the Docker cache, we monitor all the files that are read by any process at the system level. We'll only re-run a layer if we can't find a previous one which agrees on your commit with the repository's files.
 
-Practically, layers mean that all you have to do is put expensive steps as high up in a Layerfile as possible, and we'll skip as many steps as possible the next time you push code.
+Put **expensive** steps as high up in a Layerfile as possible, and we'll skip as many steps as possible the next time you push code.
 
