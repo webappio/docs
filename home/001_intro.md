@@ -5,11 +5,11 @@ We monitor which files are used by which steps, and automatically skip any repet
 
 ## What are LayerCI VMs useful for?
 
-Many DevOps tasks can be solved in seconds if you can create a VM quickly:
+Many DevOps tasks can be solved in seconds if you can create VMs quickly:
 
-- Staging environments are ready in seconds because the new VM contains a new copy of the database that was set up last run.
-- It's easy to run E2E tests in parallel if you can duplicate the entire test VM.
-- Build and push your container images effortlessly with the same version of Docker you use in production.
+- **Creating staging environments**: it's easy to create staging environments as needed, and they can be spun up in seconds because the new VM contains a copy of the database that was set up in the last run.
+- **Running End-to-End (E2E) tests**: E2E tests can be run in parallel quickly and easily if you can duplicate the entire test VM, saving valuable time for yourself and your developers. 
+- **Building and pushing container images**: build and push your container images effortlessly with the same version of Docker you use in production.
 
 ## Is it hard to get started?
 
