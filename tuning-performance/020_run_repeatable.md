@@ -23,7 +23,7 @@ If you had three pipelines at 9am, 10am, and 11am, the effective steps run would
 
 - 9am pipeline: cp (9am files) . && docker build -t myimage
 - 10am pipeline: cp -a (9am files) . && docker build -t myimage && cp -a (10am files) . && docker build -t myimage
-- 10am pipeline: cp -a (9am files) . && docker build -t myimage && cp -a (10am files) . && docker build -t myimage && cp -a (11am files) . && docker build -t myimage
+- 11am pipeline: cp -a (9am files) . && docker build -t myimage && cp -a (10am files) . && docker build -t myimage && cp -a (11am files) . && docker build -t myimage
 
 In particular, docker would see that it had been used multiple times, and would be able to re-use the docker cache from previous invocations to greatly improve build speed.
 
