@@ -1,0 +1,26 @@
+# Why is this step rerunning? 
+
+LayerCI uses snapshots to speed up your code in a few simple ways:
+
+1. All processes within a VM are “snapshotted”.
+2. A snapshot is taken about every 20 seconds.
+3. Snapshots are marked by a banner below the accompanying step.
+4. A step will be skipped if the files it uses haven’t changed.
+
+![View of snapshot banner notification under the accompanying code in LayerCI](/docs/resources/step_rerunning_1.png)
+
+If a snapshot is loaded, all the steps above it are skipped. This means that costly, repetitive steps that don’t read many files should be placed as high up in the Layerfile as possible to avoid rerunning.
+
+![View of how skipped steps are denoted 'skipped' and ones that are not say the duration of time that step took](/docs/resources/step_rerunning_2.png)
+
+Snapshots created on a RUN REPEATABLE directive have a special property: the files restored are from after the file last ran. A more detailed explanation on [RUN REPEATABLE](https://layerci.com/docs/tuning-performance/run-repeatable) and a [contrast between LayerCI's and Docker’s caching systems](https://layerci.com/docs/tuning-performance/the-layerfile-cache) are available for further reading. Some potential inefficiencies in the use of the layer caching system are listed below:
+
+## Common problems with RUN REPEATABLE
+
+**RUN REPEATABLE as last step**: RUN REPEATABLE is never skipped if it is the last step in the Layerfile. A workaround is to add “RUN true” at bottom of the Layerfile if RUN REPEATABLE is the last directive.
+
+## Common problems with Docker
+
+**Docker reading the entire directory**: “docker build” copies all files in the context directory that aren’t ignored by a .dockerignore file. Since LayerCI tracks which files are read, this causes LayerCI to rerun if any of the files read by Docker are changed.
+
+An easy solution is to add a [.dockerignore file](https://docs.docker.com/engine/reference/builder/#dockerignore-file) that stops docker from reading irrelevant files.
