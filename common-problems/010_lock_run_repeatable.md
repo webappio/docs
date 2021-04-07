@@ -25,10 +25,10 @@ Some common resolutions are:
 
 
 ```
-    "docker-compose -f <(sed /volume:/,2d docker-compose.yml) up -d"
-
-For more complicated files, a command like `yq` can be used for a similar purpose.
+    docker-compose -f <(sed /volume:/,2d docker-compose.yml) up -d
 ```
+For more complicated files, a command like `yq` can be used for a similar purpose.
+
 
 
 3. **Copy everything to another directory:** Copying the entire directory somewhere else will resolve this issue, but cause the step to never be skipped (as all files are read):
