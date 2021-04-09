@@ -24,7 +24,7 @@ LayerCI has a secrets manager built into the platform. This makes entering and e
 
 - Use `SECRET ENV ENV_FILE` to expose your dotfile env `.env` and then use `RUN echo "$ENV_FILE" | base64 -d > ~/.env` to decode the uploaded env file to the specific location.
 
-## Who can create secrets?
+### Who can create secrets?
 
 Only owners of an organization's LayerCI account can create and edit secrets. Permissions can be edited in the members tab, which can be found in the settings dropdown menu. The members tab displays all users in an organization. 
 
