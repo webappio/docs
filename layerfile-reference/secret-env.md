@@ -10,15 +10,15 @@ LayerCI has a secrets manager built into the platform. This makes entering and e
 
 ![View of secrets page in LayerCI](/docs/resources/secrets_1.png)
 
-1. Navigate to the secrets tab in your LayerCI account.
+Step 1: Navigate to the secrets tab in your LayerCI account.
 
 ![View of dialogue box prompting secret creation in LayerCI](/docs/resources/secrets_2.png)
 
-2. Click ‘NEW’ in the top right corner. Follow the prompts to choose a secret name, value, and destination repository. 
+Step 2: Click ‘NEW’ in the top right corner. Follow the prompts to choose a secret name, value, and destination repository. 
 
 ![View of created secret in LayerCI](/docs/resources/secrets_3.png)
 
-3. All done!
+Step 3: All done!
 
 ### Examples
 
