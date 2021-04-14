@@ -1,0 +1,18 @@
+# SKIP REMAINING IF
+
+`SKIP REMAINING IF [KEY=VALUE]`
+
+The `SKIP REMAINING IF` instruction will cause remaining instructions in the Layerfile to be skipped if the condition is evaluated to true.
+
+Multiple `SKIP REMAINING IF` instructions may be declared in one Layerfile.
+
+Conditions may use any variable from [`BUILD ENV`](/docs/layerfile-reference#build-env).
+
+Conditions may use `AND` to group statements using logical AND.
+
+Conditions may use `!=` to evalute statements to not true.
+
+### Examples
+
+- Use `SKIP REMAINING IF LAYERCI_BRANCH!=master` to skip execution on any branch that is not master.
+- Use `SKIP REMAINING IF LAYERCI_BRANCH=master AND GIT_CLONE_USER=x-access-token:<token>` to skip execution on the master branch commited by a specific user.
