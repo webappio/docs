@@ -12,7 +12,7 @@ The conditions of this error are:
 
 Some common resolutions are: 
 
-1. **Run `docker-compose up -d` in a separate run directive:** Putting `docker-compose up -d` outside of `RUN REPEATABLE` will break condition (2), so a common solution is something like this:
+Solution 1: **Run `docker-compose up -d` in a separate run directive:** Putting `docker-compose up -d` outside of `RUN REPEATABLE` will break condition (2), so a common solution is something like this:
 
 
 ```
@@ -21,7 +21,7 @@ Some common resolutions are:
 ```
 
 
-2. **Don’t use volumes:** Remove volume blocks from your `docker-compose.yml` file and don’t run `docker run` with the `-v` or `--volume` flags. Consider the following example:
+Solution 2: **Don’t use volumes:** Remove volume blocks from your `docker-compose.yml` file and don’t run `docker run` with the `-v` or `--volume` flags. Consider the following example:
 
 
 ```
@@ -31,7 +31,7 @@ For more complicated files, a command like `yq` can be used for a similar purpos
 
 
 
-3. **Copy everything to another directory:** Copying the entire directory somewhere else will resolve this issue, but cause the step to never be skipped (as all files are read):
+Solution 3: **Copy everything to another directory:** Copying the entire directory somewhere else will resolve this issue, but cause the step to never be skipped (as all files are read):
 
 
 ```
