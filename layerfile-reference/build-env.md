@@ -47,6 +47,10 @@ These `CI` variables are always `true` in LayerCI.
 `GIT_COMMIT` is the result of running `git rev-parse HEAD in the repository.`
 
 
+#### GIT\_COMMIT\_TITLE
+
+`GIT_COMMIT_TITLE="[improvement] do something"`
+
 #### GIT\_CLONE\_USER
 `GIT_CLONE_USER=x-access-token:<token>`
 
