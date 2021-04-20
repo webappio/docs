@@ -124,3 +124,8 @@ Note: Unavailable for use by BUILD ENV
 
 `LAYERCI_RUNNER_ID` is the id of the current layerfile runner.
 
+#### RETRY\_INDEX
+
+`RETRY_INDEX=1`
+
+`RETRY_INDEX` is the current retry for the given runner (initially 1, then when retried once, 2, etc)
