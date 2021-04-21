@@ -45,8 +45,10 @@ LayerCI is meant to be as simple as a traditional "docker-build" CI system, but 
 
 ## How expensive is it?
 
-For personal projects and small startups, free.
+For personal projects, free.
 
-For larger teams, we charge a flat fee of $35/developer/month (when billed annually) to keep incentives aligned.
+For startups and larger teams, we have two offerings: a flat fee of $5/developer/month or $35/developer/month (when billed annually) to keep incentives aligned.
+
+For enterprise organizations, we are happy to provide a quote upon request. More information on the features of each offering can be found on our [pricing page](https://layerci.com/pricing).
 
 We don't want to charge per build minute because that would incentivize us to slow things down for profit. 
