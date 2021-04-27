@@ -129,3 +129,9 @@ Note: Unavailable for use by BUILD ENV
 `RETRY_INDEX=1`
 
 `RETRY_INDEX` is the current retry for the given runner (initially 1, then when retried once, 2, etc)
+
+#### API\_EXTRA
+
+`API_EXTRA=some data passed from API`
+
+`API_EXTRA` is optional data passed in when a run is started by the API.
