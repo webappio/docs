@@ -34,6 +34,12 @@ The deployment is now listed under ‘RULES’. In the deployments tab, you can 
 
 By default, [EXPOSE WEBSITE](/docs/layerfile-reference/expose-website) creates staging servers are at `https://(uuid).cidemo.co`, where the uuid is unique for every Layerfile. The deployments page lets you customize this by adding a column to its table and adding a `CNAME` record on a domain you control.
 
+### Subdomains within deployments
+
+Subdomains are preconfigured in LayerCI. Your webserver always sees the host as localhost. If you don’t want that to be the case, please contact support.
+
+For example, say you have a deployment at deployment.demo.layerci.com. If you then go to hello.deployment.demo.layerci.com, it will go to the same deployment. Similarly, if you navigate to greetings.deployment.demo.layerci.com, it will also direct to deployment.demo.layerci.com. This happens by default. 
+
 ### Two layerfile polyrepo example
 
 - In this example, the backend and frontend are separate repositories, and we want to use the latest version of the frontend whenever the backend is built.
