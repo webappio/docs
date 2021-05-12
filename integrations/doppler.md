@@ -1,4 +1,4 @@
-![Doppler Logo](/docs/resources/doppler_logo.png)
+![Doppler Logo](/docs/resources/doppler_logo.svg)
 
 # Doppler
 
