@@ -1,12 +1,34 @@
-# No-code visual tests with reflect.run
+![Reflect.run Logo](/docs/resources/reflect_logo.png)
 
-![Reflect + LayerCI](/static/images/reflect-and-layerci.png)
+# Reflect.run
 
-LayerCI works well with no-code testing services like reflect.run because it allows you to run your suites on every commit without needing to provision a staging environment.
+[Reflect.run](https://reflect.run/) is a no-code automated web testing tool that anyone can use. 
 
-Use [SECRET ENV](/docs/layerfile-reference/secret-env) to add your Reflect API key, and then commit a script like the following:
+## Example Layerfile
 
-```bash
+```
+#This is an example LayerCI configuration for React!
+FROM vm/ubuntu:18.04
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+    curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \
+    apt-get install nodejs yarn jq curl
+
+COPY . .
+RUN yarn install
+RUN BACKGROUND yarn start
+
+EXPOSE WEBSITE http://localhost:3000
+
+SECRET ENV REFLECT_API_KEY
+RUN bash the-shell-script-above.sh
+```
+
+### Setting up Reflect.run with LayerCI
+
+Use [SECRET ENV](https://layerci.com/docs/layerfile-reference/secret-environments) to add your Reflect API key, and then commit a script like the following:
+```
 #!/bin/bash
 REQUEST_BODY="
 {
@@ -44,25 +66,4 @@ while [ "$STILL_RUNNING_TESTS" = "true" ]; do
 done
 ```
 
-## Example layerfile
-
-Based on the [React Example](/docs/examples/react)
-
-```Layerfile
-#This is an example LayerCI configuration for React!
-FROM vm/ubuntu:18.04
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-    curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \
-    apt-get install nodejs yarn jq curl
-
-COPY . .
-RUN yarn install
-RUN BACKGROUND yarn start
-
-EXPOSE WEBSITE http://localhost:3000
-
-SECRET ENV REFLECT_API_KEY
-RUN bash the-shell-script-above.sh
-```
+More information on how to integrate Reflect.run with your LayerCI pipeline can be found [here](https://reflect.run/docs/integrations/continuous-integration/). 
