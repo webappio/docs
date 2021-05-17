@@ -1,47 +1,62 @@
 # Introduction
 
-LayerCI is a cloud-hosted DevOps platform that creates newly provisioned VMs for every code change extremely efficiently.
-We monitor which files are used by which steps, and automatically skip any repetitive setup work.
+LayerCI is the newest iteration of hosted CI providers, built with webapps in mind.
 
-## What are LayerCI VMs useful for?
+The platform is more convenient to use than a traditional Docker-based CI, and just as powerful as provisioning a new VM from scratch for every commit.
 
-Many DevOps tasks can be solved in seconds if you can create VMs quickly:
+## How is LayerCI different from traditional hosted CI?
 
-- **Creating staging environments**: it's easy to create staging environments as needed, and they can be spun up in seconds because the new VM contains a copy of the database that was set up in the last run.
-- **Running End-to-End (E2E) tests**: E2E tests can be run in parallel quickly and easily if you can duplicate the entire test VM, saving valuable time for yourself and your developers. 
-- **Building and pushing container images**: build and push your container images effortlessly with the same version of Docker you use in production.
+The big difference is our "layer cache" - it acts like `docker build` except it's adapted for CI workloads. Instead of using a `Dockerfile` you write one or more `Layerfile`s.
 
-## Is it hard to get started?
+It's easier to explain with an example: You'd like to start a fresh MySQL database, migrate it, and run end-to-end tests for every proposed change.
 
-We integrate seamlessly with GitHub and GitLab. Getting a "hello world" VM created only takes about five minutes:
+In LayerCI, all you'd have to do is put this file in the root of your repository:
+```
+FROM vm/ubuntu:18.04
 
-1. Install LayerCI onto a repository of your choice.
-2. Create files named 'Layerfile' anywhere in your repository.
-3. Push your commit, we'll immediately start building its Layerfiles in parallel.
+RUN apt-get update && apt-get install mysql
+COPY . .
 
-You don't have to replace your entire CI system.
-When you install LayerCI, it'll show up as an extra status beside traditional CIs like CircleCI or GitLab CI in the pull request page.
+# this step might take minutes!
+RUN python setup.py migrate
+
+# where the actual tests only take seconds
+RUN ./e2etests.sh
+```
+
+Every time a developer pushed code to your repository, we'd be able to skip the `setup.py migrate` step because the layer cache would contain a memory snapshot.
+
+Docker would not let you keep the database running between the build steps.
+
+## How does LayerCI provide ephemeral environments?
+
+Because our layer cache contains memory snapshots, we can provide an [ephemeral environment](https://layerci.com/blog/what-is-an-ephemeral-environment/) for every branch.
+
+When you visit `my-branch.demo.example.com`, our [Deployments](/docs/advanced-workflows/deployments) feature will wake up an appropriate environment, and then send your requests to the server within.
+
+For a concrete example, a repository using Flask might contain this Layerfile to configure an ephemeral environment:
+
+```
+FROM vm/ubuntu:18.04
+
+RUN apt-get update && apt-get install mysql
+COPY . .
+RUN python setup.py migrate
+
+RUN BACKGROUND FLASK_APP=flask.py python -m flask run --host=0.0.0.0
+EXPOSE WEBSITE localhost:5000
+```
+
+## How can I evaluate LayerCI?
+
+We integrate with GitHub, GitLab, and BitBucket. All you have to do is follow the relevant prompts in our [interactive onboarding](/onboarding)
+
+You can choose to only give us access to a single repository for evaluation purposes.
+
+Once you've installed LayerCI, you can build a `Layerfile` like the one above and commit it to your repository. We'll automatically run it and post the status back to GitHub/GitLab/BitBucket.
 
 
-<a class="btn btn-lg btn-success" href="/onboarding">Try an interactive tutorial</a>
-
-## How is LayerCI different from a traditional cloud provider?
-
-LayerCI is built as a DevOps platform, and not for hosting production code.
-
-Our VMs use memory snapshotting to work like Docker containers. They're faster and more developer-friendly than a traditional VM.
-
-We can create dozens of VMs per branch, because we automatically hibernate them when they're not in use.
-
-Because the configuration looks like a Dockerfile, you don't need to configure a complicated build process either.
-
-You simply write a `Layerfile` (similar to a `Dockerfile`) and we'll use memory snapshots to automatically reuse the work done the last time the pipeline ran.
-
-## How is LayerCI different from a traditional CI provider?
-
-Traditional CI systems will only allow you to build artifacts and run unit tests - you can't easily create a fresh copy of your entire backend to run meaningful tests.
-
-LayerCI is meant to be as simple as a traditional "docker-build" CI system, but as powerful as provisioning a new VM from scratch.
+<a class="btn btn-lg btn-success" href="/onboarding">See a live example in 90s</a>
 
 ## How expensive is it?
 
@@ -52,3 +67,10 @@ For startups and larger teams, we have two offerings: a flat fee of $5/developer
 For enterprise organizations, we are happy to provide a quote upon request. More information on the features of each offering can be found on our [pricing page](https://layerci.com/pricing).
 
 We don't want to charge per build minute because that would incentivize us to slow things down for profit. 
+
+## Next steps
+- [View the guided onboarding to actually try our dashboard](/onboarding)
+- [Go to the Examples page](/docs/examples) for full configurations of various web frameworks
+- [Read more about inheritance](/docs/advanced-workflows/intro) (running E2E tests in parallel with ephemeral environments, for example)
+- [Check out a demo GitHub repository](https://github.com/layer-devops/livechat-example)
+- [See how other users have configured LayerCI](https://layerci.com/tag/customer-success/)

@@ -29,6 +29,27 @@ Here are the major differences between Layerfiles and Dockerfiles for use in CI:
 3. `COPY` in LayerCI does not invalidate the cache when it runs, instead the files copied are monitored for read/write starting at that point. This means that `COPY . .` is much more common in Layerfiles than Dockerfiles
 4. You can copy files from parent directories (`COPY /file1 .` or `COPY ../.. .`) and inherit from other Layerfiles `FROM ../../other/Layerfile`
 
+## File watching COPY
+
+In most CI providers and in Docker, you need to micromanage cache keys. The following Dockerfile and Layerfile are equivalent because we watch which files are read by each step:
+
+```Dockerfile
+FROM ubuntu:18.04
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+```
+
+```Layerfile
+FROM ubuntu:18.04
+COPY . .
+RUN npm install
+RUN npm run build
+```
+
+Instead of micromanaging COPY, you can simply copy the entire repository and we'll load the bottommost layer from the cache which agrees with a commit's changes.
+
 ## Faster installs: The CACHE directive
 
 Sometimes there are steps which will run repeatedly because their constituent files change often, usually source files.
