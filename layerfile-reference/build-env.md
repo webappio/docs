@@ -26,6 +26,16 @@ It is a cleaned up version of the `$LAYERCI_BRANCH` variable, acceptable for use
 
 Common use is to set `HOST=$SUBDOMAIN.demo.example.com`
 
+#### DEPLOYMENT_HOST
+
+`DEPLOYMENT_HOST=job-5.demo.example.com`
+
+The `DEPLOYMENT_HOST` variable is set if a deployment exists for your run.
+
+It's often used to tell a webserver where it is being hosted.
+
+If there are multiple deployments, a single one is returned.
+
 #### CI
 
 `CI=true`, `IS_CI_MACHINE=true`, `CI_MACHINE=true`, `IN_CI_MACHINE=true`, `IN_CI=true`
