@@ -29,3 +29,5 @@ In real time the message will update on the status of all Layerfile runners for 
 
 To subscribe to notifications enter `/LayerCI subscibe [repository owner]/[repository name]` in the public Slack channel of your choice.
 
+To unsubscribe to notifications enter `/LayerCI unsubscibe [repository owner]/[repository name]`.
+
