@@ -17,3 +17,4 @@ Conditions may use `!=` to evaluate statements are not true.
 - Use `SKIP REMAINING IF LAYERCI_BRANCH!=master` to skip execution on any branch that is not master.
 - Use `SKIP REMAINING IF LAYERCI_BRANCH!=master AND LAYERCI_REPO_NAME !=~ "web"` would skip remaining actions if the branch is not master, and the repository name is not "web"
 - Use `SKIP REMAINING IF GIT_COMMIT_TITLE =~ "\[skip tests\]"` would skip remaining actions if the commit title contained "\[skip tests]"
+- Use `SKIP REMAINING IF LAYERCI_BRANCH!=~^(master|dev)$` would skip remaining actions if the branch is anything besides `master` or `dev`
