@@ -27,7 +27,7 @@ In real time the message will update on the status of all Layerfile runners for 
 
 ![Slack App LayerFile Success](/docs/resources/slack-app-success.png)
 
-To subscribe to notifications enter `/LayerCI subscibe [repository owner]/[repository name]` in the public Slack channel of your choice.
+To subscribe to notifications enter `/LayerCI subscribe [repository owner]/[repository name]` in the public Slack channel of your choice.
 
-To unsubscribe to notifications enter `/LayerCI unsubscibe [repository owner]/[repository name]`.
+To unsubscribe to notifications enter `/LayerCI unsubscribe [repository owner]/[repository name]`.
 
