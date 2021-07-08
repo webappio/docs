@@ -146,7 +146,6 @@ The input to the POST is optional, but can contain:
 - `branch=master` to check out the "master" branch. If omitted, we use "master"
 - `ref=9abc2ac68d52afe1a5a3fbc724d031af5a397204` to check out a specific commit. If omitted, we use "origin/master"
 - `accept_buttons=true` to accept any BUTTON instructions in the job (i.e., to deploy automatically)
-- `skip_no_further_than=(CHECKPOINT name)` to avoid skipping certain actions (e.g., deployment) - this lets you use Layer as a cheap lambda.
 - `extra` - extra data exposed in the run as API_EXTRA, useful for passing arbitrary data in
 
 <language-tabs>
@@ -160,7 +159,6 @@ res = Faraday.post(
         branch: 'master',
         ref: '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
         accept_buttons: 'true',
-        skip_no_further_than: 'run-and-deploy',
         extra: 'some extra data exposed as API_EXTRA variable',
     }.to_json
 )
@@ -178,7 +176,6 @@ res = requests.post(
         'branch': 'master',
         'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
         'accept_buttons': 'true',
-        'skip_no_further_than': 'run-and-deploy',
         'extra': 'some extra data exposed as API_EXTRA variable',
     },
 ).json()
@@ -191,7 +188,6 @@ curl -X POST \
     -d '{"branch": "master", \
          "ref": "9abc2ac68d52afe1a5a3fbc724d031af5a397204", \
          "accept_buttons": "true", \
-         "skip_no_further_than": "run-and-deploy", \
          "extra": "some extra data exposed as API_EXTRA variable" \
         }' \
     "https://layerci.com/api/v1/run/repo_name?layertoken=${my_token}"
@@ -210,7 +206,6 @@ fetch(
             'branch': 'master',
             'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
             'accept_buttons': 'true',
-            'skip_no_further_than': 'run-and-deploy',
             'extra': 'some extra data exposed as API_EXTRA variable',
         }),
     }
