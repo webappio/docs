@@ -15,10 +15,6 @@ If a snapshot is loaded, all the steps above it are skipped. This means that cos
 
 Snapshots created on a `RUN REPEATABLE` directive have a special property: the files restored are from after the file last ran. A more detailed explanation on [RUN REPEATABLE](https://layerci.com/docs/tuning-performance/run-repeatable) and a [contrast between LayerCI's and Docker’s caching systems](https://layerci.com/docs/tuning-performance/the-layerfile-cache) are available for further reading. Some potential inefficiencies in the use of the layer caching system are listed below:
 
-## Common problems with RUN REPEATABLE
-
-**RUN REPEATABLE as last step**: `RUN REPEATABLE` is never skipped if it is the last step in the Layerfile. A workaround is to add `RUN true` at bottom of the Layerfile if `RUN REPEATABLE` is the last directive.
-
 ## Common problems with Docker
 
 **Docker reading the entire directory**: `docker build` copies all files in the context directory that aren’t ignored by a `.dockerignore` file. Since LayerCI tracks which files are read, this causes LayerCI to rerun if any of the files read by Docker are changed. An easy solution is to add a [.dockerignore file](https://docs.docker.com/engine/reference/builder/#dockerignore-file) that stops docker from reading irrelevant files.
