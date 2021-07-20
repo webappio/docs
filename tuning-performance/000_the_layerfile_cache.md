@@ -1,6 +1,6 @@
 # The Layerfile cache
 
-LayerCI has extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
+Layer has extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
 
 Consider the following Layerfile:
 
@@ -26,7 +26,7 @@ Here are the major differences between Layerfiles and Dockerfiles for use in CI:
 
 1. Layerfiles define VMs, not containers - this means you can run anything (including docker) that you could run on a regular cloud server.
 2. Running processes are snapshotted and reused. If you start & populate a database, that'll be included in the layer so that you don't have to re-run the steps to set up the database for *every* pipeline.
-3. `COPY` in LayerCI does not invalidate the cache when it runs, instead the files copied are monitored for read/write starting at that point. This means that `COPY . .` is much more common in Layerfiles than Dockerfiles
+3. `COPY` in Layer does not invalidate the cache when it runs, instead the files copied are monitored for read/write starting at that point. This means that `COPY . .` is much more common in Layerfiles than Dockerfiles
 4. You can copy files from parent directories (`COPY /file1 .` or `COPY ../.. .`) and inherit from other Layerfiles `FROM ../../other/Layerfile`
 
 ## File watching COPY

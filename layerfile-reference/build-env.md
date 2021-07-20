@@ -40,7 +40,7 @@ If there are multiple deployments, a single one is returned.
 
 `CI=true`, `IS_CI_MACHINE=true`, `CI_MACHINE=true`, `IN_CI_MACHINE=true`, `IN_CI=true`
 
-These `CI` variables are always `true` in LayerCI.
+These `CI` variables are always `true` in Layer.
 
 
 #### GIT\_TAG
@@ -82,7 +82,7 @@ Note: Unavailable for use by BUILD ENV
 
 `LAYERCI=true`
 
-`LAYERCI` is always `true` in LayerCI test runs.
+`LAYERCI` is always `true` in Layer test runs.
 
 
 #### LAYERCI\_BRANCH

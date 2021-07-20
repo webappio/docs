@@ -138,7 +138,7 @@ The search query for /search and the main dashboard's searchbar are the same, an
 
 ## Create a CI job for a given repository
 
-Sometimes it's useful to manually start LayerCI runs (for, e.g., deploying)
+Sometimes it's useful to manually start Layer runs (for, e.g., deploying)
 This endpoint lets you do that.
 
 The input to the POST is optional, but can contain:

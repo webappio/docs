@@ -3,7 +3,7 @@
 
 Sometimes it's not sufficient to just cache directories (`CACHE`), it'd be best to cache complex state such as running processes or mounted files.
 
-LayerCI provides this powerful but dangerous caching mechanism via `RUN REPEATABLE`. It's particularly useful for complicated declarative cluster state like `docker`, `docker-compose` and `kubectl`.
+Layer provides this powerful but dangerous caching mechanism via `RUN REPEATABLE`. It's particularly useful for complicated declarative cluster state like `docker`, `docker-compose` and `kubectl`.
 
 It's recommended to combine RUN REPEATABLE with [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) for large performance improvements.
 

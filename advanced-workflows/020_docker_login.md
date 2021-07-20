@@ -1,6 +1,6 @@
 ## Logging in to Docker
 
-LayerCI creates entire VMs as easily as Dockerfiles, so it's common for our users to use Docker or docker-compose within LayerCI.
+Layer creates entire VMs as easily as Dockerfiles, so it's common for our users to use Docker or docker-compose within Layer.
 
 Docker hub rate limits requests made by unauthenticated users, so it's imperative to create a docker hub account and log in to it to avoid failing tests.
 

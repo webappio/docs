@@ -1,8 +1,8 @@
-# LayerCI documentation
+# Layer documentation
 
-This repository is the open-source documentation page for [LayerCI](https://layerci.com).
+This repository is the open-source documentation page for [Layer](https://layerci.com).
 
-LayerCI turns regular CI pipelines into staging server lambdas, so that you can share your work
+Layer turns regular CI pipelines into staging server lambdas, so that you can share your work
 with your team and get things merged the same day you make the changes.
 
 

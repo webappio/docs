@@ -6,21 +6,21 @@ For example, `example.com` could route `$branch.demo.example.com` to the latest 
 
 How to set up deployments: 
  
-Using the LayerCI dashboard, navigate to your organization’s settings.
+Using the Layer dashboard, navigate to your organization’s settings.
  
-![View of organization page in LayerCI](/docs/resources/deployments1.png)
+![View of organization page in Layer](/docs/resources/deployments1.png)
 
 Add the specific domain that you want everything to be exposed under. In the example below, we are adding demo.example.com. A CNAME record will be provided. 
  
-![View of how to add domain in LayerCI](/docs/resources/deployments2.png)
+![View of how to add domain in Layer](/docs/resources/deployments2.png)
 
 Add the CNAME record in your DNS hosting provider (ex: Cloudflare, godaddy, etc). Creating a new record can usually be done within the DNS settings. Once this is done, DNS IS SET UP can be found next to the new domain. 
  
-![View of organization page in LayerCI after adding example domain](/docs/resources/deployments3.png)
+![View of organization page in Layer after adding example domain](/docs/resources/deployments3.png)
 
 Next, navigate to the deployments tab. On the top right, click ‘NEW’ to create a new deployment rule. Fill in the appropriate fields.
  
-![View of adding deployment rule within deployments tab in LayerCI](/docs/resources/deployments4.png)
+![View of adding deployment rule within deployments tab in Layer](/docs/resources/deployments4.png)
 
 The deployment is now listed under ‘RULES’. In the deployments tab, you can see whether a deployment is on, paused, or deleted. When a deployment is deleted, it can be restored either by rerunning the layerfile or by following the RE-RUN LAYERFILE prompt on the error message page shown below.
  
@@ -36,7 +36,7 @@ By default, [EXPOSE WEBSITE](/docs/layerfile-reference/expose-website) creates s
 
 ### Subdomains within deployments
 
-Subdomains are preconfigured in LayerCI. Your webserver always sees the host as localhost. If you don’t want that to be the case, please contact support.
+Subdomains are preconfigured in Layer. Your webserver always sees the host as localhost. If you don’t want that to be the case, please contact support.
 
 For example, say you have a deployment at deployment.demo.layerci.com. If you then go to hello.deployment.demo.layerci.com, it will go to the same deployment. Similarly, if you navigate to greetings.deployment.demo.layerci.com, it will also direct to deployment.demo.layerci.com. This happens by default. 
 

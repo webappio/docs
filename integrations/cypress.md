@@ -7,7 +7,7 @@
 ## Example Layerfile
 
 ```
-#This is an example LayerCI configuration for React!
+#This is an example Layer configuration for React!
 FROM vm/ubuntu:18.04
 
 # To note: Layerfiles create entire VMs, *not* containers!
@@ -31,7 +31,7 @@ RUN npm --version
 # Typically we would need to cache
 # the NPM modules and the Cypress binary folder
 # in the folders ~/.npm and ~/.cache/Cypress
-# but LayerCI literally makes and stores Docker container
+# but Layer literally makes and stores Docker container
 # after each command, thus if there were no changes
 # the layers would not be rebuilt
 # BUT we still want to cache some folders to avoid
@@ -48,7 +48,7 @@ RUN npm ci
 # shows where Cypress was installed and what's available
 RUN npx cypress info
 
-# print LayerCI variables
+# print Layer variables
 # https://layerci.com/docs/layerfile-reference/build-env
 # using https://github.com/bahmutov/print-env
 # https://github.com/cypress-io/cypress/issues/16101
@@ -67,6 +67,6 @@ SPLIT 3
 RUN npx cypress run --record --parallel --ci-build-id $LAYERCI_JOB_ID-$RETRY_INDEX
 ```
 
-### Setting up Cypress with LayerCI
+### Setting up Cypress with Layer
 
-[Documentation](https://docs.cypress.io/guides/continuous-integration/introduction#Setting-up-CI) on how to run Cypress inside a CI pipeline and an [example project](https://github.com/bahmutov/cypress-example-layerci) running Cypress on LayerCI are also available.
+[Documentation](https://docs.cypress.io/guides/continuous-integration/introduction#Setting-up-CI) on how to run Cypress inside a CI pipeline and an [example project](https://github.com/bahmutov/cypress-example-layerci) running Cypress on Layer are also available.

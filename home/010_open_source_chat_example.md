@@ -10,13 +10,13 @@ This is exactly what the [Livechat Example](https://github.com/layer-devops/live
 
 For code review, you'd like it so that every time a developer pushes code, a new copy of the built services is visible on the internet at **https://(branch).demo.yourcompany.com**
 
-### LayerCI
+### Layer
 
-Creating environments like this is precisely what LayerCI helps with. 
+Creating environments like this is precisely what Layer helps with. 
 
 Our hosted platform lets you efficiently create many copies of running services by re-using work from prior snapshots.
 
-The LayerCI configuration from the example above might look like the following:
+The Layer configuration from the example above might look like the following:
 
 ```Layerfile
 FROM vm/ubuntu:18.04
@@ -44,11 +44,11 @@ RUN BACKGROUND docker-compose up
 EXPOSE WEBSITE localhost:8000
 ```
 
-To install LayerCI with the example above, you'd:
+To install Layer with the example above, you'd:
 
-1. Authorize LayerCI with GitHub, GitLab, or BitBucket
+1. Authorize Layer with GitHub, GitLab, or BitBucket
 2. Commit the file above as a file named `Layerfile` anywhere in your repository
-3. Push a commit that contains that file. LayerCI will create an environment for it and post a link right on your commit.
+3. Push a commit that contains that file. Layer will create an environment for it and post a link right on your commit.
 
 
 <a class="btn btn-lg btn-success" href="/onboarding/github">See a live example in 90s</a>
@@ -56,6 +56,6 @@ To install LayerCI with the example above, you'd:
 
 ### Beyond preview environments
 
-LayerCI is well suited to creating per-branch links of webapps, but that's far from the only thing it can do.
+Layer is well suited to creating per-branch links of webapps, but that's far from the only thing it can do.
 
-Check out the [Advanced Workflows](/docs/advanced-workflows) section to how polyrepositories, inheritance, and more can be set up with LayerCI.
+Check out the [Advanced Workflows](/docs/advanced-workflows) section to how polyrepositories, inheritance, and more can be set up with Layer.

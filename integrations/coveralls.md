@@ -18,6 +18,6 @@ SECRET ENV COVERALLS_REPO_TOKEN
 RUN (the test command)
 ```
 
-### Setting up Coveralls with LayerCI
+### Setting up Coveralls with Layer
 
-More information on how to integrate Coveralls with your LayerCI pipeline can be found [here](https://docs.coveralls.io/supported-ci-services).
+More information on how to integrate Coveralls with your Layer pipeline can be found [here](https://docs.coveralls.io/supported-ci-services).

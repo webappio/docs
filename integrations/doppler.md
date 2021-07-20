@@ -14,7 +14,7 @@ RUN (curl -Ls https://cli.doppler.com/install.sh || wget -qO- https://cli.dopple
 
 COPY . .
 
-# Load several Doppler tokens from LayerCI
+# Load several Doppler tokens from Layer
 SECRET ENV DOPPLER_TOKEN_PREVIEW
 SECRET ENV DOPPLER_TOKEN_PRODUCTION
 
@@ -23,6 +23,6 @@ RUN doppler -t $DOPPLER_TOKEN_PREVIEW run -- printenv | grep DOPPLER # Testing p
 RUN doppler -t $DOPPLER_TOKEN_PRODUCTION run -- printenv | grep DOPPLER # Testing purposes only
 ```
 
-### Setting up Doppler with LayerCI
+### Setting up Doppler with Layer
 
-Information on how to integrate Doppler with your LayerCI pipeline can be found [here](https://docs.doppler.com/docs/layerci). 
+Information on how to integrate Doppler with your Layer pipeline can be found [here](https://docs.doppler.com/docs/layerci). 

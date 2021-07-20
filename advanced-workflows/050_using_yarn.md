@@ -17,4 +17,4 @@ RUN BACKGROUND yarn start
 EXPOSE WEBSITE http://localhost:3000
 ```
 
-Information on optimizing and troubleshooting Yarn in LayerCI can be found [here](https://layerci.com/docs/common-problems/what-is-causing-a-yarn-error).
+Information on optimizing and troubleshooting Yarn in Layer can be found [here](https://layerci.com/docs/common-problems/what-is-causing-a-yarn-error).
