@@ -8,16 +8,16 @@
 
 ```
 ENV CI_NAME=layerci \
-   CI_BUILD_NUMBER=$LAYERCI_JOB_ID \
-   CI_BUILD_URL="https://layerci.com/$LAYERCI_ORG_NAME/commits?query=repo%3A$LAYERCI_REPO_NAME+id%3A$LAYERCI_JOB_ID" \
-   CI_BRANCH="$LAYERCI_BRANCH" \
-   CI_PULL_REQUEST="$LAYERCI_PULL_REQUEST"
+   CI_BUILD_NUMBER=$JOB_ID \
+   CI_BUILD_URL="https://webapp.io/$ORGANIZATION_NAME/commits?query=repo%3A$REPOSITORY_NAME+id%3A$JOB_ID" \
+   CI_BRANCH="$GIT_BRANCH" \
+   CI_PULL_REQUEST="$PULL_REQUEST_URL"
 
 SECRET ENV COVERALLS_REPO_TOKEN
 
 RUN (the test command)
 ```
 
-### Setting up Coveralls with Layer
+### Setting up Coveralls with webapp.io
 
-More information on how to integrate Coveralls with your Layer pipeline can be found [here](https://docs.coveralls.io/supported-ci-services).
+More information on how to integrate Coveralls with your webapp.io pipeline can be found [here](https://docs.coveralls.io/supported-ci-services).

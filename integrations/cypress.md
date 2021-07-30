@@ -7,7 +7,7 @@
 ## Example Layerfile
 
 ```
-#This is an example Layer configuration for React!
+#This is an example webapp.io configuration for React!
 FROM vm/ubuntu:18.04
 
 # To note: Layerfiles create entire VMs, *not* containers!
@@ -31,12 +31,12 @@ RUN npm --version
 # Typically we would need to cache
 # the NPM modules and the Cypress binary folder
 # in the folders ~/.npm and ~/.cache/Cypress
-# but Layer literally makes and stores Docker container
+# but webapp.io literally makes and stores Docker containers
 # after each command, thus if there were no changes
 # the layers would not be rebuilt
 # BUT we still want to cache some folders to avoid
 # reinstalling Cypress for example when just some source files have changed
-# https://layerci.com/docs/layerfile-reference/cache#cache
+# https://webapp.io/docs/layerfile-reference/cache#cache
 COPY package.json ./
 COPY package-lock.json ./
 CACHE ~/.npm ~/.cache/Cypress
@@ -48,11 +48,11 @@ RUN npm ci
 # shows where Cypress was installed and what's available
 RUN npx cypress info
 
-# print Layer variables
-# https://layerci.com/docs/layerfile-reference/build-env
+# print webapp.io variables
+# https://webapp.io/docs/layerfile-reference/build-env
 # using https://github.com/bahmutov/print-env
 # https://github.com/cypress-io/cypress/issues/16101
-RUN npx @bahmutov/print-env GIT LAYERCI RETRY USER SPLIT
+RUN npx @bahmutov/print-env GIT CI RETRY USER SPLIT
 
 RUN BACKGROUND npm start
 
@@ -64,9 +64,9 @@ SECRET ENV CYPRESS_RECORD_KEY
 
 # execute the tests against the same machine (?) on N machines
 SPLIT 3
-RUN npx cypress run --record --parallel --ci-build-id $LAYERCI_JOB_ID-$RETRY_INDEX
+RUN npx cypress run --record --parallel --ci-build-id $JOB_ID-$RETRY_INDEX
 ```
 
-### Setting up Cypress with Layer
+### Setting up Cypress with webapp.io
 
 [Documentation](https://docs.cypress.io/guides/continuous-integration/introduction#Setting-up-CI) on how to run Cypress inside a CI pipeline and an [example project](https://github.com/bahmutov/cypress-example-layerci) running Cypress on Layer are also available.

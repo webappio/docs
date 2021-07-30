@@ -10,7 +10,7 @@ Each layerfile runner is created by a specific Layerfile, or by a Layerfile bein
 
 ```json
 {
-    "repository_name": "layerci-example",
+    "repository_name": "webappio-example",
     "id": 1,
     "status": "SEE_RUNNERS",
     "status_change_time": "2000-01-01 01:23:45.123456 +0000 UTC",
@@ -39,7 +39,7 @@ The calculated status is usually what you'll use to determine the status of an e
 The `calculated_status` of a CI job is one of the following:
 
 - `NEW` for pending jobs
-- `JOB_ERROR` for jobs that have had an internal while initializing (e.g., internal errors in Layer occurred when starting this run)
+- `JOB_ERROR` for jobs that have had an internal while initializing (e.g., internal errors in webapp.io occurred when starting this run)
 - `BAD_LAYERFILE` for jobs that had an invalid Layerfile
 - `STARTING_RUNNERS` means that runners are in the process of being started for this job.
 - `FAILURE` means that at least one runner failed (some instruction for that runner is red) - again, there can be multiple Layerfiles per repository and if either fails.
@@ -60,7 +60,7 @@ require 'faraday'
 require 'json'
 
 # get the most recent failing jobs
-res = Faraday.get 'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken=(your api key)'
+res = Faraday.get 'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token=(your api key)'
 
 res = JSON.parse(res.body)
 ```
@@ -71,20 +71,20 @@ import requests
 # get the most recent failing job
 my_token="(your API key)"
 res = requests.get(
-    f'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken={my_token}', 
+    f'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token={my_token}', 
 ).json()
 ```
 
 ```shell
 # get the most recent failing job
 my_token="(your API key)"
-curl 'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken=${my_token}' | python -m json.tool
+curl 'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token=${my_token}' | python -m json.tool
 ```
 
 ```javascript
 let apiKey="(your API key)"
 fetch(
-    'https://layerci.com/api/v1/run/repo_name/search?search=status%3Asucceeded&layertoken='+apiKey,
+    'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token='+apiKey,
 ).then(res => res.json()).then(json => console.log(json))
 ```
 
@@ -97,7 +97,7 @@ Output:
 {
     "status": "ok",
     "job": {
-        "repository_name": "layerci-example",
+        "repository_name": "webappio-example",
         "id": 3,
         "status": "SEE_RUNNERS",
         "status_change_time": "2000-01-01 01:23:45.123456 +0000 UTC",
@@ -114,7 +114,7 @@ Output:
 -- or --
 ```json
 {
-    "error": "There are no runs in layerdemo/layerci-example matching the given filters.",
+    "error": "There are no runs in layerdemo/webappio-example matching the given filters.",
     "status": "error"
 }
 ```
@@ -138,7 +138,7 @@ The search query for /search and the main dashboard's searchbar are the same, an
 
 ## Create a CI job for a given repository
 
-Sometimes it's useful to manually start Layer runs (for, e.g., deploying)
+Sometimes it's useful to manually start webapp.io runs (for, e.g., deploying)
 This endpoint lets you do that.
 
 The input to the POST is optional, but can contain:
@@ -154,7 +154,7 @@ require 'faraday'
 require 'json'
 
 res = Faraday.post(
-    'https://layerci.com/api/v1/run/repo_name?layertoken=(your api key)',
+    'https://webapp.io/api/v1/run/repo_name?token=(your api key)',
     {
         branch: 'master',
         ref: '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
@@ -171,7 +171,7 @@ import requests
 
 my_token="(your API key)"
 res = requests.post(
-    f'https://layerci.com/api/v1/run/repo_name?layertoken={my_token}',
+    f'https://webapp.io/api/v1/run/repo_name?token={my_token}',
     json={
         'branch': 'master',
         'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
@@ -190,13 +190,13 @@ curl -X POST \
          "accept_buttons": "true", \
          "extra": "some extra data exposed as API_EXTRA variable" \
         }' \
-    "https://layerci.com/api/v1/run/repo_name?layertoken=${my_token}"
+    "https://webapp.io/api/v1/run/repo_name?token=${my_token}"
 ```
 
 ```javascript
 let apiKey="(your API key)"
 fetch(
-    'https://layerci.com/api/v1/run/repo_name?layertoken='+apiKey,
+    'https://webapp.io/api/v1/run/repo_name?token='+apiKey,
     {
         method: "POST",
         headers: {
@@ -219,7 +219,7 @@ Output:
 {
     "status": "ok",
     "job": {
-        "repository_name": "layerci-example",
+        "repository_name": "webappio-example",
         "id": 1,
         "status": "NEW",
         "status_change_time": "2020-05-05 05:11:44.17955 +0000 UTC",
@@ -230,7 +230,7 @@ Output:
         "run_start_reason": "Manual run created by API",
         "run_start_reason_url": ""
     },
-    "url": "http://layerci.com/jobs/github/distributed-containers-inc/layerci-example/1"
+    "url": "http://webapp.io/jobs/github/distributed-containers-inc/webappio-example/1"
 }
 
 ```

@@ -6,17 +6,17 @@ Your codebase is a monorepository, so all of your services are within a single f
 
 ### Livechat Example
 
-This is exactly what the [Livechat Example](https://github.com/layer-devops/livechat-example) github project contains.
+This is exactly what the [Livechat Example](https://github.com/webappio/livechat-example) github project contains.
 
 For code review, you'd like it so that every time a developer pushes code, a new copy of the built services is visible on the internet at **https://(branch).demo.yourcompany.com**
 
-### Layer
+### webapp.io
 
-Creating environments like this is precisely what Layer helps with. 
+Creating environments like this is precisely what webapp.io helps with. 
 
 Our hosted platform lets you efficiently create many copies of running services by re-using work from prior snapshots.
 
-The Layer configuration from the example above might look like the following:
+The webapp.io configuration from the example above might look like the following:
 
 ```Layerfile
 FROM vm/ubuntu:18.04
@@ -44,11 +44,11 @@ RUN BACKGROUND docker-compose up
 EXPOSE WEBSITE localhost:8000
 ```
 
-To install Layer with the example above, you'd:
+To install webapp.io with the example above, you'd:
 
-1. Authorize Layer with GitHub, GitLab, or BitBucket
+1. Authorize webapp.io with GitHub, GitLab, or BitBucket
 2. Commit the file above as a file named `Layerfile` anywhere in your repository
-3. Push a commit that contains that file. Layer will create an environment for it and post a link right on your commit.
+3. Push a commit that contains that file. webapp.io will create an environment for it and post a link right on your commit.
 
 
 <a class="btn btn-lg btn-success" href="/onboarding/github">See a live example in 90s</a>
@@ -56,6 +56,6 @@ To install Layer with the example above, you'd:
 
 ### Beyond preview environments
 
-Layer is well suited to creating per-branch links of webapps, but that's far from the only thing it can do.
+webapp.io is well suited to creating per-branch links of webapps, but that's far from the only thing it can do.
 
-Check out the [Advanced Workflows](/docs/advanced-workflows) section to how polyrepositories, inheritance, and more can be set up with Layer.
+Check out the [Advanced Workflows](/docs/advanced-workflows) section to how polyrepositories, inheritance, and more can be set up with webapp.io.

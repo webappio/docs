@@ -20,7 +20,7 @@ RUN docker-compose up -d
 
 The `SUBDOMAIN` variable is often used to set the `HOST` variable for webservers.
 
-It is a cleaned up version of the `$LAYERCI_BRANCH` variable, acceptable for use in a URL.
+It is a cleaned up version of the `$GIT_BRANCH` variable, acceptable for use in a URL.
 
 - `feat/add-some-dashboard-pages` becomes `add-some-dashboard-pages`
 
@@ -40,7 +40,7 @@ If there are multiple deployments, a single one is returned.
 
 `CI=true`, `IS_CI_MACHINE=true`, `CI_MACHINE=true`, `IN_CI_MACHINE=true`, `IN_CI=true`
 
-These `CI` variables are always `true` in Layer.
+These `CI` variables are always `true` while running a Layerfile.
 
 
 #### GIT\_TAG
@@ -54,8 +54,14 @@ These `CI` variables are always `true` in Layer.
 
 `GIT_COMMIT=111122223333444455556666777788889999aaaa`
 
-`GIT_COMMIT` is the result of running `git rev-parse HEAD in the repository.`
+`GIT_COMMIT` is the result of running `git rev-parse HEAD` in the repository.
 
+
+#### GIT\_SHORT\_COMMIT
+
+`GIT_COMMIT=111122223333`
+
+`GIT_COMMIT` is the first 12 characters of running `git rev-parse HEAD` in the repository.
 
 #### GIT\_COMMIT\_TITLE
 
@@ -78,61 +84,60 @@ You can even reference this before `EXPOSE WEBSITE` is ever used, but the URL is
 
 Note: Unavailable for use by BUILD ENV
 
-#### LAYERCI
+#### WEBAPPIO
 
-`LAYERCI=true`
+`WEBAPPIO=true`
 
-`LAYERCI` is always `true` in Layer test runs.
-
-
-#### LAYERCI\_BRANCH
-
-`LAYERCI_BRANCH=staging`
-
-`LAYERCI_BRANCH` is included if this commit was to a specific branch in the repository.
-`LAYERCI_BRANCH` is *not* included if this job is running due to an external pull request.
+`WEBAPPIO` is always `true` when running a Layerfile
 
 
-#### LAYERCI\_JOB\_ID
+#### GIT\_BRANCH
 
-`LAYERCI_JOB_ID=5`
+`GIT_BRANCH=staging`
 
-`LAYERCI_JOB_ID` always exists. It's set to the ID of the current running job.
-
-
-#### LAYERCI\_PULL\_REQUEST
-
-`LAYERCI_PULL_REQUEST=https://github.com/some/repo/pull_requests/5`
-
-`LAYERCI_PULL_REQUEST` may or may not exist. It's a link to the pull request that triggered this pipeline.
+`GIT_BRANCH` is the branch which is checked out in this repository.
 
 
-#### LAYERCI\_REPO\_NAME
+#### JOB\_ID
 
-`LAYERCI_REPO_NAME=somerepo`
+`JOB_ID=5`
 
-`LAYERCI_REPO_NAME` is the name of the repository. If the repository is at github.com/a/b, this would be "b"
-
-
-#### LAYERCI\_REPO\_OWNER
-
-`LAYERCI_REPO_OWNER=repoowner`
-
-`LAYERCI_REPO_OWNER` is the name of the owner of this repository. If the repository is at github.com/a/b, this would be "a"
+`JOB_ID` always exists. It's set to the ID of the current running job.
 
 
-#### LAYERCI\_ORG\_NAME
+#### PULL\_REQUEST\_URL
 
-`LAYERCI_ORG_NAME=myorg`
+`PULL_REQUEST_URL=https://github.com/some/repo/pull_requests/5`
 
-`LAYERCI_ORG_NAME` is the name of the current organization. If the dashboard is at layerci.com/myorg, this would be "myorg"
+`PULL_REQUEST_URL` may or may not exist. It's a link to the pull request that triggered this pipeline.
 
 
-#### LAYERCI\_RUNNER\_ID
+#### REPOSITORY\_NAME
 
-`LAYERCI_RUNNER_ID=main-layerfile`
+`REPOSITORY_NAME=somerepo`
 
-`LAYERCI_RUNNER_ID` is the id of the current layerfile runner.
+`REPOSITORY_NAME` is the name of the repository. If the repository is at github.com/a/b, this would be "b"
+
+
+#### REPOSITORY\_OWNER
+
+`REPOSITORY_OWNER=repoowner`
+
+`REPOSITORY_OWNER` is the name of the owner of this repository. If the repository is at github.com/a/b, this would be "a"
+
+
+#### ORGANIZATION\_NAME
+
+`ORGANIZATION_NAME=myorg`
+
+`ORGANIZATION_NAME` is the name of the current organization. If the dashboard is at webapp.io/myorg, this would be "myorg"
+
+
+#### RUNNER\_ID
+
+`RUNNER_ID=main-layerfile`
+
+`RUNNER_ID` is the id of the current layerfile runner.
 
 #### RETRY\_INDEX
 

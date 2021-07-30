@@ -1,19 +1,19 @@
 # Why is this step rerunning? 
 
-Layer uses snapshots to speed up your code in a few simple ways:
+webapp.io uses snapshots to speed up your code in a few simple ways:
 
 1. All processes within a VM are “snapshotted”.
 2. A snapshot is taken about every 20 seconds.
 3. Snapshots are marked by a banner below the accompanying step.
 4. A step will be skipped if the files it uses haven’t changed.
 
-![View of snapshot banner notification under the accompanying code in Layer](/docs/resources/step_rerunning_1.png)
+![View of snapshot banner notification under the accompanying code in webapp.io](/docs/resources/step_rerunning_1.png)
 
 If a snapshot is loaded, all the steps above it are skipped. This means that costly, repetitive steps that don’t read many files should be placed as high up in the Layerfile as possible to avoid rerunning.
 
 ![View of how skipped steps are denoted 'skipped' and ones that are not say the duration of time that step took](/docs/resources/step_rerunning_2.png)
 
-Snapshots created on a `RUN REPEATABLE` directive have a special property: the files restored are from after the file last ran. A more detailed explanation on [RUN REPEATABLE](https://layerci.com/docs/tuning-performance/run-repeatable) and a [contrast between Layer's and Docker’s caching systems](https://layerci.com/docs/tuning-performance/the-layerfile-cache) are available for further reading. Some potential inefficiencies in the use of the layer caching system are listed below:
+Snapshots created on a `RUN REPEATABLE` directive have a special property: the files restored are from after the file last ran. A more detailed explanation on [RUN REPEATABLE](https://webapp.io/docs/tuning-performance/run-repeatable) and a [contrast between Layer's and Docker’s caching systems](https://webapp.io/docs/tuning-performance/the-layerfile-cache) are available for further reading. Some potential inefficiencies in the use of the layer caching system are listed below:
 
 ## Common problems with Docker
 

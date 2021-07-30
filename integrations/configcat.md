@@ -17,8 +17,8 @@ RUN curl "https://api.configcat.com/v1/products/dcd53ddb-8104-4e48-8cc0-5df1088c
     -X POST \
     -u $CONFIGCAT_AUTH_KEY \
     -H "Content-Type: application/json" \
-    -d '{"name": "layerci-'$LAYERCI_JOB_ID'"}'
-RUN BACKGROUND REACT_CONFIGCAT_ENV="layerci-$LAYERCI_JOB_ID" npm run start
+    -d '{"name": "webappio-'$JOB_ID'"}'
+RUN BACKGROUND REACT_CONFIGCAT_ENV="layerci-$JOB_ID" npm run start
 EXPOSE WEBSITE localhost:3000
 ```
 

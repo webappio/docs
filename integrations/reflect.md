@@ -27,7 +27,7 @@ RUN bash the-shell-script-above.sh
 
 ### Setting up Reflect.run with Layer
 
-Use [SECRET ENV](https://layerci.com/docs/layerfile-reference/secret-environments) to add your Reflect API key, and then commit a script like the following:
+Use [SECRET ENV](https://webapp.io/docs/layerfile-reference/secret-environments) to add your Reflect API key, and then commit a script like the following:
 ```
 #!/bin/bash
 REQUEST_BODY="
@@ -36,7 +36,7 @@ REQUEST_BODY="
   \"overrides\": {
     \"hostnames\": [{
       \"original\": \"app-development.useorigin.com\",
-      \"replacement\": \"$EXPOSE_WEBSITE_URL\"
+      \"replacement\": \"$EXPOSE_WEBSITE_HOST\"
     }]
   }
 }"

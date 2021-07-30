@@ -2,12 +2,12 @@
 
 # Slack
 
-Integrate Layer into your slack workspace to receive real time updates on CI jobs.
+Integrate webapp.io into your slack workspace to receive real time updates on CI jobs.
 
-## Adding Layer to your Slack
+## Adding webapp.io to your Slack
 
 1. Navigate to your organization's settings page at **Settings > Organization**
-2. Under **Integrations** click the **Add Layer to Slack** button 
+2. Under **Integrations** click the **Add webapp.io to Slack** button 
 3. Allow **Layer** to be added to your Slack workspace
 
 ## Subscribing to Notifications in Slack

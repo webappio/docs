@@ -23,6 +23,6 @@ RUN doppler -t $DOPPLER_TOKEN_PREVIEW run -- printenv | grep DOPPLER # Testing p
 RUN doppler -t $DOPPLER_TOKEN_PRODUCTION run -- printenv | grep DOPPLER # Testing purposes only
 ```
 
-### Setting up Doppler with Layer
+### Setting up Doppler with webapp.io
 
-Information on how to integrate Doppler with your Layer pipeline can be found [here](https://docs.doppler.com/docs/layerci). 
+Information on how to integrate Doppler with your webapp.io pipeline can be found [here](https://docs.doppler.com/docs/layerci). 

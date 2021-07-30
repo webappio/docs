@@ -1,5 +1,5 @@
 # Setup
-You need an HTTP library installed to use the Layer API. See code pane for details.
+You need an HTTP library installed to use the webapp.io API. See code pane for details.
 
 <language-tabs>
 

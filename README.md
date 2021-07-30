@@ -1,9 +1,8 @@
-# Layer documentation
+# webapp.io documentation
 
-This repository is the open-source documentation page for [Layer](https://layerci.com).
+This repository is the open-source documentation page for [webapp.io](https://webapp.io).
 
-Layer turns regular CI pipelines into staging server lambdas, so that you can share your work
-with your team and get things merged the same day you make the changes.
+webapp.io creates full-stack environments for every commit. They're used to review coworkers' changes and to run automatic e2e tests.
 
 
 # Contributing

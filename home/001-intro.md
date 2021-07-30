@@ -1,6 +1,6 @@
-# What is Layer?
+# What is webapp.io?
 
-Layer integrates with GitHub, GitLab, and BitBucket to provide per-branch full-stack review environments.
+webapp.io integrates with GitHub, GitLab, and BitBucket to provide per-branch full-stack review environments.
 
 It creates snapshots to create new copies of VMs in seconds by re-using the work previously done for earlier commits.
 
