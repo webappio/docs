@@ -12,4 +12,4 @@ See the [tuning performance documentation](/docs/tuning-performance) for more de
 - Use `CACHE ~/.cache/go-build` to speed up `RUN go install`
 - Use `CACHE ~/.npm ~/.next/cache ~/.yarn/cache` to speed up `npm install` and `yarn install`
 
-Each Layer account gets a fixed amount of cache storage, and we periodically delete old or inactive caches.
+Each webapp.io account gets a fixed amount of cache storage, and we periodically delete old or inactive caches.

@@ -2,7 +2,7 @@
 
 `FROM [source]`
 
-The `FROM` instruction tells Layer what base to use to run tests from.
+The `FROM` instruction tells webapp.io what base to use to run tests from.
 
 There can only be one `FROM` line in a Layerfile, and it must always be the first directive in the Layerfile.
 

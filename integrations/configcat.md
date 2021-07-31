@@ -22,6 +22,6 @@ RUN BACKGROUND REACT_CONFIGCAT_ENV="layerci-$JOB_ID" npm run start
 EXPOSE WEBSITE localhost:3000
 ```
 
-### Setting up ConfigCat with Layer
+### Setting up ConfigCat with webapp.io
 
 Using a Layerfile like the one above creates a ConfigCat environment. For more information on how to set up ConfigCat, check out their [documentation pages](https://configcat.com/docs/getting-started/).

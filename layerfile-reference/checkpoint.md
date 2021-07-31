@@ -2,7 +2,7 @@
 
 `CHECKPOINT (name)` or `CHECKPOINT disabled`
 
-The `CHECKPOINT` instruction allows you to control exactly when Layer will take snapshots of the pipeline.
+The `CHECKPOINT` instruction allows you to control exactly when webapp.io will take snapshots of the pipeline.
 
 On future runs, if no files or instructions have changed since the snapshot was taken, the runner will restore the snapshot instead of repeating work.
 
