@@ -69,4 +69,4 @@ RUN npx cypress run --record --parallel --ci-build-id $JOB_ID-$RETRY_INDEX
 
 ### Setting up Cypress with webapp.io
 
-[Documentation](https://docs.cypress.io/guides/continuous-integration/introduction#Setting-up-CI) on how to run Cypress inside a CI pipeline and an [example project](https://github.com/bahmutov/cypress-example-layerci) running Cypress on Layer are also available.
+[Documentation](https://docs.cypress.io/guides/continuous-integration/introduction#Setting-up-CI) on how to run Cypress inside a CI pipeline and an [example project](https://github.com/bahmutov/cypress-example-layerci) running Cypress on webapp.io are also available.

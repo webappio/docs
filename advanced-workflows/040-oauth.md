@@ -2,7 +2,7 @@
 
 OAuth is what lets you log in to a service with an existing Google or Facebook account.
 
-Layer customers often need to set a redirect target from their "test app" on an external service to allow logging in to their own accounts.
+webapp.io customers often need to set a redirect target from their "test app" on an external service to allow logging in to their own accounts.
 
 For this use case, we've created the `layer-oauth-target.cidemo.co` endpoint, and the flow looks like this:
 

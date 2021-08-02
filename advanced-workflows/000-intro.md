@@ -30,7 +30,7 @@ When commited to a repository, they will create the following execution graph, w
 
 ![Advanced workflow graph example](/docs/resources/advanced-workflows-intro-graph.svg)
 
-Here, Layer has searched for files named 'Layerfile', discovered all three of these files, and linked them based on their parents (look at the FROM lines)
+Here, webapp.io has searched for files named 'Layerfile', discovered all three of these files, and linked them based on their parents (look at the FROM lines)
 
 ## Ramifications of inheritance using 'FROM'
 

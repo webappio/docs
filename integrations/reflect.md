@@ -7,7 +7,7 @@
 ## Example Layerfile
 
 ```
-#This is an example Layer configuration for React!
+#This is an example webapp.io configuration for React!
 FROM vm/ubuntu:18.04
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
@@ -25,7 +25,7 @@ SECRET ENV REFLECT_API_KEY
 RUN bash the-shell-script-above.sh
 ```
 
-### Setting up Reflect.run with Layer
+### Setting up Reflect.run with webapp.io
 
 Use [SECRET ENV](https://webapp.io/docs/layerfile-reference/secret-environments) to add your Reflect API key, and then commit a script like the following:
 ```
@@ -66,4 +66,4 @@ while [ "$STILL_RUNNING_TESTS" = "true" ]; do
 done
 ```
 
-More information on how to integrate Reflect.run with your Layer pipeline can be found [here](https://reflect.run/docs/integrations/continuous-integration/). 
+More information on how to integrate Reflect.run with your webapp.io pipeline can be found [here](https://reflect.run/docs/integrations/continuous-integration/). 
