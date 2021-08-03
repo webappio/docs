@@ -54,7 +54,7 @@ To install webapp.io with the example above, you'd:
 <a class="btn btn-lg btn-success" href="/onboarding/github">See a live example in 90s</a>
 
 
-### Beyond preview environments
+### Beyond review environments
 
 webapp.io is well suited to creating per-branch links of webapps, but that's far from the only thing it can do.
 
