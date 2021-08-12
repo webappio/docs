@@ -43,6 +43,14 @@ If there are multiple deployments, a single one is returned.
 These `CI` variables are always `true` while running a Layerfile.
 
 
+#### DEBIAN_FRONTEND
+
+`DEBIAN_FRONTEND=noninteractive`
+
+The `DEBIAN_FRONTEND` variable is always set to `noninteractive` in webapp.io.
+To change this behavior, use, e.g., `ENV DEBIAN_FRONTEND=readline`
+
+
 #### GIT\_TAG
 
 `GIT_TAG=v1.0.0`
