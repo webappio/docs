@@ -6,21 +6,23 @@ For example, `example.com` could route `$branch.demo.example.com` to the latest 
 
 How to set up deployments: 
  
-Using [webapp.io/dashboard](/dashboard), navigate to your organization’s settings.
+Using [webapp.io/dashboard](/dashboard), navigate to your organization’s custom domain.
  
-![View of organization page](/docs/resources/deployments1.png)
+<img width="1189" alt="Screen Shot 2021-08-16 at 11 32 46 AM" src="https://user-images.githubusercontent.com/88003890/129590185-b0fd62cd-add0-44f6-820a-7cc9721134a4.png">
 
 Add the specific domain that you want everything to be exposed under. In the example below, we are adding demo.example.com. A CNAME record will be provided. 
  
-![View of how to add domain](/docs/resources/deployments2.png)
+<img width="1189" alt="Screen Shot 2021-08-16 at 11 38 54 AM" src="https://user-images.githubusercontent.com/88003890/129590444-5d3ab528-19d7-4104-9313-341de3d88132.png">
+
 
 Add the CNAME record in your DNS hosting provider (ex: Cloudflare, godaddy, etc). Creating a new record can usually be done within the DNS settings. Once this is done, DNS IS SET UP can be found next to the new domain. 
  
-![View of organization page after adding example domain](/docs/resources/deployments3.png)
+<img width="1054" alt="Screen Shot 2021-08-16 at 11 46 37 AM" src="https://user-images.githubusercontent.com/88003890/129591568-cf70b03b-b33d-44db-9ad6-ba97a29e3c6f.png">
 
 Next, navigate to the deployments tab. On the top right, click ‘NEW’ to create a new deployment rule. Fill in the appropriate fields.
  
-![View of adding deployment rule within deployments tab](/docs/resources/deployments4.png)
+<img width="676" alt="Screen Shot 2021-08-16 at 12 07 36 PM" src="https://user-images.githubusercontent.com/88003890/129594474-bcbeee57-f325-47a6-9340-3731ce4efca2.png">
+
 
 The deployment is now listed under ‘RULES’. In the deployments tab, you can see whether a deployment is on, paused, or deleted. When a deployment is deleted, it can be restored either by rerunning the layerfile or by following the RE-RUN LAYERFILE prompt on the error message page shown below.
  
