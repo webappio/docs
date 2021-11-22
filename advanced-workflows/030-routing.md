@@ -6,31 +6,32 @@ For example, `example.com` could route `$branch.demo.example.com` to the latest 
 
 How to set up deployments: 
  
-Using [webapp.io/dashboard](/dashboard), navigate to your organization’s settings.
+Using [webapp.io/dashboard](/dashboard), navigate to your customs domains.
  
-![View of organization page](/docs/resources/deployments1.png)
+![View of organization page](/docs/resources/deployment1.png)
 
-Add the specific domain that you want everything to be exposed under. In the example below, we are adding demo.example.com. A CNAME record will be provided. 
+Add the specific domain that you want everything to be exposed under. In the example below, we are adding cidemolocal.co. A CNAME record will be provided. 
  
-![View of how to add domain](/docs/resources/deployments2.png)
+![View of how to add domain](/docs/resources/deployment2.png)
 
 Add the CNAME record in your DNS hosting provider (ex: Cloudflare, godaddy, etc). Creating a new record can usually be done within the DNS settings. Once this is done, DNS IS SET UP can be found next to the new domain. 
  
-![View of organization page after adding example domain](/docs/resources/deployments3.png)
+![View of organization page after adding example domain](/docs/resources/deployment3.png)
 
-Next, navigate to the deployments tab. On the top right, click ‘NEW’ to create a new deployment rule. Fill in the appropriate fields.
+Next, click ‘Add’ to create a new deployment rule. Fill in the appropriate fields.
  
-![View of adding deployment rule within deployments tab](/docs/resources/deployments4.png)
+![View of adding deployment rule within deployments tab](/docs/resources/deployment4.png)
 
-The deployment is now listed under ‘RULES’. In the deployments tab, you can see whether a deployment is on, paused, or deleted. When a deployment is deleted, it can be restored either by rerunning the layerfile or by following the RE-RUN LAYERFILE prompt on the error message page shown below.
+The deployment is now listed under ‘Subdomain creation rules’
  
-![Error message when snapshot cannot be loaded](/docs/resources/deployments5.png)
+![Error message when snapshot cannot be loaded](/docs/resources/deployment5.png)
 
 ### Use-cases for deployments
 
 - Host your staging servers on your own domain to make them easier to find. `staging.demo.example.com` could be bookmarked by a QA person to see the latest commit on the `staging` branch.
 - Run your backend and frontend in different Layerfiles and combine them behind one host (`main.demo.example.com` and `main.demo.example.com/api` respectively)
 - Allow multiple subdomains to the same Layerfile in case your application does host based routing (e.g., `dashboard.main.demo.example.com`)
+- Private Deployments which prevents people from outside your organizations from viewing your site
 
 By default, [EXPOSE WEBSITE](/docs/layerfile-reference/expose-website) creates staging servers are at `https://(uuid).cidemo.co`, where the uuid is unique for every Layerfile. The deployments page lets you customize this by adding a column to its table and adding a `CNAME` record on a domain you control.
 
