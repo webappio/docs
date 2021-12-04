@@ -71,7 +71,11 @@ import requests
 # get the most recent failing job
 my_token="(your API key)"
 res = requests.get(
-    f'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token={my_token}', 
+    'https://webapp.io/api/v1/run/repo_name/search', 
+    params={
+        "search": "status:succeeded",
+        "token": my_token
+    }, 
 ).json()
 ```
 
@@ -171,7 +175,8 @@ import requests
 
 my_token="(your API key)"
 res = requests.post(
-    f'https://webapp.io/api/v1/run/repo_name?token={my_token}',
+    f'https://webapp.io/api/v1/run/repo_name',
+    params={"token": my_token}, 
     json={
         'branch': 'master',
         'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
