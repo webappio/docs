@@ -4,12 +4,14 @@ webapp.io has extended & improved [Docker's caching model](https://docs.docker.c
 
 Consider the following Layerfile:
 
-```Layerfile
-FROM vm/ubuntu:18.04
-COPY . .
-RUN sleep 20 && cat file1
-RUN sleep 20 && cat file2
-```
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM vm/ubuntu:18.04
+        COPY . .
+        RUN sleep 20 && cat file1
+        RUN sleep 20 && cat file2
+    </code>
+</pre>
 
 In this case, we'll make snapshots after each line and map which files were read back to the snapshots.
 This means:
@@ -19,6 +21,7 @@ This means:
 - if you edit file2, only the last line will be rerun (20s)
 - if you edit the layerfile, we'll invalidate the cache at the point of the edit.
 
+<br />
 
 ## Differences from Docker
 
@@ -29,47 +32,61 @@ Here are the major differences between Layerfiles and Dockerfiles for use in CI:
 3. `COPY` in webapp.io does not invalidate the cache when it runs, instead the files copied are monitored for read/write starting at that point. This means that `COPY . .` is much more common in Layerfiles than Dockerfiles
 4. You can copy files from parent directories (`COPY /file1 .` or `COPY ../.. .`) and inherit from other Layerfiles `FROM ../../other/Layerfile`
 
+<br />
+
 ## File watching COPY
 
 In most CI providers and in Docker, you need to micromanage cache keys. The following Dockerfile and Layerfile are equivalent because we watch which files are read by each step:
 
-```Dockerfile
-FROM ubuntu:18.04
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-```
+<pre>
+    <code class="language-html CodeHighlight"> 
+        FROM ubuntu:18.04
+        COPY package.json package-lock.json ./
+        RUN npm install
+        COPY . .
+        RUN npm run build
+    </code>
+</pre>
 
-```Layerfile
-FROM ubuntu:18.04
-COPY . .
-RUN npm install
-RUN npm run build
-```
+
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM ubuntu:18.04
+        COPY . .
+        RUN npm install
+        RUN npm run build
+    </code>
+</pre>
+
 
 Instead of micromanaging COPY, you can simply copy the entire repository and we'll load the bottommost layer from the cache which agrees with a commit's changes.
+
+<br />
 
 ## Faster installs: The CACHE directive
 
 Sometimes there are steps which will run repeatedly because their constituent files change often, usually source files.
 Consider this Layerfile:
 
-```Layerfile
-FROM vm/ubuntu:18.04
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \\
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \\
-    curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
-    apt-get install nodejs yarn
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM vm/ubuntu:18.04
+        
+        RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \\
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \\
+            curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
+            apt-get install nodejs yarn
+        
+        MEMORY 2G
+        ENV NODE_OPTIONS=--max-old-space-size=8192
+        
+        COPY package.json ./
+        CACHE /usr/local/share/.cache/yarn
+        RUN npm ci
+    </code>
+</pre>
 
-MEMORY 2G
-ENV NODE_OPTIONS=--max-old-space-size=8192
-
-COPY package.json ./
-CACHE /usr/local/share/.cache/yarn
-RUN npm ci
-```
 
 In this case, unless you change `package.json`, the default webapp.io cache will skip the entire pipeline after every push.
 
@@ -82,3 +99,5 @@ Some other examples:
 - /var/cache/apt
 - /root/.cache/go-build
 - ~/.npm ~/.next/cache ~/.yarn/cache
+
+<br />

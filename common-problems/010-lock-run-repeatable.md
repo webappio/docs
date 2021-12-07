@@ -12,33 +12,38 @@ The conditions of this error are:
 
 Some common resolutions are: 
 
-Solution 1: **Run `docker-compose up -d` in a separate run directive:** Putting `docker-compose up -d` outside of `RUN REPEATABLE` will break condition (2), so a common solution is something like this:
+**Solution 1:** **Run `docker-compose up -d` in a separate run directive:** Putting `docker-compose up -d` outside of `RUN REPEATABLE` will break condition (2), so a common solution is something like this:
 
-
-```
+<pre>
+    <code class="language-html CodeHighlight">
     RUN REPEATABLE docker-compose build --parallel
     RUN docker-compose up -d
-```
+    </code>
+</pre>
 
+<br />
 
-Solution 2: **Don’t use volumes:** Remove volume blocks from your `docker-compose.yml` file and don’t run `docker run` with the `-v` or `--volume` flags. Consider the following example:
+**Solution 2:** **Don’t use volumes:** Remove volume blocks from your `docker-compose.yml` file and don’t run `docker run` with the `-v` or `--volume` flags. Consider the following example:
 
-
-```
+<pre>
+    <code class="language-html CodeHighlight">
     docker-compose -f <(sed /volume:/,2d docker-compose.yml) up -d
-```
+    </code>
+</pre>
+
 For more complicated files, a command like `yq` can be used for a similar purpose.
 
+<br />
 
+**Solution 3:** **Copy everything to another directory:** Copying the entire directory somewhere else will resolve this issue, but cause the step to never be skipped (as all files are read):
 
-Solution 3: **Copy everything to another directory:** Copying the entire directory somewhere else will resolve this issue, but cause the step to never be skipped (as all files are read):
-
-
-```
+<pre>
+    <code class="language-html CodeHighlight">
     RUN REPEATABLE rsync -a --delete . /tmp/running/ && cd /tmp/running && docker-compose up -d
-```
+    </code>
+</pre>
 
-
+<br />
 
 ## For 'npm run start' or other persistent servers
 
@@ -46,10 +51,12 @@ Sometimes, web servers (especially node.js versions) within `RUN REPEATABLE` wil
 
 **Copy everything to another directory**: When copying your files to another directory, your Layerfile may contain something like this:
 
-
-```
+<pre>
+    <code class="language-html CodeHighlight">
     RUN REPEATABLE rsync -a --delete . /tmp/running/ && cd /tmp/running && ( pkill node || true; ) && nohup npm run start&
-```
-
+    </code>
+</pre>
 
 This is not done by default because it breaks the file watching. However, this guarantees that all files are read.
+
+<br />

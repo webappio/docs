@@ -7,15 +7,19 @@ webapp.io provides this powerful but dangerous caching mechanism via `RUN REPEAT
 
 It's recommended to combine RUN REPEATABLE with [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) for large performance improvements.
 
+<br />
+
 #### RUN REPEATABLE for Docker
 
-```Layerfile
-# install docker
-
-COPY . .
-RUN REPEATABLE docker build -t myimage
-RUN docker run -d -p 8080:8080 myimage
-```
+<pre>
+    <code class="language-html CodeHighlight">
+        # install docker
+        
+        COPY . .
+        RUN REPEATABLE docker build -t myimage
+        RUN docker run -d -p 8080:8080 myimage
+    </code>
+</pre>
 
 In this Layerfile, the docker cache from previous runs will be reused because RUN REPEATABLE uses the cache from *after* the last time this step ran.
 
@@ -27,54 +31,62 @@ If you had three pipelines at 9am, 10am, and 11am, the effective steps run would
 
 In particular, docker would see that it had been used multiple times, and would be able to re-use the docker cache from previous invocations to greatly improve build speed.
 
+<br />
+
 #### RUN REPEATABLE for docker-compose
 
-```Layerfile
-FROM vm/ubuntu:18.04
-
-RUN apt-get update && \
-    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-    apt-get update && \
-    apt install docker-ce
-
-RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
-
-COPY . .
-
-RUN REPEATABLE docker-compose up -d --build --force-recreate --remove-orphans && sleep 5
-
-EXPOSE WEBSITE localhost:8000
-```
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM vm/ubuntu:18.04
+        
+        RUN apt-get update && \
+            apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+            apt-get update && \
+            apt install docker-ce
+        
+        RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+            chmod +x /usr/local/bin/docker-compose
+        
+        COPY . .
+        
+        RUN REPEATABLE docker-compose up -d --build --force-recreate --remove-orphans && sleep 5
+        
+        EXPOSE WEBSITE localhost:8000
+    </code>
+</pre>
 
 In this Layerfile, all of these things are reused from the moment immediately after the previous invocation:
 - The docker layer cache (e.g., pulled images)
 - Any created networks or volumes
 
+<br />
 
 #### RUN REPEATABLE for kubernetes (kubectl, k8s, k3s)
 
-```Layerfile
-FROM vm/ubuntu:18.04
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM vm/ubuntu:18.04
+        
+        # install the latest version of Docker, as in the official Docker installation tutorial.
+        RUN apt-get update && \\
+            apt-get install apt-transport-https ca-certificates curl software-properties-common && \\
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \\
+            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \\
+            apt-get update && \\
+            apt install docker-ce
+        
+        # install & start k3s
+        RUN curl -sfL https://get.k3s.io | sh -s - --docker
+        
+        # this script might use helm, kompose, jsonnet, or any other manifest handling logic
+        RUN REPEATABLE ./build-images-and-manifests.sh && k3s kubectl apply -f dist/manifests --prune
+        
+        EXPOSE WEBSITE localhost:8000
+    </code>
+</pre>
 
-# install the latest version of Docker, as in the official Docker installation tutorial.
-RUN apt-get update && \\
-    apt-get install apt-transport-https ca-certificates curl software-properties-common && \\
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \\
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \\
-    apt-get update && \\
-    apt install docker-ce
-
-# install & start k3s
-RUN curl -sfL https://get.k3s.io | sh -s - --docker
-
-# this script might use helm, kompose, jsonnet, or any other manifest handling logic
-RUN REPEATABLE ./build-images-and-manifests.sh && k3s kubectl apply -f dist/manifests --prune
-
-EXPOSE WEBSITE localhost:8000
-```
 
 *RUN REPEATABLE gives 50-95% speedups here.*
 
@@ -82,3 +94,5 @@ In this Layerfile, we'd set up a kubernetes cluster for you and then snapshot it
 
 The next time you push, kubernetes' own declarative logic would figure out which pods to delete/restart given the manifests created.
 This means that if you had 20 microservices and only changed one, it'd be the only one that is re-deployed with this Layerfile.
+
+<br />

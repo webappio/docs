@@ -14,6 +14,10 @@ For this use case, we've created the `layer-oauth-target.cidemo.co` endpoint, an
 6. The application can now read the code and log the user in as usual.
 
 
+<br />
+
 ### Combining with white-labeled sites (routing)
 
 The same can be done for layer-oauth-target.demo.example.com, in the case where a route with `$branch.demo.example.com` exists.
+
+<br />

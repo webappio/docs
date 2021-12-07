@@ -3,35 +3,48 @@ You need an HTTP library installed to use the webapp.io API. See code pane for d
 
 <language-tabs>
 
-```ruby
-#in bash terminal
-gem install bundler
-bundle install faraday
 
-#at top of file
-require 'faraday'
-require 'json'
-```
+<pre>
+    <code class="language-ruby CodeHighlight">
+        #in bash terminal
+        gem install bundler
+        bundle install faraday
+        
+        #at top of file
+        require 'faraday'
+        require 'json'
+    </code>
+</pre>
 
-```python
-#in bash terminal
-pip install requests
 
-#at top of file
-import requests
-```
+<pre>
+    <code class="language-python CodeHighlight">
+        #in bash terminal
+        pip install requests
+        
+        #at top of file
+        import requests
+    </code>
+</pre>
 
-```shell
-#in bash terminal (ubuntu)
-sudo apt-get update
-sudo apt-get install -y curl ca-certificates
+<pre>
+    <code class="language-shell CodeHighlight">
+        #in bash terminal (ubuntu)
+        sudo apt-get update
+        sudo apt-get install -y curl ca-certificates
+        
+        #other distributions - google "how to install curl"
+    </code>
+</pre>
 
-#other distributions - google "how to install curl"
-```
+<pre>
+    <code class="language-javascript CodeHighlight">
+        //for javascript, we use use fetch()
+        //for nodejs, https://www.npmjs.com/package/node-fetch
+        //i.e., npm install --save node-fetch
+    </code>
+</pre>
 
-```javascript
-//for javascript, we use use fetch()
-//for nodejs, https://www.npmjs.com/package/node-fetch
-//i.e., npm install --save node-fetch
-```
 </language-tabs>
+
+<br />

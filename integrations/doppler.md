@@ -6,21 +6,25 @@
 
 ## Example Layerfile
 
-```
-FROM vm/ubuntu:18.04
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM vm/ubuntu:18.04
+        
+        # Install Doppler
+        RUN (curl -Ls https://cli.doppler.com/install.sh || wget -qO- https://cli.doppler.com/install.sh) | sh
+        
+        COPY . .
+        
+        # Load several Doppler tokens from webapp.io
+        SECRET ENV DOPPLER_TOKEN_PREVIEW DOPPLER_TOKEN_PRODUCTION
+        
+        # Test Doppler secrets access for both
+        RUN doppler -t $DOPPLER_TOKEN_PREVIEW run -- printenv | grep DOPPLER # Testing purposes only
+        RUN doppler -t $DOPPLER_TOKEN_PRODUCTION run -- printenv | grep DOPPLER # Testing purposes only
+    </code>
+</pre>
 
-# Install Doppler
-RUN (curl -Ls https://cli.doppler.com/install.sh || wget -qO- https://cli.doppler.com/install.sh) | sh
-
-COPY . .
-
-# Load several Doppler tokens from webapp.io
-SECRET ENV DOPPLER_TOKEN_PREVIEW DOPPLER_TOKEN_PRODUCTION
-
-# Test Doppler secrets access for both
-RUN doppler -t $DOPPLER_TOKEN_PREVIEW run -- printenv | grep DOPPLER # Testing purposes only
-RUN doppler -t $DOPPLER_TOKEN_PRODUCTION run -- printenv | grep DOPPLER # Testing purposes only
-```
+<br />
 
 ### Setting up Doppler with webapp.io
 
