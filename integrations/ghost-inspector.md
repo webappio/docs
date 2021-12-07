@@ -8,17 +8,21 @@ Using the `npx` command that comes with Node.js you can run a command using the 
 
 ## Example Layerfile
 
-```
-# Expose the Ghost Inspector API key as an environment variable
-SECRET ENV GHOST_INSPECTOR_API_KEY
+<pre>
+    <code class="language-html CodeHighlight">
+        # Expose the Ghost Inspector API key as an environment variable
+        SECRET ENV GHOST_INSPECTOR_API_KEY
+        
+        # Run your Ghost Inspector suite
+        # Replace (suite ID) with the appropriate Ghost Inspector suite ID
+        RUN npx ghost-inspector suite execute (suite ID) \
+          --apiKey=$GHOST_INSPECTOR_API_KEY \
+          --startUrl=$EXPOSE_WEBSITE_HOST \
+          --errorOnFail
+    </code>
+</pre>
 
-# Run your Ghost Inspector suite
-# Replace <suite ID> with the appropriate Ghost Inspector suite ID
-RUN npx ghost-inspector suite execute <suite ID> \
-  --apiKey=$GHOST_INSPECTOR_API_KEY \
-  --startUrl=$EXPOSE_WEBSITE_HOST \
-  --errorOnFail
-```
+<br />
 
 ### Setting up Ghost Inspector with webapp.io
 

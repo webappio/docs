@@ -13,3 +13,5 @@ For now, only `FROM vm/ubuntu:18.04` is allowed as a top level, but inheriting f
 - Use `FROM vm/ubuntu:18.04` to use ubuntu:18.04 as the base.
 - Use `FROM ../base` to inherit from the file at `../base/Layerfile` relative to the current Layerfile
 - Use `FROM /base` to inherit from the file at `(repo root)/base/Layerfile)`
+
+<br />
