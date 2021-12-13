@@ -12,7 +12,7 @@ Webapp.io enables you to review changes to your projects within minutes instead 
 
 <div class="Video--Parent">
   <video class="Video--Child" controls autoplay muted>
-    <source src="/static/assets/what-is-webapp-arrows.mp4" type="video/mp4">
+    <source src="/static/assets/assets-main/what-is-webapp-arrows.mp4" type="video/mp4">
   </video>
 </div>
 
