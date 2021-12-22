@@ -11,13 +11,16 @@ Welcome to the webapp.io docs. If you’d like to make any improvements, you can
 Webapp.io enables you to review changes to your projects within minutes instead of hours. We integrate with an existing repository on GitHub, GitLab, or BitBucket to provide customizable full-stack review environments directly into every pull request.
 
 <div class="Video--Parent">
-  <video class="Video--Child" controls autoplay muted>
+  <video class="Video--Child" autoplay muted>
     <source src="/static/assets/what-is-webapp-arrows.mp4" type="video/mp4">
   </video>
 </div>
 
-The first step is adding the Layerfile to the existing code on your repository. Once added, the next time you make a commit, webapp.io spins up a review environment where you can view your project and share the link with your team, designers, or key stakeholders. Similarly, if you or another developer makes a commit you’ll get another review environment which can be shared across your team (or external stakeholders).
+1. Install webapp.io onto your repository
+2. Add a <a href="/docs/layerfile-reference/intro">Layerfile</a> (a set of instructions that tells webapp.io how to setup and run your application)
+3. Get a preview environment for every commit
 
+<br />
 Every time you push a new change, webapp.io leverages snapshots to create new copies of virtual machines (not containers!) in seconds by re-using instructions that have not been updated. 
 
 As an example, instead of running “npm install” for every push you make, webapp.io takes a snapshot so that on a subsequent push we can skip the “npm install” step (unless your dependencies have changed).
