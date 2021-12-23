@@ -1,61 +1,49 @@
+<br />
+<br />
+
 # Quickstart
 
-Let's say you building an open-source version of Slack using [Docker Compose](https://docs.docker.com/compose/).
+To view the power of review environments in action, let’s go through an example with our open-source version of Slack, [Livechat Example](https://github.com/webappio/livechat-example), that uses [Docker Compose](https://docs.docker.com/compose/). For the purpose of this quickstart guide, the codebase is monorepository, so all of the services are within a single folder (/services).
 
-Your codebase is a monorepository, so all of your services are within a single folder.
+Our Livechat Example contains the following within the `/services` folder:
 
-### Livechat Example
+- `/api` (our api to handle all requests)
+- `/cypress` (for running tests)
+- `/migrate` (for populating our database)
+- `/web` (our React frontend)
 
-This is exactly what the [Livechat Example](https://github.com/webappio/livechat-example) github project contains.
+Most importantly, in the root directory, we have our **Layerfile** which is a **set of instructions that tells webapp.io how to install, build, and run** the Livechat Example. This Layerfile for our Livechat example is shown below:
 
-For code review, you'd like it so that every time a developer pushes code, a new copy of the built services is visible on the internet at **https://(branch).demo.yourcompany.com**
-
-### webapp.io
-
-Creating environments like this is precisely what webapp.io helps with. 
-
-Our hosted platform lets you efficiently create many copies of running services by re-using work from prior snapshots.
-
-The webapp.io configuration from the example above might look like the following:
-
-```Layerfile
-FROM vm/ubuntu:18.04
-
-# Install docker
-RUN apt-get update && \
-    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-    apt-get update && \
-    apt install docker-ce
-
-# Install docker-compose
-RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
-
-# Copy repository files
-COPY / /root
-
-RUN /root/pull-images.sh
-RUN REPEATABLE docker-compose build --parallel
-RUN BACKGROUND docker-compose up
-
-# EXPOSE WEBSITE creates an internet visible link
-EXPOSE WEBSITE localhost:8000
-```
-
-To install webapp.io with the example above, you'd:
-
-1. Authorize webapp.io with GitHub, GitLab, or BitBucket
-2. Commit the file above as a file named `Layerfile` anywhere in your repository
-3. Push a commit that contains that file. webapp.io will create an environment for it and post a link right on your commit.
+<pre>
+    <code class="language-html CodeHighlight">
+    FROM vm/ubuntu:18.04
+    # Install docker
+    RUN apt-get update && \
+        apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+        apt-get update && \
+        apt install docker-ce
+    
+    # Install docker-compose
+    RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+        chmod +x /usr/local/bin/docker-compose
+    
+    # Copy repository files
+    COPY / /root
+    
+    RUN /root/pull-images.sh
+    RUN REPEATABLE docker-compose build --parallel
+    RUN BACKGROUND docker-compose up
+    
+    # EXPOSE WEBSITE creates an internet visible link
+    EXPOSE WEBSITE localhost:8000
+    </code>
+</pre>
 
 
-<a class="btn btn-lg btn-success" href="/onboarding/github">See a live example in 90s</a>
+To see the Livechat Example in 90 seconds, click the button below **OR** follow the steps below for a more detailed walkthrough.
 
+<a class="btn btn-lg btn-primary" href="/onboarding/github">View a Preview Environment for the Livechat Example</a>
 
-### Beyond review environments
-
-webapp.io is well suited to creating per-branch links of webapps, but that's far from the only thing it can do.
-
-Check out the [Advanced Workflows](/docs/advanced-workflows) section to how polyrepositories, inheritance, and more can be set up with webapp.io.
+<div class="section-spacing"></div>

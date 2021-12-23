@@ -6,17 +6,21 @@
 
 ## Example Layerfile
 
-```
-ENV CI_NAME=layerci \
-   CI_BUILD_NUMBER=$JOB_ID \
-   CI_BUILD_URL="https://webapp.io/$ORGANIZATION_NAME/commits?query=repo%3A$REPOSITORY_NAME+id%3A$JOB_ID" \
-   CI_BRANCH="$GIT_BRANCH" \
-   CI_PULL_REQUEST="$PULL_REQUEST_URL"
+<pre>
+    <code class="language-html CodeHighlight">
+        ENV CI_NAME=layerci \
+           CI_BUILD_NUMBER=$JOB_ID \
+           CI_BUILD_URL="https://webapp.io/$ORGANIZATION_NAME/commits?query=repo%3A$REPOSITORY_NAME+id%3A$JOB_ID" \
+           CI_BRANCH="$GIT_BRANCH" \
+           CI_PULL_REQUEST="$PULL_REQUEST_URL"
+        
+        SECRET ENV COVERALLS_REPO_TOKEN
+        
+        RUN (the test command)
+    </code>
+</pre>
 
-SECRET ENV COVERALLS_REPO_TOKEN
-
-RUN (the test command)
-```
+<br />
 
 ### Setting up Coveralls with webapp.io
 

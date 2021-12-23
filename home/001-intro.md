@@ -1,7 +1,41 @@
-# What is webapp.io?
+<h1 class="submenu-hidden">What is webapp.io?</h1>
 
-webapp.io integrates with GitHub, GitLab, and BitBucket to provide per-branch full-stack review environments.
+# Introduction
 
-It creates snapshots to create new copies of VMs in seconds by re-using the work previously done for earlier commits.
+Welcome to the webapp.io docs. If you’d like to make any improvements, you can <a href="https://github.com/webappio/docs/tree/master/home">edit these docs</a> directly. Happy coding!
 
-For example, instead of re-migrating and re-seeding a database for every environment, it would be done once and the snapshot would be re-used over and over again.
+<div class="section-spacing"></div>
+
+## What is webapp.io?
+
+Webapp.io enables you to review changes to your projects within minutes instead of hours. We integrate with an existing repository on GitHub, GitLab, or BitBucket to provide customizable full-stack review environments directly into every pull request.
+
+<div class="Video--Parent">
+  <video class="Video--Child" autoplay muted>
+    <source src="/static/assets/what-is-webapp-arrows.mp4" type="video/mp4">
+  </video>
+</div>
+
+1. Install webapp.io onto your repository
+2. Add a <a href="/docs/layerfile-reference/intro">Layerfile</a> (a set of instructions that tells webapp.io how to setup and run your application)
+3. Get a preview environment for every commit
+
+<br />
+Every time you push a new change, webapp.io leverages snapshots to create new copies of virtual machines (not containers!) in seconds by re-using instructions that have not been updated. 
+
+As an example, instead of running “npm install” for every push you make, webapp.io takes a snapshot so that on a subsequent push we can skip the “npm install” step (unless your dependencies have changed).
+
+<div class="section-spacing"></div>
+
+## Beyond Review Environments
+
+Webapp.io is well suited for creating full-stack review environment for every commit, but that’s far from the only thing it can do! We also support the following:
+
+- Pull Request Template Builder (create a template to access important information for your webapp directly from your pull request)
+- Polyrepositories (if you have multiple repo’s running your project, we support it)
+- Review Environments on your Domain
+- OAuth (logging in with external sites)
+
+And much more! Check out our <a href="/docs/advanced-workflows">Advanced Workflows</a> documentation for more information.
+
+<div class="section-spacing"></div>
