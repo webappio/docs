@@ -1,0 +1,34 @@
+# Label
+
+`LABEL [key=value..]`
+
+The `LABEL` directive allows users to control modify meta aspects of their runs
+
+```Layerfile
+LABEL display_name=cool_layerfile_name
+```
+
+### Possible values
+
+#### display_name
+
+`LABEL display_name=testName`
+
+The `display_name` key allows the user to modify the display name in the runs dashboard 
+
+![display name](/docs/resources/display_name.png)
+
+#### status
+
+`LABEL status=merge or LABEL status=hidden`
+
+The `status` key allows the user control the behaviour of check notification within
+your pull request. 
+
+- The `merge` status will cause webapp to summarize all runs resulting from the SPLIT directive
+
+  ![status merge](/docs/resources/check_merged.png)
+
+- The `hidden` status will cause webapp to hide the run status of the Layerfile
+
+
