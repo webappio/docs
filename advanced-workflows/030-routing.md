@@ -2,38 +2,38 @@
 
 [EXPOSE WEBSITE](/docs/layerfile-reference/expose-website) allows you to whitelabel staging servers on your own domain.
 
-For example, `example.com` could route `$branch.demo.example.com` to the latest commit on the branch `$branch` by adding a single DNS record `CNAME *.demo demotarget.webapp.io` 
+For example, `example.com` could route `$branch.demo.example.com` to the latest commit on the branch `$branch` by adding a single DNS record `CNAME *.demo demotarget.webapp.io`
 
 <br />
 
 **How to set up deployments:**
- 
+
 Using [webapp.io/dashboard](/dashboard), navigate to your customs domains.
- 
+
 ![View of organization page](/docs/resources/deployment1.png)
 
 <br />
 
-Add the specific domain that you want everything to be exposed under. In the example below, we are adding cidemolocal.co. A CNAME record will be provided. 
- 
+Add the specific domain that you want everything to be exposed under. In the example below, we are adding cidemolocal.co. A CNAME record will be provided.
+
 ![View of how to add domain](/docs/resources/deployment2.png)
 
 <br />
 
-Add the CNAME record in your DNS hosting provider (ex: Cloudflare, godaddy, etc). Creating a new record can usually be done within the DNS settings. Once this is done, DNS IS SET UP can be found next to the new domain. 
- 
+Add the CNAME record in your DNS hosting provider (ex: Cloudflare, godaddy, etc). Creating a new record can usually be done within the DNS settings. Once this is done, DNS IS SET UP can be found next to the new domain.
+
 ![View of organization page after adding example domain](/docs/resources/deployment3.png)
 
 <br />
 
 Next, click ‘Add’ to create a new deployment rule. Fill in the appropriate fields.
- 
+
 ![View of adding deployment rule within deployments tab](/docs/resources/deployment4.png)
 
 <br />
 
 The deployment is now listed under ‘Subdomain creation rules’
- 
+
 ![Error message when snapshot cannot be loaded](/docs/resources/deployment5.png)
 
 <br />
@@ -53,7 +53,7 @@ By default, [EXPOSE WEBSITE](/docs/layerfile-reference/expose-website) creates s
 
 Subdomains are preconfigured in webapp.io. Your webserver always sees the host as localhost. If you don’t want that to be the case, please contact support.
 
-For example, say you have a deployment at deployment.demo.webapp.io. If you then go to hello.deployment.demo.webapp.io, it will go to the same deployment. Similarly, if you navigate to greetings.deployment.demo.webapp.io, it will also direct to deployment.demo.webapp.io. This happens by default. 
+For example, say you have a deployment at deployment.demo.webapp.io. If you then go to hello.deployment.demo.webapp.io, it will go to the same deployment. Similarly, if you navigate to greetings.deployment.demo.webapp.io, it will also direct to deployment.demo.webapp.io. This happens by default.
 
 <br />
 
