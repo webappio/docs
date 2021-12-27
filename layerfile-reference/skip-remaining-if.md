@@ -18,3 +18,5 @@ Conditions may use `!=` to evaluate statements are not true.
 - Use `SKIP REMAINING IF GIT_BRANCH!=master AND REPOSITORY_NAME !=~ "web"` would skip remaining actions if the branch is not master, and the repository name is not "web"
 - Use `SKIP REMAINING IF GIT_COMMIT_TITLE =~ "\[skip tests\]"` would skip remaining actions if the commit title contained "\[skip tests]"
 - Use `SKIP REMAINING IF GIT_BRANCH!=~^(master|dev)$` would skip remaining actions if the branch is anything besides `master` or `dev`
+
+<br />

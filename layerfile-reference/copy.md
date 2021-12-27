@@ -13,3 +13,5 @@ Files can be:
 - Use `COPY . .` to copy the directory containing the Layerfile to the current working directory (or /root if WORKDIR has not been used)
 - Use `COPY package.json yarn.lock ./` to copy those two files to the current directory.
 - Use `COPY / /root` to copy the entire repository to /root in the runner.
+
+<br />

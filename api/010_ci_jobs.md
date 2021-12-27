@@ -6,22 +6,28 @@ Each layerfile runner is created by a specific Layerfile, or by a Layerfile bein
 
 *CI jobs are a collection of Layerfile runners!*
 
+<br />
+
 ## Example schema
 
-```json
-{
-    "repository_name": "webappio-example",
-    "id": 1,
-    "status": "SEE_RUNNERS",
-    "status_change_time": "2000-01-01 01:23:45.123456 +0000 UTC",
-    "calculated_status": "SUCCEEDED",
-    "commit_sha": "9abc2ac68d52afe1a5a3fbc724d031af5a397204",
-    "branch": "master",
-    "merge_branch": "master",
-    "run_start_reason": "Manual run created by API",
-    "run_start_reason_url": ""
-}
-```
+<pre>
+    <code class="language-json CodeHighlight">
+        {
+            "repository_name": "webappio-example",
+            "id": 1,
+            "status": "SEE_RUNNERS",
+            "status_change_time": "2000-01-01 01:23:45.123456 +0000 UTC",
+            "calculated_status": "SUCCEEDED",
+            "commit_sha": "9abc2ac68d52afe1a5a3fbc724d031af5a397204",
+            "branch": "master",
+            "merge_branch": "master",
+            "run_start_reason": "Manual run created by API",
+            "run_start_reason_url": ""
+        }
+    </code>
+</pre>
+
+<br />
 
 ## status vs. calculated_status
 
@@ -32,6 +38,7 @@ CI jobs themselves maintain an internal status which is either:
 - `STARTING_RUNNERS` for jobs which are in the process of starting runners  
 - `SEE_RUNNERS` for jobs which have started runners. This status means you must look at the runners themselves to understand the status.
 
+<br />
 
 CI jobs also contain a status which is the calculated status of the whole job, looking at the runners.
 The calculated status is usually what you'll use to determine the status of an entire run.
@@ -48,6 +55,7 @@ The `calculated_status` of a CI job is one of the following:
 - `RUNNING` means that the runner itself is running
 - `SUCCEEDED` means that the runner succeeded
 
+<br />
 
 ## Get most recent CI job for a repository matching a search query
 
@@ -55,69 +63,89 @@ It's often useful to get the most recent CI job given specific filters. This API
 
 <language-tabs>
 
-```ruby
-require 'faraday'
-require 'json'
+<pre>
+    <code class="language-ruby CodeHighlight">
+        require 'faraday'
+        require 'json'
+        
+        # get the most recent failing jobs
+        res = Faraday.get 'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token=(your api key)'
+        
+        res = JSON.parse(res.body)
+    </code>
+</pre>
 
-# get the most recent failing jobs
-res = Faraday.get 'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token=(your api key)'
+<pre>
+    <code class="language-python CodeHighlight">
+        import requests
+        
+        # get the most recent failing job
+        my_token="(your API key)"
+        res = requests.get(
+            'https://webapp.io/api/v1/run/repo_name/search', 
+            params={
+                "search": "status:succeeded",
+                "token": my_token
+            }, 
+        ).json()
+    </code>
+</pre>
 
-res = JSON.parse(res.body)
-```
+<pre>
+    <code class="language-shell CodeHighlight">
+        # get the most recent failing job
+        my_token="(your API key)"
+        curl 'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token=${my_token}' | python -m json.tool
+    </code>
+</pre>
 
-```python
-import requests
-
-# get the most recent failing job
-my_token="(your API key)"
-res = requests.get(
-    f'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token={my_token}', 
-).json()
-```
-
-```shell
-# get the most recent failing job
-my_token="(your API key)"
-curl 'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token=${my_token}' | python -m json.tool
-```
-
-```javascript
-let apiKey="(your API key)"
-fetch(
-    'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token='+apiKey,
-).then(res => res.json()).then(json => console.log(json))
-```
+<pre>
+    <code class="language-javascript CodeHighlight">
+        let apiKey="(your API key)"
+        fetch(
+            'https://webapp.io/api/v1/run/repo_name/search?search=status%3Asucceeded&token='+apiKey,
+        ).then(res => res.json()).then(json => console.log(json))
+    </code>
+</pre>
 
 </language-tabs>
 
+<br />
+
 Output:
 
-
-```json
-{
-    "status": "ok",
-    "job": {
-        "repository_name": "webappio-example",
-        "id": 3,
-        "status": "SEE_RUNNERS",
-        "status_change_time": "2000-01-01 01:23:45.123456 +0000 UTC",
-        "calculated_status": "SUCCEEDED",
-        "commit_sha": "9abc2ac68d52afe1a5a3fbc724d031af5a397204",
-        "branch": "master",
-        "merge_branch": "master",
-        "run_start_reason": "Manual run created by API",
-        "run_start_reason_url": ""
-    }
-}
-```
+<pre>
+    <code class="language-json CodeHighlight">
+        {
+            "status": "ok",
+            "job": {
+                "repository_name": "webappio-example",
+                "id": 3,
+                "status": "SEE_RUNNERS",
+                "status_change_time": "2000-01-01 01:23:45.123456 +0000 UTC",
+                "calculated_status": "SUCCEEDED",
+                "commit_sha": "9abc2ac68d52afe1a5a3fbc724d031af5a397204",
+                "branch": "master",
+                "merge_branch": "master",
+                "run_start_reason": "Manual run created by API",
+                "run_start_reason_url": ""
+            }
+        }
+    </code>
+</pre>
 
 -- or --
-```json
-{
-    "error": "There are no runs in layerdemo/webappio-example matching the given filters.",
-    "status": "error"
-}
-```
+
+<pre>
+    <code class="language-html CodeHighlight">
+        {
+            "error": "There are no runs in layerdemo/webappio-example matching the given filters.",
+            "status": "error"
+        }
+    </code>
+</pre>
+
+<br />
 
 ## Search Filters
 The search query for /search and the main dashboard's searchbar are the same, and can include:
@@ -133,8 +161,12 @@ The search query for /search and the main dashboard's searchbar are the same, an
 9. `done` to match a run which is not running
 10. `failed` to match a run which has suffered a failure or error
 
+<br />
+
 ##### Example query
 `text to find in commit body "exact text" -layer -ci repo:layer-example-repo branch:main id:10 status:running done running failed`
+
+<br />
 
 ## Create a CI job for a given repository
 
@@ -149,90 +181,107 @@ The input to the POST is optional, but can contain:
 - `extra` - extra data exposed in the run as API_EXTRA, useful for passing arbitrary data in
 
 <language-tabs>
-```ruby
-require 'faraday'
-require 'json'
 
-res = Faraday.post(
-    'https://webapp.io/api/v1/run/repo_name?token=(your api key)',
-    {
-        branch: 'master',
-        ref: '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
-        accept_buttons: 'true',
-        extra: 'some extra data exposed as API_EXTRA variable',
-    }.to_json
-)
+<pre>
+    <code class="language-ruby CodeHighlight">
+        require 'faraday'
+        require 'json'
+        
+        res = Faraday.post(
+            'https://webapp.io/api/v1/run/repo_name?token=(your api key)',
+            {
+                branch: 'master',
+                ref: '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
+                accept_buttons: 'true',
+                extra: 'some extra data exposed as API_EXTRA variable',
+            }.to_json
+        )
+        
+        res = JSON.parse(res.body)
+    </code>
+</pre>
 
-res = JSON.parse(res.body)
-```
+<pre>
+    <code class="language-python CodeHighlight">
+        import requests
+        
+        my_token="(your API key)"
+        res = requests.post(
+            f'https://webapp.io/api/v1/run/repo_name',
+            params={"token": my_token}, 
+            json={
+                'branch': 'master',
+                'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
+                'accept_buttons': 'true',
+                'extra': 'some extra data exposed as API_EXTRA variable',
+            },
+        ).json()
+    </code>
+</pre>
 
-```python
-import requests
 
-my_token="(your API key)"
-res = requests.post(
-    f'https://webapp.io/api/v1/run/repo_name?token={my_token}',
-    json={
-        'branch': 'master',
-        'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
-        'accept_buttons': 'true',
-        'extra': 'some extra data exposed as API_EXTRA variable',
-    },
-).json()
-```
+<pre>
+    <code class="language-shell CodeHighlight">
+        my_token="(your API key)"
+        curl -X POST \
+            -H 'Content-Type: application/json' \
+            -d '{"branch": "master", \
+                 "ref": "9abc2ac68d52afe1a5a3fbc724d031af5a397204", \
+                 "accept_buttons": "true", \
+                 "extra": "some extra data exposed as API_EXTRA variable" \
+                }' \
+            "https://webapp.io/api/v1/run/repo_name?token=${my_token}"
+    </code>
+</pre>
 
-```shell
-my_token="(your API key)"
-curl -X POST \
-    -H 'Content-Type: application/json' \
-    -d '{"branch": "master", \
-         "ref": "9abc2ac68d52afe1a5a3fbc724d031af5a397204", \
-         "accept_buttons": "true", \
-         "extra": "some extra data exposed as API_EXTRA variable" \
-        }' \
-    "https://webapp.io/api/v1/run/repo_name?token=${my_token}"
-```
+<pre>
+    <code class="language-javascript CodeHighlight">
+        let apiKey="(your API key)"
+        fetch(
+            'https://webapp.io/api/v1/run/repo_name?token='+apiKey,
+            {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'branch': 'master',
+                    'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
+                    'accept_buttons': 'true',
+                    'extra': 'some extra data exposed as API_EXTRA variable',
+                }),
+            }
+        ).then(res => res.json()).then(json => console.log(json))
+    </code>
+</pre>
 
-```javascript
-let apiKey="(your API key)"
-fetch(
-    'https://webapp.io/api/v1/run/repo_name?token='+apiKey,
-    {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'branch': 'master',
-            'ref': '9abc2ac68d52afe1a5a3fbc724d031af5a397204',
-            'accept_buttons': 'true',
-            'extra': 'some extra data exposed as API_EXTRA variable',
-        }),
-    }
-).then(res => res.json()).then(json => console.log(json))
-```
 </language-tabs>
+
+<br />
 
 Output:
 
-```json
-{
-    "status": "ok",
-    "job": {
-        "repository_name": "webappio-example",
-        "id": 1,
-        "status": "NEW",
-        "status_change_time": "2020-05-05 05:11:44.17955 +0000 UTC",
-        "calculated_status": "NEW",
-        "commit_sha": "9abc2ac68d52afe1a5a3fbc724d031af5a397204",
-        "branch": "master",
-        "merge_branch": "master",
-        "run_start_reason": "Manual run created by API",
-        "run_start_reason_url": ""
-    },
-    "url": "http://webapp.io/jobs/github/distributed-containers-inc/webappio-example/1"
-}
-
-```
+<pre>
+    <code class="language-json CodeHighlight">
+        {
+            "status": "ok",
+            "job": {
+                "repository_name": "webappio-example",
+                "id": 1,
+                "status": "NEW",
+                "status_change_time": "2020-05-05 05:11:44.17955 +0000 UTC",
+                "calculated_status": "NEW",
+                "commit_sha": "9abc2ac68d52afe1a5a3fbc724d031af5a397204",
+                "branch": "master",
+                "merge_branch": "master",
+                "run_start_reason": "Manual run created by API",
+                "run_start_reason_url": ""
+            },
+            "url": "https://webapp.io/jobs/github/distributed-containers-inc/webappio-example/1"
+        }
+    </code>
+</pre>
 
 `status` can be one of `"ok"` or `"error"`. If the latter exists, an `"error"` value will be included with an explanation.
+
+<br />

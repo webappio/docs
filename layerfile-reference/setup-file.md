@@ -10,3 +10,5 @@ A common use case is to set a lot of environment variables using an ".env" file,
 ### Examples
 
 - Use `SETUP FILE .env` to run `source (repository root)/.env` before every `RUN` command.
+
+<br />

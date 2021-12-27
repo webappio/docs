@@ -9,12 +9,22 @@ webapp.io uses snapshots to speed up your code in a few simple ways:
 
 ![View of snapshot banner notification under the accompanying code in webapp.io](/docs/resources/step_rerunning_1.png)
 
+<br />
+
 If a snapshot is loaded, all the steps above it are skipped. This means that costly, repetitive steps that don’t read many files should be placed as high up in the Layerfile as possible to avoid rerunning.
+
+<br />
 
 ![View of how skipped steps are denoted 'skipped' and ones that are not say the duration of time that step took](/docs/resources/step_rerunning_2.png)
 
+<br />
+
 Snapshots created on a `RUN REPEATABLE` directive have a special property: the files restored are from after the file last ran. A more detailed explanation on [RUN REPEATABLE](https://webapp.io/docs/tuning-performance/run-repeatable) and a [contrast between webapp.io and Docker’s caching systems](https://webapp.io/docs/tuning-performance/the-layerfile-cache) are available for further reading. Some potential inefficiencies in the use of the layer caching system are listed below:
+
+<br />
 
 ## Common problems with Docker
 
 **Docker reading the entire directory**: `docker build` copies all files in the context directory that aren’t ignored by a `.dockerignore` file. Since webapp.io tracks which files are read, this causes webapp.io to rerun if any of the files read by Docker are changed. An easy solution is to add a [.dockerignore file](https://docs.docker.com/engine/reference/builder/#dockerignore-file) that stops docker from reading irrelevant files.
+
+<br />

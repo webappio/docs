@@ -6,21 +6,25 @@
 
 ## Example Layerfile
 
-```
-FROM vm/ubuntu:18.04
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
-RUN apt install nodejs
-COPY . .
-RUN npm install
-SECRET ENV CONFIGCAT_AUTH_KEY
-RUN curl "https://api.configcat.com/v1/products/dcd53ddb-8104-4e48-8cc0-5df1088c6113/environments" \
-    -X POST \
-    -u $CONFIGCAT_AUTH_KEY \
-    -H "Content-Type: application/json" \
-    -d '{"name": "webappio-'$JOB_ID'"}'
-RUN BACKGROUND REACT_CONFIGCAT_ENV="layerci-$JOB_ID" npm run start
-EXPOSE WEBSITE localhost:3000
-```
+<pre>
+    <code class="language-html CodeHighlight">
+        FROM vm/ubuntu:18.04
+        RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
+        RUN apt install nodejs
+        COPY . .
+        RUN npm install
+        SECRET ENV CONFIGCAT_AUTH_KEY
+        RUN curl "https://api.configcat.com/v1/products/dcd53ddb-8104-4e48-8cc0-5df1088c6113/environments" \
+            -X POST \
+            -u $CONFIGCAT_AUTH_KEY \
+            -H "Content-Type: application/json" \
+            -d '{"name": "webappio-'$JOB_ID'"}'
+        RUN BACKGROUND REACT_CONFIGCAT_ENV="layerci-$JOB_ID" npm run start
+        EXPOSE WEBSITE localhost:3000
+    </code>
+</pre>
+
+<br />
 
 ### Setting up ConfigCat with webapp.io
 

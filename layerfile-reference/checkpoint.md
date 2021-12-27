@@ -15,3 +15,5 @@ On future runs, if no files or instructions have changed since the snapshot was 
 - Use `CHECKPOINT` to expliticly take a checkpoint at a specific point (which happens automatically by default), or re-enable checkpointing after `CHECKPOINT disabled`
 
 See [the tuning performance documentation](/docs/tuning-performance) for more details.
+
+<br />
