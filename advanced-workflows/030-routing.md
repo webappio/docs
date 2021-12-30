@@ -58,7 +58,6 @@ The deployment is now listed under ‘Subdomain creation rules’
 ![Error message when snapshot cannot be loaded](/docs/resources/deployment5.png)
 
 <br />
->>>>>>> 0170c177216dd421ee113c6120f6142196fa14b0
 
 ### Use-cases for deployments
 
