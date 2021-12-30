@@ -1,4 +1,4 @@
-# Label
+# LABEL
 
 `LABEL [key=value..]`
 
