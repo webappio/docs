@@ -27,7 +27,7 @@ your pull request.
 
 - The `merge` status will cause webapp to summarize all runs resulting from the SPLIT directive
 
-  ![status merge](/docs/resources/check_merged.png)
+  ![status merge](/docs/resources/checks_merged.png)
 
 - The `hidden` status will cause webapp to hide the run status of the Layerfile
 
