@@ -1,0 +1,68 @@
+# Custom Scripts
+
+Custom scripts can be embedded into pull requests using [Golang HTML templates](https://pkg.go.dev/html/template). Templates are evaluated as runs progress and appended to your webapp.io bot comment.
+
+## Helper Functions
+
+A number of helper functions have been defined to interact with Layerfiles and jobs.
+
+### layefileStatusEquals
+```
+layefileStatusEquals(layerfileRelativePath string, status string) bool
+```
+
+The `layefileStatusEquals` function accepts two string parameters `layerfileRelativePath` and `status`, then returns a boolean if the Layerfile defined in the first argument matches the status in the second.
+
+The Layerfile relative path is the path to the Layerfile relative to the root of your project.
+
+Layerfile status can be one of the following `['NEW', 'RUNNING', 'SUCCESS', 'FAILURE', 'ERROR', 'WAITING_PARENTS', 'CANCELLED']`.
+
+### jobStatusEquals
+```
+jobStatusEquals(status string) bool
+```
+
+The `jobStatusEquals` function accepts one string parameter `status` and returns a boolean if the job matches the status .
+
+Job status can be one of the following `['ERROR', 'SUCCESS']`.
+
+### previewEnvironmentLink
+```
+previewEnvironmentLink(path string) string
+```
+
+The `jobStatusEquals` function accepts one string parameter `path` and returns a string with a URL to that path on your preview environment.
+
+## Example
+<pre>
+  <code>
+    {{ if layerfileStatusEquals ".layerfiles/cypress/Layerfile" "SUCCESS"}}
+    <div>
+      All Cypress tests passed
+    </div>
+    {{ end }}
+    {{ if layerfileStatusEquals ".layerfiles/cypress/Layerfile" "FAILURE"}}
+        <div>
+            Cypress tests failed.
+
+            Check these pages:
+            <ul>
+                <li>
+                    <a href="{{ previewEnvironmentLink "/"}}">Landing page</a>
+                </li>
+                <li>
+                    <a href="{{ previewEnvironmentLink "/pricing"}}">Pricing page</a>
+                </li>
+                <li>
+                    <a href="{{ previewEnvironmentLink "/security"}}">Security page</a>
+                </li>
+            </ul>
+        </div>
+    {{ end }}
+    {{ if jobStatusEquals "SUCCESS"}}
+        <div>
+            Job has passed view preview environment <a href="{{ previewEnvironmentLink "/"}}">here</a>.
+        </div>
+    {{ end }}
+  </code>
+</pre>
