@@ -1,4 +1,4 @@
-# Intro
+# Introduction
 Layerfiles can be composed into arbitrarily powerful workflows.
 
 Consider these three Layerfiles:
@@ -7,37 +7,31 @@ Consider these three Layerfiles:
 
 ### 1. Layerfile at (repo root)/Layerfile
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM vm/ubuntu:18.04
-        RUN apt-get update && apt-get install postgresql python3
-    </code>
-</pre>
+```Layerfile
+FROM vm/ubuntu:18.04
+RUN apt-get update && apt-get install postgresql python3
+```
 
 <br />
 
 ### 2. Layerfile at (repo root)/web/Layerfile
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM /Layerfile
-        COPY . .
-        RUN ./unittest.sh
-    </code>
-</pre>
+```Layerfile
+FROM /Layerfile
+COPY . .
+RUN ./unittest.sh
+```
 
 <br />
 
 ### 3. Layerfile at (repo root)/web/tests/Layerfile
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM /Layerfile
-        COPY .. .
-        RUN BACKGROUND ./start-webserver.sh
-        RUN ./e2etests.sh
-        EXPOSE WEBSITE localhost:8080
-    </code>
-</pre>
+```Layerfile
+FROM /Layerfile
+COPY .. .
+RUN BACKGROUND ./start-webserver.sh
+RUN ./e2etests.sh
+EXPOSE WEBSITE localhost:8080
+```
 
 
 When commited to a repository, they will create the following execution graph, where each node is created by a layerfile:

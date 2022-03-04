@@ -65,54 +65,50 @@ For example, say you have a deployment at deployment.demo.webapp.io. If you then
 
 ##### (backend repo)/layerfiles/backend/Layerfile
 
-<pre>
-    <code class="language-html CodeHighlight">
-        # backend
-        FROM vm/ubuntu:18.04
-        
-        # install the latest version of Docker, as in the official Docker installation tutorial.
-        RUN apt-get update && \
-            apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-            apt-get update && \
-            apt install docker-ce
-        
-        COPY / .
-        RUN REPEATABLE docker build -t backend && docker run -d -p 80:80 backend
-        
-        EXPOSE WEBSITE localhost:80 /api
-    </code>
-</pre>
+```Layerfile
+# backend
+FROM vm/ubuntu:18.04
+
+# install the latest version of Docker, as in the official Docker installation tutorial.
+RUN apt-get update && \
+    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+    apt-get update && \
+    apt install docker-ce
+
+COPY / .
+RUN REPEATABLE docker build -t backend && docker run -d -p 80:80 backend
+
+EXPOSE WEBSITE localhost:80 /api
+```
 
 <br />
 
 ##### (backend repo)/layerfiles/frontend/Layerfile
 
-<pre>
-    <code class="language-html CodeHighlight">
-        # backend
-        FROM vm/ubuntu:18.04
-        
-        # install the latest version of Docker, as in the official Docker installation tutorial.
-        RUN apt-get update && \
-            apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-            apt-get update && \
-            apt install docker-ce
-        
-        RUN curl -Lo /usr/local/bin/fast-git-download https://gist.githubusercontent.com/ColinChartier/6bff7cf77adf7d2a8d7d699a5deed707/raw/0b89b3037548ce7e4fb24bea96628014da1bbf05/download && \
-            chmod 755 /usr/local/bin/fast-git-download
-        
-        # download the latest version of the frontend's "master" branch and build and start it.
-        RUN REPEATABLE fast-git-download frontend-repo-name /frontend origin/master && \
-            cd /frontend && \
-            docker build -t frontend && docker run -d -p 80:80 frontend
-        
-        EXPOSE WEBSITE localhost:80
-    </code>
-</pre>
+```Layerfile
+# backend
+FROM vm/ubuntu:18.04
+
+# install the latest version of Docker, as in the official Docker installation tutorial.
+RUN apt-get update && \
+    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+    apt-get update && \
+    apt install docker-ce
+
+RUN curl -Lo /usr/local/bin/fast-git-download https://gist.githubusercontent.com/ColinChartier/6bff7cf77adf7d2a8d7d699a5deed707/raw/0b89b3037548ce7e4fb24bea96628014da1bbf05/download && \
+    chmod 755 /usr/local/bin/fast-git-download
+
+# download the latest version of the frontend's "master" branch and build and start it.
+RUN REPEATABLE fast-git-download frontend-repo-name /frontend origin/master && \
+    cd /frontend && \
+    docker build -t frontend && docker run -d -p 80:80 frontend
+
+EXPOSE WEBSITE localhost:80
+```
 
 <br />
 

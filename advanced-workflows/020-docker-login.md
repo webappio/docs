@@ -21,30 +21,28 @@ Change your [Layerfile](/docs/examples/docker) and add the following lines after
 
 Full example of Layerfile that installs & runs a docker container, then creates a persistent staging link from it:
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM vm/ubuntu:18.04
-        
-        # To note: Layerfiles create entire VMs, *not* containers!
-        
-        # install the latest version of Docker, as in the official Docker installation tutorial.
-        RUN apt-get update && \
-            apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-            apt-get update && \
-            apt install docker-ce
-        
-        SECRET ENV DOCKER_LOGIN
-        RUN echo "$DOCKER_LOGIN" | docker login --username (INSERT USERNAME) --password-stdin
-        
-        # copy files from the repository into this staging server
-        COPY . .
-        
-        RUN docker build -t image .
-        RUN docker run -d -p 80:80 image
-        EXPOSE WEBSITE http://localhost:80
-    </code>
-</pre>
+```Layerfile
+FROM vm/ubuntu:18.04
+
+# To note: Layerfiles create entire VMs, *not* containers!
+
+# install the latest version of Docker, as in the official Docker installation tutorial.
+RUN apt-get update && \
+    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+    apt-get update && \
+    apt install docker-ce
+
+SECRET ENV DOCKER_LOGIN
+RUN echo "$DOCKER_LOGIN" | docker login --username (INSERT USERNAME) --password-stdin
+
+# copy files from the repository into this staging server
+COPY . .
+
+RUN docker build -t image .
+RUN docker run -d -p 80:80 image
+EXPOSE WEBSITE http://localhost:80
+```
 
 <br />
