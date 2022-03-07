@@ -12,13 +12,10 @@ The simplest way is to combine [SECRET ENV](/docs/layerfile-reference#secret-env
 
 Change your [Layerfile](/docs/examples/docker) and add the following lines after installing Docker:
 
-<pre>
-    <code class="language-html CodeHighlight">
-        SECRET ENV DOCKER_LOGIN
-        RUN echo "$DOCKER_LOGIN" | docker login --username (INSERT USERNAME) --password-stdin
-    </code>
-</pre>
-
+```Layerfile
+SECRET ENV DOCKER_LOGIN
+RUN echo "$DOCKER_LOGIN" | docker login --username (INSERT USERNAME) --password-stdin
+```
 Full example of Layerfile that installs & runs a docker container, then creates a persistent staging link from it:
 
 ```Layerfile

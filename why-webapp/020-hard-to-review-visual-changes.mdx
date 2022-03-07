@@ -1,0 +1,11 @@
+## 2. It's hard to review visual changes
+
+Web apps changes are often subjective. Unit tests won't tell you if changing `color: #fefdfa` to `color: #dabdab` will make the app look bad.
+
+Ultimately reviewers need to check out the change and try it out themselves in order to determine if it's ok or not.
+
+**How webapp.io solves this problem:**
+
+After making their webapp.io configuration, users can add a single `EXPOSE WEBSITE localhost:3000` directive to embed a full-stack preview environment directly into every pull request.
+
+<br />

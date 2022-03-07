@@ -17,16 +17,15 @@ See [knapsack pro](https://github.com/KnapsackPro/rails-app-with-knapsack)
 Your Layerfile will look something like this:
 
 
-<pre>
-    <code class="language-html CodeHighlight">
-        # install ruby, bundle install, etc
-        
-        COPY . .
-        SPLIT 5
-        ENV CI_NODE_TOTAL=$SPLIT_NUM CI_NODE_INDEX=$SPLIT
-        RUN bundle exec knapsack:rspec
-    </code>
-</pre>
+
+```Layerfile
+# install ruby, bundle install, etc
+
+COPY . .
+SPLIT 5
+ENV CI_NODE_TOTAL=$SPLIT_NUM CI_NODE_INDEX=$SPLIT
+RUN bundle exec knapsack:rspec
+```
 
 <br />
 
@@ -36,14 +35,12 @@ See [this file](https://github.com/distributed-containers-inc/layer-dag-example/
 
 The Layerfile from that example:
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM ../base/Layerfile
-        
-        COPY . .
-        SPLIT 5
-        RUN ./parallel-go-test.sh
-    </code>
-</pre>
+```Layerfile
+FROM ../base/Layerfile
+
+COPY . .
+SPLIT 5
+RUN ./parallel-go-test.sh
+```
 
 <br />

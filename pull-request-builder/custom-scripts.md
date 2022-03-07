@@ -6,12 +6,12 @@ Custom scripts can be embedded into pull requests using [Golang HTML templates](
 
 A number of helper functions have been defined to interact with Layerfiles and jobs.
 
-### layefileStatusEquals
+### layerfileStatusEquals
 ```
-layefileStatusEquals(layerfileRelativePath string, status string) bool
+layerfileStatusEquals(layerfileRelativePath string, status string) bool
 ```
 
-The `layefileStatusEquals` function accepts two string parameters `layerfileRelativePath` and `status`, then returns a boolean if the Layerfile defined in the first argument matches the status in the second.
+The `layerfileStatusEquals` function accepts two string parameters `layerfileRelativePath` and `status`, then returns a boolean if the Layerfile defined in the first argument matches the status in the second.
 
 The Layerfile relative path is the path to the Layerfile relative to the root of your project.
 
@@ -34,6 +34,8 @@ previewEnvironmentLink(path string) string
 The `jobStatusEquals` function accepts one string parameter `path` and returns a string with a URL to that path on your preview environment.
 
 ## Example
+```gotemplate
+
 <pre>
   <code>
     {{ if layerfileStatusEquals ".layerfiles/cypress/Layerfile" "SUCCESS"}}
@@ -66,3 +68,4 @@ The `jobStatusEquals` function accepts one string parameter `path` and returns a
     {{ end }}
   </code>
 </pre>
+```

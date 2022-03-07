@@ -1,7 +1,8 @@
-# Intro
+<div className="Docs--Overline">Layerfile Reference</div>
+
 
 This page contains a reference for each directive which can appear in a Layerfile.
 
 For a more introductory reference, see [the documentation home](/docs/home)
 
-<div class="section-spacing"></div>
+<div className="section-spacing"></div>

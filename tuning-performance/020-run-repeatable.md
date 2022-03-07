@@ -11,15 +11,13 @@ It's recommended to combine RUN REPEATABLE with [multi-stage builds](https://doc
 
 #### RUN REPEATABLE for Docker
 
-<pre>
-    <code class="language-html CodeHighlight">
-        # install docker
-        
-        COPY . .
-        RUN REPEATABLE docker build -t myimage
-        RUN docker run -d -p 8080:8080 myimage
-    </code>
-</pre>
+```Layerfile
+# install docker
+
+COPY . .
+RUN REPEATABLE docker build -t myimage
+RUN docker run -d -p 8080:8080 myimage
+```
 
 In this Layerfile, the docker cache from previous runs will be reused because RUN REPEATABLE uses the cache from *after* the last time this step ran.
 
@@ -35,27 +33,25 @@ In particular, docker would see that it had been used multiple times, and would 
 
 #### RUN REPEATABLE for docker-compose
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM vm/ubuntu:18.04
-        
-        RUN apt-get update && \
-            apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-            apt-get update && \
-            apt install docker-ce
-        
-        RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-            chmod +x /usr/local/bin/docker-compose
-        
-        COPY . .
-        
-        RUN REPEATABLE docker-compose up -d --build --force-recreate --remove-orphans && sleep 5
-        
-        EXPOSE WEBSITE localhost:8000
-    </code>
-</pre>
+```Layerfile
+FROM vm/ubuntu:18.04
+
+RUN apt-get update && \
+    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+    apt-get update && \
+    apt install docker-ce
+
+RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
+
+COPY . .
+
+RUN REPEATABLE docker-compose up -d --build --force-recreate --remove-orphans && sleep 5
+
+EXPOSE WEBSITE localhost:8000
+```
 
 In this Layerfile, all of these things are reused from the moment immediately after the previous invocation:
 - The docker layer cache (e.g., pulled images)
@@ -65,28 +61,25 @@ In this Layerfile, all of these things are reused from the moment immediately af
 
 #### RUN REPEATABLE for kubernetes (kubectl, k8s, k3s)
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM vm/ubuntu:18.04
-        
-        # install the latest version of Docker, as in the official Docker installation tutorial.
-        RUN apt-get update && \\
-            apt-get install apt-transport-https ca-certificates curl software-properties-common && \\
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \\
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \\
-            apt-get update && \\
-            apt install docker-ce
-        
-        # install & start k3s
-        RUN curl -sfL https://get.k3s.io | sh -s - --docker
-        
-        # this script might use helm, kompose, jsonnet, or any other manifest handling logic
-        RUN REPEATABLE ./build-images-and-manifests.sh && k3s kubectl apply -f dist/manifests --prune
-        
-        EXPOSE WEBSITE localhost:8000
-    </code>
-</pre>
+```Layerfile
+FROM vm/ubuntu:18.04
 
+# install the latest version of Docker, as in the official Docker installation tutorial.
+RUN apt-get update && \\
+    apt-get install apt-transport-https ca-certificates curl software-properties-common && \\
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \\
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \\
+    apt-get update && \\
+    apt install docker-ce
+
+# install & start k3s
+RUN curl -sfL https://get.k3s.io | sh -s - --docker
+
+# this script might use helm, kompose, jsonnet, or any other manifest handling logic
+RUN REPEATABLE ./build-images-and-manifests.sh && k3s kubectl apply -f dist/manifests --prune
+
+EXPOSE WEBSITE localhost:8000
+```
 
 *RUN REPEATABLE gives 50-95% speedups here.*
 

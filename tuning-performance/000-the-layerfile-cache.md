@@ -4,14 +4,12 @@ webapp.io has extended & improved [Docker's caching model](https://docs.docker.c
 
 Consider the following Layerfile:
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM vm/ubuntu:18.04
-        COPY . .
-        RUN sleep 20 && cat file1
-        RUN sleep 20 && cat file2
-    </code>
-</pre>
+```Layerfile
+FROM vm/ubuntu:18.04
+COPY . .
+RUN sleep 20 && cat file1
+RUN sleep 20 && cat file2
+```
 
 In this case, we'll make snapshots after each line and map which files were read back to the snapshots.
 This means:
@@ -49,14 +47,12 @@ In most CI providers and in Docker, you need to micromanage cache keys. The foll
 </pre>
 
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM ubuntu:18.04
-        COPY . .
-        RUN npm install
-        RUN npm run build
-    </code>
-</pre>
+```Layerfile
+FROM ubuntu:18.04
+COPY . .
+RUN npm install
+RUN npm run build
+```
 
 
 Instead of micromanaging COPY, you can simply copy the entire repository and we'll load the bottommost layer from the cache which agrees with a commit's changes.
@@ -69,23 +65,21 @@ Sometimes there are steps which will run repeatedly because their constituent fi
 Consider this Layerfile:
 
 
-<pre>
-    <code class="language-html CodeHighlight">
-        FROM vm/ubuntu:18.04
-        
-        RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \\
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \\
-            curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
-            apt-get install nodejs yarn
-        
-        MEMORY 2G
-        ENV NODE_OPTIONS=--max-old-space-size=8192
-        
-        COPY package.json ./
-        CACHE /usr/local/share/.cache/yarn
-        RUN npm ci
-    </code>
-</pre>
+```Layerfile
+FROM vm/ubuntu:18.04
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \\
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \\
+    curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
+    apt-get install nodejs yarn
+
+MEMORY 2G
+ENV NODE_OPTIONS=--max-old-space-size=8192
+
+COPY package.json ./
+CACHE /usr/local/share/.cache/yarn
+RUN npm ci
+```
 
 
 In this case, unless you change `package.json`, the default webapp.io cache will skip the entire pipeline after every push.
