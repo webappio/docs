@@ -37,9 +37,6 @@ The `jobStatusEquals` function accepts one string parameter `path` and returns a
 
 ## Example
 ```gotemplate
-
-<pre>
-  <code class="language-html CodeHighlight">
 {{ if layerfileStatusEquals ".layerfiles/cypress/Layerfile" "SUCCESS"}}
 <div>
 All Cypress tests passed
@@ -68,6 +65,4 @@ Check these pages:
 Job has passed view preview environment <a href="{{ previewEnvironmentLink "/"}}">here</a>.
 </div>
 {{ end }}
-  </code>
-</pre>
 ```
