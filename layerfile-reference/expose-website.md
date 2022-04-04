@@ -13,5 +13,6 @@ If the default 2 minute timeout is not sufficient for your application, use the 
 
 - Use `EXPOSE WEBSITE localhost:80` to expose the local webserver at port 80
 - Combine `EXPOSE WEBSITE localhost:80 /api` with `EXPOSE WEBSITE localhost:3000 /` to route all requests that start with /api to port 80 in the runner, and all other requests to port 3000.
+- Use `EXPOSE WEBSITE localhost:80 /cypress$SPLIT` after a `SPLIT 5` directive to make each split have a unique path (e.g., `z.cidemo.co/split1`)
 
 <br />

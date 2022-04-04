@@ -11,14 +11,18 @@ Without webapp.io, there are two common approaches to doing this in CI:
 
 Instead of using a YAML file to configure CI/CD in webapp.io, our users create a Layerfile. Here's an example:
 
-```dockerfile
+<br/>
+
+```Layerfile
 FROM vm/node:14
 COPY . .
 RUN npm install
 RUN npm run build
 RUN BACKGROUND npm run start
-EXPOSE WEBISTE localhost:3000
+EXPOSE WEBSITE localhost:3000
 ```
+
+<br/>
 
 This syntax is borrowed from Docker's configuration, and makes it really easy to speed up builds.
 In this case, we'd skip running `npm install` for subsequent pipelines unless you change `package.json`.
