@@ -9,7 +9,7 @@ Due to limitations with Github flavored markdown, HTML tags __must not be tabbed
 A number of helper functions have been defined to interact with Layerfiles and jobs.
 
 ### layerfileStatusEquals
-```
+```go
 layerfileStatusEquals(layerfileRelativePath string, status string) bool
 ```
 
@@ -20,7 +20,7 @@ The Layerfile relative path is the path to the Layerfile relative to the root of
 Layerfile status can be one of the following `['NEW', 'RUNNING', 'SUCCESS', 'FAILURE', 'ERROR', 'WAITING_PARENTS', 'CANCELLED']`.
 
 ### jobStatusEquals
-```
+```go
 jobStatusEquals(status string) bool
 ```
 
@@ -29,14 +29,15 @@ The `jobStatusEquals` function accepts one string parameter `status` and returns
 Job status can be one of the following `['ERROR', 'SUCCESS']`.
 
 ### previewEnvironmentLink
-```
+```go
 previewEnvironmentLink(path string) string
 ```
 
 The `jobStatusEquals` function accepts one string parameter `path` and returns a string with a URL to that path on your preview environment.
 
 ## Example
-```gotemplate
+
+```gohtml
 {{ if layerfileStatusEquals ".layerfiles/cypress/Layerfile" "SUCCESS"}}
 <div>
 All Cypress tests passed
