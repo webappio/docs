@@ -1,6 +1,6 @@
 ## Logging in to Docker
 
-webapp.io creates entire VMs as easily as Dockerfiles, so it's common for our users to use Docker or docker-compose within webapp.io.
+Webapp.io creates entire VMs as easily as Dockerfiles, so it's common for our users to use Docker or docker-compose within webapp.io.
 
 Docker hub rate limits requests made by unauthenticated users, so it's imperative to create a docker hub account and log in to it to avoid failing tests.
 
