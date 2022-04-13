@@ -6,7 +6,7 @@
 
 Secrets are useful for storing sensitive information. They can hold passwords, API keys, or other private credentials. For security reasons, it is good practice to not keep this information within source code. Managing private data using secrets allows easy authentication with other services on your behalf.
  
-webapp.io has a secrets manager built into the platform. This makes entering and editing secrets as simple as 1, 2, 3:
+Webapp.io has a secrets manager built into the platform. This makes entering and editing secrets as simple as 1, 2, 3:
 
 <br />
 

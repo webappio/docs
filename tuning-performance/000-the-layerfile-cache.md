@@ -1,6 +1,6 @@
 # The Layerfile cache
 
-webapp.io has extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
+Webapp.io has extended & improved [Docker's caching model](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) for use in CI.
 
 Consider the following Layerfile:
 

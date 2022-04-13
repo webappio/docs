@@ -36,7 +36,7 @@ There's a lot to unpack here, but there are a few important takeaways from this 
 
 1. You can install docker & docker-compose and efficiently create containers within a Layerfile
 2. RUN REPEATABLE lets you reuse built images & volumes from the last time this pipeline ran
-3. webapp.io will create a snapshot with everything created so that you can avoid re-building, re-creating, and re-migrating database data every time.
+3. Webapp.io will create a snapshot with everything created so that you can avoid re-building, re-creating, and re-migrating database data every time.
 
 As before, other Layerfiles can extend from this one to run e2e tests or create a full-stack demo environment with `EXPOSE WEBSITE`.
 
