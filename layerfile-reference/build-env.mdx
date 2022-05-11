@@ -1,4 +1,6 @@
-# BUILD ENV
+---
+
+# The BUILD ENV instruction
 
 The `BUILD ENV` instruction tells the layerfile to rebuild when a variable changes.
 
@@ -8,13 +10,11 @@ The `BUILD ENV` instruction tells the layerfile to rebuild when a variable chang
 
 - Commonly used with `$SUBDOMAIN` to ensure each branch has the proper value:
 
-<pre>
-    <code class="language-html CodeHighlight">
-        BUILD ENV SUBDOMAIN
-        RUN echo "HOST=$SUBDOMAIN.mydomain.com" >> .env
-        RUN docker-compose up -d
-    </code>
-</pre>
+```Layerfile
+BUILD ENV SUBDOMAIN
+RUN echo "HOST=$SUBDOMAIN.mydomain.com" >> .env
+RUN docker-compose up -d
+```
 
 <br />
 
@@ -192,4 +192,4 @@ Note: Unavailable for use by BUILD ENV
 
 `API_EXTRA` is optional data passed in when a run is started by the API.
 
-<br />
+<div className="section-spacing"></div>

@@ -1,4 +1,6 @@
-# RUN 
+---
+
+# The RUN instruction
 
 `RUN (BACKGROUND|REPEATABLE) [command ...]`
 
@@ -12,4 +14,4 @@ For example, you might use `RUN echo "the directory is $(pwd)"` to print your cu
 - `RUN BACKGROUND python3 -m http.server` run `python3 -m http.server` persistently in the background.
 - `RUN REPEATABLE docker build -t hello` is a performance optimization, see [tuning performance](/docs/tuning-performance#run-repeatable)
 
-<br />
+<div className="section-spacing"></div>
