@@ -1,0 +1,29 @@
+# Doppler
+
+[Doppler](https://www.doppler.com/) is a Universal Secrets Manager, a central source of truth for app config and secrets like API keys, database urls, certs, feature flags, and other environment variables. It works seamlessly from local development to production on every language, stack, and infrastructure.
+
+<br />
+
+## Example Layerfile
+
+```Layerfile
+FROM vm/ubuntu:18.04
+
+\\# Install Doppler
+RUN (curl -Ls https://cli.doppler.com/install.sh || wget -qO- https://cli.doppler.com/install.sh) | sh
+
+COPY . .
+
+# Load several Doppler tokens from webapp.io
+SECRET ENV DOPPLER_TOKEN_PREVIEW DOPPLER_TOKEN_PRODUCTION
+
+# Test Doppler secrets access for both
+RUN doppler -t $DOPPLER_TOKEN_PREVIEW run -- printenv | grep DOPPLER # Testing purposes only
+RUN doppler -t $DOPPLER_TOKEN_PRODUCTION run -- printenv | grep DOPPLER # Testing purposes only
+```
+
+<br />
+
+### Setting up Doppler with webapp.io
+
+Information on how to integrate Doppler with your webapp.io pipeline can be found [here](https://docs.doppler.com/docs/layerci).
