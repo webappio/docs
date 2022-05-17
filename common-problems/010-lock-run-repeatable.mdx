@@ -1,5 +1,6 @@
 # Why did a lock exist during RUN REPEATABLE?
 
+<div className="section-spacing"></div>
 
 ## For 'docker run' or 'docker-compose up':
 
@@ -39,6 +40,8 @@ RUN REPEATABLE rsync -a --delete . /tmp/running/ && cd /tmp/running && docker-co
 
 <br />
 
+<div className="section-spacing"></div>
+
 ## For 'npm run start' or other persistent servers
 
 Sometimes, web servers (especially node.js versions) within `RUN REPEATABLE` will cause this problem as well. The simplest solution is to start the webserver in a non-repeatable directive or to copy the files before starting it: 
@@ -51,3 +54,7 @@ RUN REPEATABLE rsync -a --delete . /tmp/running/ && cd /tmp/running && ( pkill n
 This is not done by default because it breaks the file watching. However, this guarantees that all files are read.
 
 <br />
+
+<div className="section-spacing"></div>
+<hr />
+<div className="section-spacing"></div>

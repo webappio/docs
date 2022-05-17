@@ -1,5 +1,7 @@
 ---
 
+<div className="section-spacing"></div>
+
 # The WAIT instruction
 
 `WAIT [layerfile paths...]`
@@ -7,6 +9,8 @@
 The `WAIT` instruction allows you to make one step require other steps to succeed before running.
 
 It's especially useful for conditional actions like executing notifications, deployment, and CI/CD.
+
+<div className="section-spacing"></div>
 
 ### Examples
 
@@ -25,6 +29,8 @@ RUN ./deploy.sh
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### Conditional deployment with WAIT and BUTTON
 
 ```Layerfile
@@ -40,6 +46,8 @@ RUN ./deploy.sh
 ```
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### What the job view will look like with WAIT
 

@@ -4,6 +4,7 @@ Webapp.io has extended & improved [Docker's caching model](https://docs.docker.c
 
 Consider the following Layerfile:
 
+
 ```Layerfile
 FROM vm/ubuntu:18.04
 COPY . .
@@ -21,6 +22,8 @@ This means:
 
 <br />
 
+<div className="section-spacing"></div>
+
 ## Differences from Docker
 
 Here are the major differences between Layerfiles and Dockerfiles for use in CI:
@@ -32,19 +35,24 @@ Here are the major differences between Layerfiles and Dockerfiles for use in CI:
 
 <br />
 
+<div className="section-spacing"></div>
+
+<div className="section-spacing"></div>
+
 ## File watching COPY
+
+<div className="section-spacing"></div>
 
 In most CI providers and in Docker, you need to micromanage cache keys. The following Dockerfile and Layerfile are equivalent because we watch which files are read by each step:
 
-<pre>
-    <code class="language-html CodeHighlight"> 
-        FROM ubuntu:18.04
-        COPY package.json package-lock.json ./
-        RUN npm install
-        COPY . .
-        RUN npm run build
-    </code>
-</pre>
+
+```Dockerfile
+FROM ubuntu:18.04
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+```
 
 
 ```Layerfile
@@ -58,6 +66,8 @@ RUN npm run build
 Instead of micromanaging COPY, you can simply copy the entire repository and we'll load the bottommost layer from the cache which agrees with a commit's changes.
 
 <br />
+
+<div className="section-spacing"></div>
 
 ## Faster installs: The CACHE directive
 
@@ -95,3 +105,7 @@ Some other examples:
 - ~/.npm ~/.next/cache ~/.yarn/cache
 
 <br />
+
+<div className="section-spacing"></div>
+<hr />
+<div className="section-spacing"></div>
