@@ -1,4 +1,5 @@
 # Groups and Permissions
+<div className="section-spacing"></div>
 ## Permissions
 Permissions allow for the management of read/write access to various features of webapp.io. Permissions can be managed for the members of your organization through the members section of organization settings.
 
@@ -14,17 +15,20 @@ Permissions are a hierarchy of keywords separated by periods(`.`) using star(`*`
 
 `*` equates to all permissions.
 
+<div className="section-spacing"></div>
 <br />
 
 ### Dashboard
 Access to view the organization dashboard (recent commits, custom domains, new installations, organization settings) is managed thorugh the `dashboard` keyword.
 
 <br />
+<div className="section-spacing"></div>
 
 ### Install
 Access to install webapp.io on new repositories is managed through the `install` keyword.
 
 <br />
+<div className="section-spacing"></div>
 
 ### Repository
 Access to perform actions on repositories is managed the the `repo` keyword.
@@ -32,11 +36,13 @@ Access to perform actions on repositories is managed the the `repo` keyword.
 Access to perform actions on a specific repository is managed through the `repo.<reposirory name>` keyword. Repository names are lower cased and have both spaces and periods replaced with dashes(`-`). For example, a repository `helloWorld/my first.program` is normalized to `helloWorld/my-first-program`
 
 <br />
+<div className="section-spacing"></div>
 
 #### Staging Terminal
 Access to the debugging terminal of a staging server is managed through the `repo.<reposirory name>.stagingterm` keyword.
 
 <br />
+<div className="section-spacing"></div>
 
 #### Repository Controls
 Repository controls are managed through the `controls` keyword with the following permissions:
@@ -45,16 +51,19 @@ Repository controls are managed through the `controls` keyword with the followin
 - `repo.<reposirory name>.button` the ability to click buttons defined in Layerfiles
 
 <br />
+<div className="section-spacing"></div>
 
 ### Secrets
 Access to read and write secrets is managed though the `secrets` keyword.
 
 <br />
+<div className="section-spacing"></div>
 
 ### Settings
 Access to read and write organization settings are managed through the `settings` keyword.
 
 <br />
+<div className="section-spacing"></div>
 
 #### Membership
 Organization membership management has the following permissions:
@@ -63,6 +72,7 @@ Organization membership management has the following permissions:
 - `setttings.members.users.invite` invite users to organization
 
 <br />
+<div className="section-spacing"></div>
 
 #### Billing
 Organization billing settings have the following permissions:
@@ -70,6 +80,7 @@ Organization billing settings have the following permissions:
 - `settings.billing.payment` manage organization payment method
 
 <br />
+<div className="section-spacing"></div>
 
 ## Groups
 
@@ -84,3 +95,4 @@ Permissions can be granted to role groups in the members section of organization
 To add additional role groups contact support at support@webapp.io.
 
 <br />
+<div className="section-spacing"></div>

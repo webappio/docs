@@ -1,4 +1,5 @@
 # RUN REPEATABLE
+<div className="section-spacing"></div>
 ### Restores state from previous runs
 
 Sometimes it's not sufficient to just cache directories (`CACHE`), it'd be best to cache complex state such as running processes or mounted files.
@@ -8,6 +9,7 @@ Webapp.io provides this powerful but dangerous caching mechanism via `RUN REPEAT
 It's recommended to combine RUN REPEATABLE with [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) for large performance improvements.
 
 <br />
+<div className="section-spacing"></div>
 
 #### RUN REPEATABLE for Docker
 
@@ -30,6 +32,7 @@ If you had three pipelines at 9am, 10am, and 11am, the effective steps run would
 In particular, docker would see that it had been used multiple times, and would be able to re-use the docker cache from previous invocations to greatly improve build speed.
 
 <br />
+<div className="section-spacing"></div>
 
 #### RUN REPEATABLE for docker-compose
 
@@ -58,6 +61,7 @@ In this Layerfile, all of these things are reused from the moment immediately af
 - Any created networks or volumes
 
 <br />
+<div className="section-spacing"></div>
 
 #### RUN REPEATABLE for kubernetes (kubectl, k8s, k3s)
 

@@ -1,5 +1,7 @@
 ---
 
+<div className="section-spacing"></div>
+
 # The MEMORY instruction
 
 `MEMORY [number](K|M|G)`
@@ -9,6 +11,8 @@ The `MEMORY` instruction allows you to specify how much memory your environment 
 This directive must always go at the top of a Layerfile.
 
 If used in conjunction with `FROM /base-image`, the parent Layerfile must be the one which specifies `MEMORY`, otherwise children might have to re-run steps from the parent Layerfile.
+
+<div className="section-spacing"></div>
 
 ### Examples
 

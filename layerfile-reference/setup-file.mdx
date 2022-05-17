@@ -1,4 +1,5 @@
 ---
+<div className="section-spacing"></div>
 
 # The SETUP FILE instruction
 
@@ -8,6 +9,8 @@ The `SETUP FILE` instruction causes the contents of the given file to be sourced
 This is equivalent to copy/pasting the contents of the file into the terminal before every `RUN` command.
 
 A common use case is to set a lot of environment variables using an ".env" file, or specifying a custom ".bashrc" file.
+
+<div className="section-spacing"></div>
 
 ### Example setup-script.sh
 
@@ -19,6 +22,8 @@ export LOG_LEVEL=debug
 # load an .env file
 source /root/.env
 ```
+
+<div className="section-spacing"></div>
 
 ### Referencing setup-script.sh
 

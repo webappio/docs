@@ -12,10 +12,15 @@ The simplest way is to combine [SECRET ENV](/docs/layerfile-reference#secret-env
 
 Change your [Layerfile](/docs/examples/docker) and add the following lines after installing Docker:
 
+<div className="section-spacing"></div>
+
 ```Layerfile
 SECRET ENV DOCKER_LOGIN
 RUN echo "$DOCKER_LOGIN" | docker login --username (INSERT USERNAME) --password-stdin
 ```
+
+<div className="section-spacing"></div>
+
 Full example of Layerfile that installs & runs a docker container, then creates a persistent staging link from it:
 
 ```Layerfile
@@ -43,3 +48,7 @@ EXPOSE WEBSITE http://localhost:80
 ```
 
 <br />
+
+<div className="section-spacing"></div>
+<hr />
+<div className="section-spacing"></div>

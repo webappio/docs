@@ -1,4 +1,5 @@
 ---
+<div className="section-spacing"></div>
 
 # The BUILD ENV instruction
 
@@ -34,6 +35,8 @@ Common use is to set `HOST=$SUBDOMAIN.demo.example.com`
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### DEPLOYMENT_HOST
 
 `DEPLOYMENT_HOST=job-5.demo.example.com`
@@ -46,6 +49,8 @@ If there are multiple deployments, a single one is returned.
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### CI
 
 `CI=true`, `IS_CI_MACHINE=true`, `CI_MACHINE=true`, `IN_CI_MACHINE=true`, `IN_CI=true`
@@ -53,6 +58,8 @@ If there are multiple deployments, a single one is returned.
 These `CI` variables are always `true` while running a Layerfile.
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### DEBIAN_FRONTEND
 
@@ -63,6 +70,8 @@ To change this behavior, use, e.g., `ENV DEBIAN_FRONTEND=readline`
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### GIT\_TAG
 
 `GIT_TAG=v1.0.0`
@@ -70,6 +79,8 @@ To change this behavior, use, e.g., `ENV DEBIAN_FRONTEND=readline`
 `GIT_TAG` is the result of running `git describe --always` in the repository.
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### GIT\_COMMIT
 
@@ -79,6 +90,8 @@ To change this behavior, use, e.g., `ENV DEBIAN_FRONTEND=readline`
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### GIT\_SHORT\_COMMIT
 
 `GIT_COMMIT=111122223333`
@@ -87,11 +100,15 @@ To change this behavior, use, e.g., `ENV DEBIAN_FRONTEND=readline`
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### GIT\_COMMIT\_TITLE
 
 `GIT_COMMIT_TITLE="[improvement] do something"`
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### GIT\_CLONE\_USER
 `GIT_CLONE_USER=x-access-token:<token>`
@@ -99,6 +116,8 @@ To change this behavior, use, e.g., `ENV DEBIAN_FRONTEND=readline`
 `GIT_CLONE_URL` is a token which can be used to clone this repository. `git clone https://$GIT_CLONE_USER@github.com/org/repo.git`
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### EXPOSE\_WEBSITE\_HOST
 
@@ -114,6 +133,8 @@ Note: Unavailable for use by BUILD ENV
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### WEBAPPIO
 
 `WEBAPPIO=true`
@@ -121,6 +142,8 @@ Note: Unavailable for use by BUILD ENV
 `WEBAPPIO` is always `true` when running a Layerfile
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### GIT\_BRANCH
 
@@ -130,6 +153,8 @@ Note: Unavailable for use by BUILD ENV
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### JOB\_ID
 
 `JOB_ID=5`
@@ -137,6 +162,8 @@ Note: Unavailable for use by BUILD ENV
 `JOB_ID` always exists. It's set to the ID of the current running job.
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### PULL\_REQUEST\_URL
 
@@ -146,6 +173,8 @@ Note: Unavailable for use by BUILD ENV
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### REPOSITORY\_NAME
 
 `REPOSITORY_NAME=somerepo`
@@ -153,6 +182,8 @@ Note: Unavailable for use by BUILD ENV
 `REPOSITORY_NAME` is the name of the repository. If the repository is at github.com/a/b, this would be "b"
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### REPOSITORY\_OWNER
 
@@ -162,6 +193,8 @@ Note: Unavailable for use by BUILD ENV
 
 <br />
 
+<div className="section-spacing"></div>
+
 #### ORGANIZATION\_NAME
 
 `ORGANIZATION_NAME=myorg`
@@ -169,6 +202,8 @@ Note: Unavailable for use by BUILD ENV
 `ORGANIZATION_NAME` is the name of the current organization. If the dashboard is at webapp.io/myorg, this would be "myorg"
 
 <br />
+
+<div className="section-spacing"></div>
 
 #### RUNNER\_ID
 
@@ -178,6 +213,9 @@ Note: Unavailable for use by BUILD ENV
 
 <br />
 
+<div className="section-spacing"></div>
+
+
 #### RETRY\_INDEX
 
 `RETRY_INDEX=1`
@@ -186,10 +224,15 @@ Note: Unavailable for use by BUILD ENV
 
 <br />
 
+<div className="section-spacing"></div>
+
+
 #### API\_EXTRA
 
 `API_EXTRA=some data passed from API`
 
 `API_EXTRA` is optional data passed in when a run is started by the API.
+
+<div className="section-spacing"></div>
 
 <div className="section-spacing"></div>
