@@ -7,6 +7,7 @@ Each layerfile runner is created by a specific Layerfile, or by a Layerfile bein
 *CI jobs are a collection of Layerfile runners!*
 
 <br />
+<div className="section-spacing"></div>
 
 ## Example schema
 
@@ -26,6 +27,7 @@ Each layerfile runner is created by a specific Layerfile, or by a Layerfile bein
 ```
 
 <br />
+<div className="section-spacing"></div>
 
 ## status vs. calculated_status
 
@@ -54,10 +56,13 @@ The `calculated_status` of a CI job is one of the following:
 - `SUCCEEDED` means that the runner succeeded
 
 <br />
+<div className="section-spacing"></div>
 
 ## Get most recent CI job for a repository matching a search query
 
 It's often useful to get the most recent CI job given specific filters. This API endpoint allows for that.
+
+<div className="section-spacing"></div>
 
 <LanguageTabs>
 
@@ -101,6 +106,7 @@ fetch(
 </LanguageTabs>
 
 <br />
+<div className="section-spacing"></div>
 
 Output:
 
@@ -148,11 +154,13 @@ The search query for /search and the main dashboard's searchbar are the same, an
 10. `failed` to match a run which has suffered a failure or error
 
 <br />
+<div className="section-spacing"></div>
 
 ##### Example query
 `text to find in commit body "exact text" -layer -ci repo:layer-example-repo branch:main id:10 status:running done running failed`
 
 <br />
+<div className="section-spacing"></div>
 
 ## Create a CI job for a given repository
 
@@ -165,6 +173,8 @@ The input to the POST is optional, but can contain:
 - `ref=9abc2ac68d52afe1a5a3fbc724d031af5a397204` to check out a specific commit. If omitted, we use "origin/master"
 - `accept_buttons=true` to accept any BUTTON instructions in the job (i.e., to deploy automatically)
 - `extra` - extra data exposed in the run as API_EXTRA, useful for passing arbitrary data in
+
+<div className="section-spacing"></div>
 
 <LanguageTabs>
 

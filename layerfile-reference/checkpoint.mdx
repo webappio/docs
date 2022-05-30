@@ -1,5 +1,7 @@
 ---
 
+<div className="section-spacing"></div>
+
 # The CHECKPOINT instruction
 
 `CHECKPOINT (name)` or `CHECKPOINT disabled`
@@ -9,6 +11,8 @@ The `CHECKPOINT` instruction allows you to control exactly when webapp.io will t
 On future runs, if no files or instructions have changed since the snapshot was taken, the runner will restore the snapshot instead of repeating work.
 
 `CHECKPOINT` is not usually required, it's advised not to use it unless you are using the API or there is measurable performance benefit to doing so.
+
+<div className="section-spacing"></div>
 
 ### Examples
 

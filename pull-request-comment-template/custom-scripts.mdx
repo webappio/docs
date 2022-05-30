@@ -4,10 +4,12 @@ Custom scripts can be embedded into pull requests using [Golang HTML templates](
 
 Due to limitations with Github flavored markdown, HTML tags __must not be tabbed__.
 
+<div className="section-spacing"></div>
 ## Helper Functions
 
 A number of helper functions have been defined to interact with Layerfiles and jobs.
 
+<div className="section-spacing"></div>
 ### layerfileStatusEquals
 ```go
 layerfileStatusEquals(layerfileRelativePath string, status string) bool
@@ -19,6 +21,7 @@ The Layerfile relative path is the path to the Layerfile relative to the root of
 
 Layerfile status can be one of the following `['NEW', 'RUNNING', 'SUCCESS', 'FAILURE', 'ERROR', 'WAITING_PARENTS', 'CANCELLED']`.
 
+<div className="section-spacing"></div>
 ### jobStatusEquals
 ```go
 jobStatusEquals(status string) bool
@@ -28,6 +31,7 @@ The `jobStatusEquals` function accepts one string parameter `status` and returns
 
 Job status can be one of the following `['ERROR', 'SUCCESS']`.
 
+<div className="section-spacing"></div>
 ### previewEnvironmentLink
 ```go
 previewEnvironmentLink(path string) string
@@ -35,6 +39,7 @@ previewEnvironmentLink(path string) string
 
 The `jobStatusEquals` function accepts one string parameter `path` and returns a string with a URL to that path on your preview environment.
 
+<div className="section-spacing"></div>
 ## Example
 
 ```gohtml
@@ -67,3 +72,7 @@ Job has passed view preview environment <a href="{{ previewEnvironmentLink "/"}}
 </div>
 {{ end }}
 ```
+
+<div className="section-spacing"></div>
+<hr />
+<div className="section-spacing"></div>
