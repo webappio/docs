@@ -1,21 +1,214 @@
-# Node JS Example
+# Node JS (Express JS) Example
 
-```Layerfile
-#This is an example webapp.io configuration for NodeJS
-FROM vm/ubuntu:18.04
-# To note: Layerfiles create VMs, *not* containers!
+<br />
 
-# Install node
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \\
-    apt install nodejs && \\
-    rm -f /etc/apt/sources.list.d/nodesource.list
-RUN npm install -g http-server
+##### 1. <a href="/docs/examples/node#setting-up-the-express-application" className="tw-font-normal">Setting up the Express Application</a>
+##### 2. <a href="/docs/examples/node#layerfile" className="tw-font-normal">Layerfile</a>
+##### 3. <a href="/docs/examples/node#setting-up-the-layerfile" className="tw-font-normal">Setting up the Layerfile</a>
+##### 4. <a href="/docs/examples/node#adding-the-layerfile" className="tw-font-normal">Adding the Layerfile</a>
+##### 5. <a href="/docs/examples/node#video-tutorial" className="tw-font-normal">Video Tutorial</a>
+##### 6. <a href="https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webapp-express" target="_blank" className="no-href-check tw-font-normal">Project Source Code</a>
 
-COPY . .
-RUN echo 'hello' > hello.html
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
 
-RUN BACKGROUND http-server -p 8000
-EXPOSE WEBSITE http://localhost:8000
+## Setting up the Express Application
+**(You can skip this section if you already have an Express app running.)**
+
+To build your Express application, ensure you have both node and npm installed. You can verify with the following commands:
+`node --version`
+`npm --version`.
+If installed correctly these steps will both give you a number as the terminal output.
+
+<br />
+
+If `node` and `npm` are installed, create a new directory with `mkdir [app_name]` - replacing `[app_name]` with the name of your application. Next navigate into the directory with `cd [app_name]` and run the following commands:
+
+<br />
+
+##### 1. `npm init`
+##### 2. `npm install express`
+
+<br />
+
+After installing express, create a new file called `app.js` at the root of the folder and use the following to set up an endpoint for your application:
+
+```app.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+    res.send("Hello World");
+})
+
+app.get('/test', (req, res) => {
+    res.send('Test Route!');
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+})
 ```
 
-[Try this example live](/onboarding/github)
+<br />
+
+After you create the `app.js` file, you can run the Express application with the following command:
+<br />
+##### `node app.js`
+<br />
+You should now see your app running at [https://localhost:3000](https://localhost:3000).
+
+<br />
+<br />
+
+### Summary of Steps:
+##### 1. `node --version`
+<br />
+##### 2. `npm --version`
+<br />
+##### 3. `mkdir [app_name]`
+<br />
+##### 4. `cd [app_name]`
+<br />
+##### 5. <span className="tw-font-normal">Create your `app.js` file with the content above</span>
+<br />
+##### 6. `node app.js`
+
+<br />
+
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Layerfile
+
+<br />
+
+Listed below is an example Layerfile for webapp.io which you can use to setup a basic Express JS application. We'll breakdown this Layerfile in the section below for a set of detailed explanation on what each one of the instructions do.
+
+<br />
+
+```Layerfile
+FROM vm/ubuntu:18.04
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo npm install npm@latest -g
+
+
+COPY . .
+RUN npm install
+RUN BACKGROUND node app.js
+EXPOSE WEBSITE http://localhost:3000
+```
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Setting up the Layerfile
+
+If you haven't already, please sign up to [webapp.io](/sign-up), and install webapp.io onto your repository.
+<br />
+First let's breakdown each instruction in our Layerfile.
+
+<br />
+<br />
+
+#### 1: Set the Image
+#### `FROM vm/ubuntu:18.04`
+
+The <a href="/docs/layerfile-reference#the-from-instruction" target="_blank">`FROM` <NewTabIcon /></a> instruction tells webapp.io what base to use to run tests from. There can only be one `FROM` line, and in this case we're using the `ubuntu:18.04` virtual machine image.
+
+<br />
+
+If you're familiar with AWS Ec2 Instances, this is similar to creating a virtual machine from the ubuntu 18.04 image.
+
+
+<br />
+<br />
+<br />
+
+#### 2. Install NodeJS and NPM
+#### `RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+#### `RUN sudo apt-get install -y nodejs`
+#### `RUN sudo npm install npm@latest -g`
+
+<br />
+The <a href="/docs/layerfile-reference#the-run-instruction">`RUN` <NewTabIcon /></a> instruction will run the given script, and fails the Layerfile if the script fails. In this case, we're using the `RUN` command to install the dependencies we need to build and run the Express application.
+<br />
+In this case we're using the `RUN` instruction to download Node JS and npm.
+
+<br />
+<br />
+<br />
+
+
+#### 3. Get Repository Files
+#### `COPY . .`
+The <a href="/docs/layerfile-reference#the-copy-instruction">`COPY` <NewTabIcon /></a> instruction moves files from your repository to the virtual machine. The Layerfile will pick up on the files in the repository that you are making the commit for, and will copy those files into the virtual machine so you can run you project.
+
+<br />
+<br />
+
+#### 4. Install Dependencies
+#### `RUN npm install`
+
+Similar to the `RUN` commands above, this will execute the given script `npm install`, which will install the dependencies for the Express app.
+
+<br />
+<br />
+
+#### 5. Start the Express App
+#### `RUN BACKGROUND node app.js`
+
+The <a href="/docs/layerfile-reference#the-run-instruction">`RUN BACKGROUND` <NewTabIcon /></a> instruction is the `RUN` instruction with the `BACKGROUND` flag. This tells webapp.io to continue to the next step in the Layerfile instead of waiting for the given script to run. The reason why we do this is that `node app.js` will essentially block the terminal while the Express app is running. We want to continue to the next step so that's why we use `RUN BACKGROUND` here.
+
+<br />
+<br />
+
+#### 6. Expose Express App on the Virtual Machine
+#### `EXPOSE WEBSITE http://localhost:3000`
+
+The <a href="/docs/layerfile-reference#the-expose-website-instruction">`EXPOSE WEBSITE` <NewTabIcon /></a> instruction creates a link to view the virtual machine at a specific port. We use `EXPOSE WEBSITE` to expose the virtual machine on port 3000 which is where the Express application runs after running `node app.s`. We use `EXPOSE WEBSITE` here so we can get a link to our Express JS app to share with stakeholders involved in our projects.
+
+<br />
+<br />
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Adding the Layerfile
+
+<br />
+
+The last step in this process is to add the Layerfile to your repository. Simply create a file called `Layerfile` (no file extension) in the root of your Express JS application. If you haven't already, install webapp.io onto your repository containing your Express JS app. Once done, simply create a commit and push your Express app to the repository with the new Layerfile. Webapp.io will pick up on the Layerfile and build your Express JS application according to the steps in your Layerfile.
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Video Tutorial
+
+<br />
+
+Check out our Express JS video tutorial before for a step-by-step breakdown on how to set up webapp.io with preview environments for an Express JS application:
+
+<br />
+
+<div className="Docs_VideoFrame">
+<iframe src="https://drive.google.com/file/d/1EhLiIr4lyoWjbcMacGMieWWGrfEOm0DW/preview" width="100%" height="100%" className="tw-rounded" allow="autoplay" />
+</div>
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+#### <a href="https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webapp-express" target="_blank" class="no-href-check">View Project Source Code <NewTabIcon /></a>
+
+<br />
+<br />

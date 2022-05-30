@@ -1,26 +1,206 @@
 # Angular Example
 
+<br />
+
+##### 1. <a href="/docs/examples/angular#setting-up-the-angular-application" className="tw-font-normal">Setting up the Angular Application</a>
+##### 2. <a href="/docs/examples/angular#layerfile" className="tw-font-normal">Layerfile</a>
+##### 3. <a href="/docs/examples/angular#setting-up-the-layerfile" className="tw-font-normal">Setting up the Layerfile</a>
+##### 4. <a href="/docs/examples/angular#adding-the-layerfile" className="tw-font-normal">Adding the Layerfile</a>
+##### 5. <a href="/docs/examples/angular#video-tutorial" className="tw-font-normal">Video Tutorial</a>
+##### 6. <a href="https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-angular" target="_blank" className="no-href-check tw-font-normal">Project Source Code</a>
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Setting up the Angular Application
+**(You can skip this section if you already have an Angular app running.)**
+
+To build your Angular application, ensure you have both node and npm installed. You can verify with the following commands:
+`node --version`
+`npm --version`.
+If installed correctly these will both give you a number as an output.
+
+<br />
+
+Next, install the Angular CLI with `npm install -g @angular/cli`;
+
+<br />
+
+After installed, go to a folder and run the following command `ng new webappio-angular-example`. This will create a new Angular app in the folder 'webappio-angular-example'. When running this command, you'll be prompted to use Angular routing (we selected yes), and select a stylesheet (we selected SCSS).
+
+<br />
+
+Once your app is finished installing, go into your directory with the command `cd webappio-angular-example`, and run the command `ng serve -o --poll=2000`. This will open the angular application on your computer on your localhost. You can now go in and change the title of the page or make another change to your Angular application to see the changes in effect.
+
+<br />
+
+#### Summary of Steps:
+##### 1. `node --version`
+<br />
+##### 2. `npm --version`
+<br />
+##### 3. `npm install -g @angular/cli`
+<br />
+##### 4. `ng new webappio-angular-example`<br />
+<br />
+##### 5. `cd webappio-angular-example`
+<br />
+##### 6. `ng serve -o --poll=2000`
+
+<br />
+
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Layerfile
+
+<br />
+
+Listed below is an example Layerfile for webapp.io which you can use to setup a basic Angular application. We'll breakdown this Layerfile in the section below for a set of detailed explanation on what each one of the instructions do.
+
+<br />
+
 ```Layerfile
-    #This is an example webapp.io configuration for Angular
-    FROM vm/ubuntu:18.04
+# Set the image
+FROM vm/ubuntu:18.04
 
-    # To note: Layerfiles create entire VMs, *not* containers!
+# Install nodejs and npm
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo npm install npm@latest -g
 
-    # install node 10
-    RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \\
-        apt-get install --no-install-recommends gcc g++ make nodejs && \\
-        rm -f /etc/apt/sources.list.d/nodesource.list
+# Install angular
+RUN npm install -g @angular/cli
 
-    # install angular CLI
-    RUN npm install -g @angular/cli
+# Get files from repository
+COPY . .
 
-    COPY . .
-    RUN npm install
-    RUN ng build --optimization=false
+# Install project dependencies
+RUN npm install
 
-    # small hack - node doesn't persist in destination of a COPY
-    RUN BACKGROUND ng serve --host 0.0.0.0 --disable-host-check
-    EXPOSE WEBSITE http://localhost:4200
+# Run angular app
+RUN BACKGROUND ng serve --host 0.0.0.0 --disable-host-check
+
+# Show website on preview environment at port 4200
+EXPOSE WEBSITE http://localhost:4200
 ```
 
-[Try this example live](/onboarding/github)
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Setting up the Layerfile
+
+If you haven't already, please sign up to [webapp.io](/sign-up), and install webapp.io onto your repository.
+<br />
+First let's breakdown each instruction in our Layerfile.
+
+<br />
+<br />
+
+#### 1: Set the Image
+#### `FROM vm/ubuntu:18.04`
+
+The <a href="/docs/layerfile-reference#the-from-instruction" target="_blank">`FROM` <NewTabIcon /></a> instruction tells webapp.io what base to use to run tests from. There can only be one `FROM` line, and in this case we're using the `ubuntu:18.04` virtual machine image.
+
+<br />
+
+If you're familiar with AWS Ec2 Instances, this is similar to creating a virtual machine from the ubuntu 18.04 image.
+
+
+<br />
+<br />
+<br />
+
+#### 2. Install NodeJS and NPM
+#### `RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+#### `RUN sudo apt-get install -y nodejs`
+#### `RUN sudo npm install npm@latest -g`
+
+<br />
+The <a href="/docs/layerfile-reference#the-run-instruction">`RUN` <NewTabIcon /></a> instruction will run the given script, and fails the Layerfile if the script fails. In this case, we're using the `RUN` command to install the dependencies we need to build and run the Angular application.
+<br />
+In this case we're using the `RUN` instruction to download Node JS and npm.
+
+<br />
+<br />
+<br />
+
+#### 3. Install Angular
+#### `RUN npm install -g @angular/cli`
+
+Similar to the previous step, we use the `RUN` command but this time we're using it to install Angular. This was the same step you ran when setting up Angular locally.
+
+<br />
+<br />
+<br />
+
+
+#### 4. Get Repository Files
+#### `COPY . .`
+The <a href="/docs/layerfile-reference#the-copy-instruction">`COPY` <NewTabIcon /></a> instruction moves files from your repository to the virtual machine. The Layerfile will pick up on the files in the repository that you are making the commit for, and will copy those files into the virtual machine so you can run you project.
+
+<br />
+<br />
+
+#### 5. Install Dependencies
+#### `RUN npm install`
+
+Similar to the `RUN` commands above, this will execute the given script `npm install`, which will install the dependencies for the Angular app.
+
+<br />
+<br />
+
+#### 6. Start the Angular App
+#### `RUN BACKGROUND ng serve --host 0.0.0.0 --disable-host-check`
+
+The <a href="/docs/layerfile-reference#the-run-instruction">`RUN BACKGROUND` <NewTabIcon /></a> instruction is the `RUN` instruction with the `BACKGROUND` flag. This tells webapp.io to continue to the next step in the Layerfile instead of waiting for the given script to run. The reason why we do this is that `ng serve` will essentially block the terminal while the Angular app is running. We want to continue to the next step so that's why we use `RUN BACKGROUND` here.
+
+<br />
+<br />
+
+#### 7. Expose Angular App on the Virtual Machine
+#### `EXPOSE WEBSITE http://localhost:4200`
+
+The <a href="/docs/layerfile-reference#the-expose-website-instruction">`EXPOSE WEBSITE` <NewTabIcon /></a> instruction creates a link to view the virtual machine at a specific port. We use `EXPOSE WEBSITE` to expose the virtual machine on port 4200 which is where the Angular application runs after running `ng serve`. We use `EXPOSE WEBSITE` here so we can get a link to our Angular app to share with stakeholders involved in our projects.
+
+<br />
+<br />
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Adding the Layerfile
+
+<br />
+
+The last step in this process is to add the Layerfile to your repository. Simply create a file called `Layerfile` (no file extension) in the root of your Angular application. If you haven't already, install webapp.io onto your repository containing your Angular app. Once done, simply create a commit and push your Angular app to the repository with the new Layerfile. Webapp.io will pick up on the Layerfile and build your Angular application according to the steps in your Layerfile.
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+## Video Tutorial
+
+<br />
+
+Check out our Angular video tutorial before for a step-by-step breakdown on how to set up webapp.io with preview environments for an Angular application:
+
+<br />
+
+<div className="Docs_VideoFrame">
+<iframe src="https://drive.google.com/file/d/1dHiyZngxAZYkF7OCEIujVhjibFF81jK7/preview" width="100%" height="100%" className="tw-rounded" allow="autoplay" />
+</div>
+
+<div class="section-spacing"></div>
+<hr />
+<div class="section-spacing"></div>
+
+#### <a href="https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-angular" target="_blank" class="no-href-check">View Project Source Code <NewTabIcon /></a>
+
+<br />
+<br />
