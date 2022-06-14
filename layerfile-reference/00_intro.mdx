@@ -1,10 +1,45 @@
-<div className="Docs--Overline">Layerfile Reference</div>
+<div className="Docs--Overline tw-mb-2">What are Layerfiles?</div>
+
+Webapp.io uses files called Layerfile to let our users:
+1. Create full-stack environments
+2. Build multi-step CI/CD workflows
+3. Run and parallelize their end-to-end tests
 
 <div className="section-spacing"></div>
 
-This page contains a reference for each directive which can appear in a Layerfile.
+### Here's an example
+Layerfiles run top down, and take snapshots as they progress. Consider this configuration:
+```Layerfile
+FROM webapp.io/node:16
 
-For a more introductory reference, see [the documentation home](/docs/home)
+COPY / /root
+RUN npm install
+RUN BACKGROUND npm run start
+EXPOSE WEBSITE localhost:3000
+```
+
+##### How it would build
+
+It would:
+1. Start building from a VM with NodeJS version 16 installed,
+2. Copy the repository files into the machine
+3. Install the dependencies with `npm install`
+4. Start the webserver in the background with `npm run start`
+5. Wait for the webserver at port 3000 to be running, then expose it as a website
+
+
+<div className="section-spacing"></div>
+### Key idea: Snapshotting the runner state
+
+In the example above, steps like `npm install` can be re-used between commits unless the files `package.json` or `package-lock.json` change.
+
+<br />
+Webapp.io *automatically* skips steps like `npm install` for you by watching which files are read.
+In the example above, it would take a snapshot of the VM after `npm install` ran, and notice that the step only read the files `package.json` and `package-lock.json`.
+
+<br />
+If you push another commit which doesn't change either of those files, the Layerfile build would load the snapshot taken after the step last ran, and skip it entirely.
+
 
 <div className="section-spacing"></div>
 
