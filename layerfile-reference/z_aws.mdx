@@ -1,0 +1,83 @@
+---
+<div className="section-spacing"></div>
+
+# The AWS instruction
+
+The `AWS` instruction provides multiple functionalities to ease your need to connect with AWS.
+
+<br />
+
+### Examples
+
+- Example usage:
+
+```Layerfile
+# install AWS CLI
+RUN apt-get update && apt-get install unzip
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+# set up
+AWS link --region="us-east-1"
+# Attach desired permissions to the user
+RUN aws iam attach-user-policy --policy-arn arn:aws:iam:ACCOUNT-ID:aws:policy/AdministratorAccess --user-name Alice
+# Check caller identity
+RUN aws sts get-caller-identity
+```
+
+<br />
+
+### Prerequisite
+
+**Step 1:** Navigate to the Organization tab under Settings in your webapp.io account.
+![View of organization settings page in webapp.io](/docs/resources/aws_1.png)
+
+Note: If you can't see this option, contact us and we will enable this feature for your organization.
+
+<br />
+
+<div className="section-spacing"></div>
+
+**Step 2:** Click ‘Integrate webapp.io with AWS’ at the bottom. Download the CloudFormation template and then click `Launch Stack on AWS`.
+![View of AWS integration page in webapp.io](/docs/resources/aws_2.png)
+
+<br />
+
+<div className="section-spacing"></div>
+
+**Step 3:** Upload the template and create a stack with it.
+![View of AWS CloudFormation console](/docs/resources/aws_3.png)
+
+<br />
+
+<div className="section-spacing"></div>
+
+**Step 4:** After the stack is created, go to output tab and copy the value of key `WebAppIORoleARN`.
+![View of AWS CloudFormation console](/docs/resources/aws_4.png)
+
+<br />
+
+<div className="section-spacing"></div>
+
+**Step 5:** Paste the AWS role ARN back to webapp.io and click `Save`. All done!
+![View of AWS CloudFormation console](/docs/resources/aws_5.png)
+
+<br />
+
+<div className="section-spacing"></div>
+
+### Available commands and syntax
+
+#### link
+
+`AWS link --region=aws_region_name`
+
+This commands sets up environment variables of the vm for the AWS user we created for your organization and default region you specified.
+
+You can attach relevant permissions to this user through AWS console/CLI.
+
+After attaching required permissions, you can use AWS CLI in a layerfile like you normally do.
+
+Note: `link` is currently the only supported command for AWS instruction. More is to come!
+
+<br />
