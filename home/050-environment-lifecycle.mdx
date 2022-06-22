@@ -1,0 +1,25 @@
+## Environment Lifecycle
+
+Environments (Layerfiles with <a href="/docs/layerfile-reference#the-expose-website-instruction">EXPOSE WEBSITE</a>, Layerfiles that expose a debug terminal, etc.) have three lifecycle levels:
+<br />
+- *Deleted*, which means you can't start them without rebuilding (rebuilding deletes everything, like your temporary database, registered user, and state in the environment).
+- *Stopped*, which means you see a spinner as they start
+- *Running*, which means it's currently running
+<br />
+
+##### Running to Stopped
+
+The Running lifecycle to Stopped lifecycle happens for a few reasons:
+- After 3 minutes of inactivity if there are builds queued
+- After 60 minutes in general (this can be changed by our admin team if requested)
+
+<br />
+
+##### Stopped to Deleted
+
+The Stopped lifectyle to Deleted lifecycle happens for two reasons:
+- Something crashes (rare)
+- Snapshot is deleted (see <a href="/docs/home#snapshots--snapshot-retention">Snapshots & Snapshot Retention</a> above)
+
+<br />
+<br />
