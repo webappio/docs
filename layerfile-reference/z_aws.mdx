@@ -12,6 +12,9 @@ The `AWS` instruction provides multiple functionalities to ease your need to con
 - Example usage:
 
 ```Layerfile
+#Use an Ubuntu 18.04 base image
+FROM vm/ubuntu:18.04
+
 # install AWS CLI
 RUN apt-get update && apt-get install unzip
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
