@@ -7,9 +7,9 @@ The `AWS` instruction provides multiple functionalities to ease your need to con
 
 <br />
 
-### Examples
+### Examples usages:
 
-- Example usage:
+#### Making sure you are authenticated as the correct AWS user:
 
 ```Layerfile
 #Use an Ubuntu 18.04 base image
@@ -26,6 +26,32 @@ AWS link --region="us-east-1"
 RUN aws iam attach-user-policy --policy-arn arn:aws:iam:ACCOUNT-ID:aws:policy/AdministratorAccess --user-name Alice
 # Check caller identity
 RUN aws sts get-caller-identity
+```
+
+#### Running a new EC2 instance and run an example Cal.com task with ECS:
+
+```Layerfile
+#Use an Ubuntu 18.04 base image
+FROM vm/ubuntu:18.04
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN apt-get update && apt install unzip
+RUN unzip awscliv2.zip
+RUN ./aws/install
+#The following line specifies an EC2 user data script that launches your container instance into a non-default 'calcom' cluster
+#We save the script into my_script.txt for later use
+RUN echo -e '#!/bin/bash\necho "ECS_CLUSTER=calcom" >> /etc/ecs/ecs.config' >> my_script.txt
+AWS link --region='us-east-1'
+#Run an ECS optimized AMI and save the instance identifier into instance_id.txt for later use
+RUN aws ec2 run-instances --image-id ami-040d909ea4e56f8f3 --instance-type t2.micro --iam-instance-profile Name="ecsInstanceRole" \
+--user-data file://my_script.txt --output text --query "Instances[*].InstanceId" > instance_id.txt
+#Wait for the instance to come up...
+RUN aws ec2 wait instance-status-ok --instance-ids $(cat instance_id.txt)
+#Start the Cal.com pod with your own task configuration...
+#Note that it is required to set output format to text otherwise it might cause the instruction to hang
+RUN aws ecs run-task --cluster calcom --task-definition ECSCalComDemoTask:1 --output text
+#Done! You can now access the Cal.com scheduler through the public IPv4 address of the EC2 instance
+#If you cannot connect, make sure you set the correct security group/inbound rules
 ```
 
 <br />
@@ -84,3 +110,6 @@ After attaching required permissions, you can use AWS CLI in a layerfile like yo
 Note: `link` is currently the only supported command for AWS instruction. More is to come!
 
 <br />
+
+<div className="section-spacing"></div>
+
