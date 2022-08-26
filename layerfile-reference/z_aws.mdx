@@ -61,7 +61,7 @@ RUN aws ecs run-task --cluster calcom --task-definition ECSCalComDemoTask:1 --ou
 **Step 1:** Navigate to the Organization tab under Settings in your webapp.io account.
 ![View of organization settings page in webapp.io](/docs/resources/aws_1.png)
 
-Note: If you can't see this option, contact us and we will enable this feature for your organization.
+Note: If you can't see this option, contact us, and we will enable this feature for your organization.
 
 <br />
 
@@ -101,15 +101,34 @@ Note: If you can't see this option, contact us and we will enable this feature f
 
 `AWS link --region=aws_region_name`
 
-This commands sets up environment variables of the vm for the AWS user we created for your organization and default region you specified.
+This command sets up environment variables of the vm for the AWS user we created for your organization and default region you specified.
 
 You can attach relevant permissions to this user through AWS console/CLI.
 
 After attaching required permissions, you can use AWS CLI in a layerfile like you normally do.
 
-Note: `link` is currently the only supported command for AWS instruction. More is to come!
+#### install
 
-<br />
+`AWS install`
 
-<div className="section-spacing"></div>
+This command installs AWS CLI in the vm. After running `AWS link ...` you will be able to run AWS CLI commands directly with `RUN aws ...`
 
+#### run-instances
+
+`AWS run-instances --cli-input-json=file_name`
+
+This command is a wrapper for `aws ec2 run-instances`. The difference being that we keep track of the EC2 instance that gets created and terminate it after the snapshot for the layerfile this command runs in gets deleted.
+
+You must give permission to the user that we create for you with `AWS link` command through AWS console or AWS CLI.
+
+You also need an input file in your current WORKDIR. You can use `aws ec2 run-instances --generate-cli-skeleton` to generate a template formatted in JSON and make changes to it accordingly.
+
+#### run-instances
+
+`AWS run-task --cli-input-json=file_name`
+
+This command is a wrapper for `aws ecs run-task`. The difference being that we keep track of the ECS tasks that is run and stop it after the snapshot for the layerfile this command runs in gets deleted.
+
+You must give permission to the user that we create for you with `AWS link` command through AWS console or AWS CLI.
+
+You also need an input file in your current WORKDIR. You can use `aws ecs run-task --generate-cli-skeleton` to generate a template formatted in JSON and make changes to it accordingly.
