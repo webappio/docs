@@ -1,0 +1,435 @@
+---
+title: "Docker Compose Example"
+---
+
+1. [Setting up the Docker Compose Application](./docker-compose#setting-up-the-docker-compose-application)
+
+2. [Layerfile](./docker-compose#layerfile)
+
+3. [Setting up the Layerfile](./docker-compose#setting-up-the-layerfile)
+
+4. [Adding the Layerfile](./docker-compose#adding-the-layerfile)
+
+5. [Video Tutorial](./docker-compose#video-tutorial)"
+
+6. [Project Source Code](https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-docker-compose)
+
+## Setting up the Docker Compose Application
+
+**(You can skip this section if you already have an application using Docker
+Compose running.)**
+
+For this example we're going to build an application that uses Express JS as our
+server (backend) with a React JS client (frontend). Our application will use
+Docker Compose to serve both the client and the server.
+
+To build your React frontend and Express backend, ensure you have node, npm,
+npx, Docker, and Docker Compose installed. You can verify with the following
+commands:
+
+- `node --version`
+
+- `npm --version`
+
+- `npx --version`
+
+- `docker`
+
+- `docker-compose`
+
+If installed correctly these will give you an output in the terminal.
+
+After installed, create a new folder to store your project with
+`mkdir [app_name]`, and go to that directory with `cd [app_name]`.
+
+First, let's set up the Express backend. Create a new folder called server with
+`mkdir server`, and go to that directory with `cd server`.
+
+In the server folder, run the following commands:
+
+- `npm init`
+
+- `npm install express`
+
+Once installed, create a new file in the folder called `app.js` and add the
+following code:
+
+```javascript app.js
+const express = require("express");
+const app = express();
+const port = 5001;
+const cors = require("cors");
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if ((!origin, callback)) {
+      callback(null, true);
+    } else {
+      callback(new Error("not allowed bycors"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.get("/api/", (req, res) => {
+  res.send("Hello World!");
+});
+app.post("/api/get-data", (req, res) => {
+  res.send({ text: "webapp.io" });
+});
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
+```
+
+Next create a file called `Dockerfile` in the `server` folder with the following
+code:
+
+```docker Dockerfile
+FROM node:12-alpine
+RUN apk add --no-cache python2 g++ make
+WORKDIR /app
+COPY . .
+RUN npm install --production
+CMD ["node", "app.js"];
+EXPOSE 5001
+```
+
+Once those files are added, go back to the root folder with `cd ..`.
+
+In the root folder, run the following command `npx create-react-app client`.
+This will create your React app. Once the installation has finished, cd into the
+directory with `cd client`.NewTabIcon
+
+Once in the client, create a file called `Dockerfile` with the following
+contents:
+
+```docker Dockerfile
+FROM node:12-alpine
+RUN apk add --no-cache python2 g++ make WORKDIR
+/app ENV PATH /app/node_modules/.bin:$PATH COPY package.json ./ COPY package-lock.json
+./ RUN npm install COPY . . CMD ["npm", "start"]
+EXPOSE 3000
+```
+
+Next, change the content of `client/src/App.js` to the following:
+
+```javascript /client/src/App.js
+import { useEffect, useState } from "react";
+
+const App = () => {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    fetch("/api/get-data", { method: "POST" }).then(async (res) => {
+      const data = await res.json();
+      if (data?.text) {
+        setData(data.text);
+      } else {
+        setData("No Data Received.");
+      }
+    });
+  });
+  return <div>Data Received: {data}</div>;
+};
+
+export default App;
+```
+
+In this JS file we're using fetch to request data from our Express backend.
+
+Lastly, change the content of `client/package.json` by adding the following line
+`"proxy": "http://localhost:5001",`.
+
+```json client/package.json
+{
+  "name": "client",
+  "version": "0.1.0",
+  "proxy": "http://localhost:5001",
+  "private": true,
+  ...
+}
+```
+
+Once these changes are made, go back to your root folder with `cd ..`. Once in
+the root folder, create a `docker-compose.yml` file with the following content:
+
+```yaml docker-compose.yml
+version: "3.9"
+services:
+  server:
+    build: ./server
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./server:/app
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+    depends_on:
+      - server
+```
+
+After you've made the above changes, run the command `docker-compose up` to
+start your application.
+
+### Summary of Steps:
+
+1. `node --version`
+
+2. `npm --version`
+
+3. `npx --version`
+
+4. `docker`
+
+5. `docker-compose`
+
+6. `mkdir [app_name]`
+
+7. `cd [app_name]`
+
+8. `mkdir server`
+
+9. `cd server`
+
+10. Create `/server/app.js` file and add content above.
+
+11. Create `/server/Dockerfile` file and add content above.
+
+12. `cd . .`
+
+13. `npx create-react-app client`
+
+14. `cd client`
+
+15. Create `/client/Dockerfile` file and add the content above.
+
+16. Change contents of the `/client/src/App.js` file to the content above.
+
+17. Change contents of the `/client/src/package.json` file to the content above.
+
+18. `cd ..`
+
+19. Create a `/docker-compose.yml` file and add the content above.
+
+20. `docker-compose up`
+
+## Layerfile
+
+Listed below is an example Layerfile for webapp.io which you can use to setup
+the Docker Compose application. We'll breakdown this Layerfile in the section
+below for a set of detailed explanation on what each one of the instructions do.
+
+```docker Layerfile
+FROM vm/ubuntu:18.04
+
+MEMORY 2G
+
+# Install docker
+RUN apt-get install curl apt-transport-https ca-certificates software-properties-common
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+RUN apt update
+RUN apt-cache policy docker-ce
+RUN apt install docker-ce
+
+# Install docker compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
+# Install React
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo npm install npm@latest -g
+
+ENV NODE_OPTIONS=--max-old-space-size=8192
+
+# Verify docker compose is installed
+RUN docker-compose --version
+
+COPY . .
+
+# Install dependencies
+WORKDIR client
+RUN npm install
+
+WORKDIR /root/server
+RUN npm install
+
+RUN docker-compose up -d
+EXPOSE WEBSITE http://localhost:5001 /api
+EXPOSE WEBSITE http://localhost:3000 /
+```
+
+## Setting up the Layerfile
+
+If you haven't already, please sign up to [webapp.io](/sign-up), and install
+webapp.io onto your repository.
+
+First let's breakdown each instruction in our Layerfile.
+
+### 1: Set the Image
+
+### `FROM vm/ubuntu:18.04`
+
+The [instruction](../layerfile-reference/memory) tells webapp.io what base to
+use to run tests from. There can only be one `FROM` line, and in this case we're
+using the `ubuntu:18.04` virtual machine image.
+
+If you're familiar with AWS Ec2 Instances, this is similar to creating a virtual
+machine from the ubuntu 18.04 image.
+
+### 2: Set the Memory
+
+### `MEMORY 2G`
+
+The [instruction](../layerfile-reference/memory) allows you to specify how much
+memory your environment uses. In this case we use `MEMORY 2G` to ensure that at
+least 2GB of memory are available.
+
+### 3. Install Docker
+
+`RUN apt-get install curl apt-transport-https ca-certificates software-properties-common`
+
+`RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+
+`RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"`
+
+`RUN apt update`
+
+`RUN apt-cache policy docker-ce`
+
+`RUN apt install docker-ce`
+
+The [instruction](../layerfile-reference/run) will run the given script, and
+fails the Layerfile if the script fails. In this case, we're using the `RUN`
+command to install the dependencies we need to build and run the React
+application.
+
+In this case we're using the `RUN` instruction to download Docker.
+
+### 4. Install Docker Compose
+
+`RUN curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-'uname -s'-'uname -m' -o /usr/local/bin/docker-compose`
+
+`RUN chmod +x /usr/local/bin/docker-compose`
+
+Similar to the `RUN` commands above, this will execute the given script, which
+will install docker compose on the virtual machine so we can run
+`docker-compose up`.
+
+### 5. Install React
+
+`RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+
+`RUN sudo apt-get install -y nodejs`
+
+`RUN sudo npm install npm@latest -g`
+
+Similar to the `RUN` commands above, this will execute the given scripts to
+install Node JS and npm which are both needed for React.
+
+### 6. Set Node Space Size
+
+`ENV NODE_OPTIONS=--max-old-space-size=8192`
+
+The [instruction](../layerfile-reference/env) persistently sets environment
+variables in the Layerfile. In this case, the `NODE_OPTIONS` gets set to a
+specific size so that it can be consumed later in the React start process.
+
+### 7. Verify Docker Compose is installed
+
+`RUN docker-compose --version`
+
+This `RUN` instruction step is not needed, however we're adding it here to check
+if the virtual machine installed Docker Compose successfully.
+
+### 8. Get Repository Files
+
+`COPY . .`
+
+The `COPY` [instruction](../layerfile-reference/copy) moves files from your
+repository to the virtual machine. The Layerfile will pick up on the files in
+the repository that you are making the commit for, and will copy those files
+into the virtual machine so you can run you project.
+
+### 9. Install Client Dependencies
+
+`WORKDIR client`
+
+`RUN npm install`
+
+The `RUN` [instruction](../layerfile-reference/workdir) instruction changes the
+location from which files are resolved in the runner.
+
+### 10. Install Server Dependencies
+
+`WORKDIR /root/server`
+
+`RUN npm install`
+
+Similar to the instruction above, these steps navigate to the Server folder and
+add all the dependencies needed.
+
+### 11. Run Application with Docker Compose
+
+`RUN docker-compose up -d`
+
+After installing all dependencies we run `docker-compose up -d` to start our
+React and Server applications.
+
+### 12. Expose Server Endpoint on the Virtual Machine
+
+`EXPOSE WEBSITE http://localhost:5001 /api`
+
+The `EXPOSE WEBSITE` [instruction](../layerfile-reference/expose-website)
+creates a link to view the virtual machine at a specific port. We use
+`EXPOSE WEBSITE` to expose the virtual machine on port 3000 which is where the
+React application runs after running `npm start`. We use `EXPOSE WEBSITE` here
+so we can get a link to our React app to share with stakeholders involved in our
+projects.
+
+This line is especially important since all requests to the `/api` endpoint will
+hit our server running on `port:5001`.
+
+### 13. Expose Client Endpoint on the Virtual Machine
+
+`EXPOSE WEBSITE http://localhost:3000 /`
+
+Similar to the instruction above `EXPOSE CLIENT` exposes the preview environment
+at port 3000. After expose, you can head to the preview environment link to see
+it in action.
+
+This line is especially important since all requests to the `/api` endpoint will
+hit our server running on `port:5001`.
+
+## Adding the Layerfile
+
+The last step in this process is to add the Layerfile to your repository. Simply
+create a file called `Layerfile` (no file extension) in the root of your React
+application. If you haven't already, install webapp.io onto your repository
+containing your full-stack app. Once done, simply create a commit and push your
+React app to the repository with the new Layerfile. Webapp.io will pick up on
+the Layerfile and build your application according to the steps in your
+Layerfile.
+
+## Video Tutorial
+
+Check out our
+[Docker Compose video tutorial](https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-docker-compose)
+for a step-by-step breakdown on how to set up webapp.io with preview
+environments for a Docker Compose application.
+
+<iframe
+  width="100%"
+  src="https://www.youtube.com/embed/LfxrqA3ZH3U"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>

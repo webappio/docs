@@ -1,0 +1,192 @@
+---
+title: "React Example"
+---
+
+1. [Setting up the React Application](./react#setting-up-the-react-application)
+
+2. [Layerfile](./react#layerfile)
+
+3. [Setting up the Layerfile](./react#setting-up-the-layerfile)
+
+4. [Adding the Layerfile](./react#adding-the-layerfile)
+
+5. [Video Tutorial](./react#video-tutorial)
+
+6. [Project Source Code](https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-react)
+
+## Setting up the React Application
+
+**(You can skip this section if you already have a React app running.)**
+
+To build your React application, ensure you have node, npm, and npx installed.
+You can verify with the following commands:
+
+- `node --version`
+
+- `npm --version`
+
+- `npx --version`
+
+If installed correctly these will both give you a number as an output.
+
+After installed, go to a folder and run the following command
+`npx create-react-app [app_name]` (where `[app_name]` is the name of your
+application). This will create a new React app in the folder '[app_name]'.
+
+Once your app is finished installing, go into your directory with the command
+`cd [app_name]`, and run the command `npm start`. This will open the React
+application on your computer at `http://localhost:3000`. You can now go in and
+change the title of the page or make another change to your React application to
+see the changes in effect.
+
+### Summary of Steps:
+
+1.  `node --version`
+
+2.  `npm --version`
+
+3.  `npx --version`
+
+4.  `npx create-react-app [app_name]`
+
+5.  `cd [app_name]`
+
+6.  `npm start`
+
+## Layerfile
+
+Listed below is an example Layerfile for webapp.io which you can use to setup a
+basic React application. We'll breakdown this Layerfile in the section below for
+a set of detailed explanation on what each one of the instructions do.
+
+```docker Layerfile
+# Set the image
+FROM vm/ubuntu:18.04
+
+MEMORY 2G
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo npm install npm@latest -g
+
+ENV NODE_OPTIONS=--max-old-space-size=8192
+
+COPY . .
+
+RUN npm install
+
+RUN BACKGROUND npm start
+
+EXPOSE WEBSITE http://localhost:3000
+```
+
+## Setting up the Layerfile
+
+If you haven't already, please sign up to [webapp.io](/sign-up), and install
+webapp.io onto your repository.
+
+First let's breakdown each instruction in our Layerfile.
+
+### 1: Set the Image
+
+`FROM vm/ubuntu:18.04`
+
+The `FROM` instruction tells webapp.io what base to use to run tests from. There
+can only be one `FROM` line, and in this case we're using the `ubuntu:18.04`
+virtual machine image.
+
+If you're familiar with AWS Ec2 Instances, this is similar to creating a virtual
+machine from the ubuntu 18.04 image.
+
+### 2: Set the Memory
+
+`MEMORY 2G`
+
+The `MEMORY` instruction allows you to specify how much memory your environment
+uses. In this case we use `MEMORY 2G` to ensure that at least 2GB of memory are
+available.
+
+### 3. Install NodeJS and NPM
+
+`RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+
+`RUN sudo apt-get install -y nodejs`
+
+`RUN sudo npm install npm@latest -g`
+
+The `RUN` instruction will run the given script, and fails the Layerfile if the
+script fails. In this case, we're using the `RUN` command to install the
+dependencies we need to build and run the React application.
+
+In this case we're using the `RUN` instruction to download Node JS and npm.
+
+### 4. Set Node Space Size
+
+`ENV NODE_OPTIONS=--max-old-space-size=8192`
+
+The `ENV` instruction persistently sets environment variables in the Layerfile.
+In this case, the `NODE_OPTIONS` gets set to a specific size so that it can be
+consumed later in the React start process.
+
+### 5. Get Repository Files
+
+`COPY . .`
+
+The `COPY` instruction moves files from your repository to the virtual machine.
+The Layerfile will pick up on the files in the repository that you are making
+the commit for, and will copy those files into the virtual machine so you can
+run you project.
+
+### 6. Install Dependencies
+
+`RUN npm install`
+
+Similar to the `RUN` commands above, this will execute the given script
+`npm install`, which will install the dependencies for the React app.
+
+### 7. Start the React app
+
+`RUN BACKGROUND npm start`
+
+The `RUN BACKGROUND` [instruction](../layerfile-reference/run) is the `RUN`
+instruction with the `BACKGROUND` flag. This tells webapp.io to continue to the
+next step in the Layerfile instead of waiting for the given script to run. The
+reason why we do this is that `npm start` will essentially block the terminal
+while the React app is running. We want to continue to the next step so that's
+why we use `RUN BACKGROUND` here.
+
+### 8. Expose React App on the Virtual Machine
+
+`EXPOSE WEBSITE http://localhost:3000`
+
+The`EXPOSE WEBSITE` [instruction](../layerfile-reference/expose-website) creates
+a link to view the virtual machine at a specific port. We use `EXPOSE WEBSITE`
+to expose the virtual machine on port 3000 which is where the React application
+runs after running `npm start`. We use `EXPOSE WEBSITE` here so we can get a
+link to our React app to share with stakeholders involved in our projects.
+
+## Adding the Layerfile
+
+The last step in this process is to add the Layerfile to your repository. Simply
+create a file called `Layerfile` (no file extension) in the root of your React
+application. If you haven't already, install webapp.io onto your repository
+containing your React app. Once done, simply create a commit and push your React
+app to the repository with the new Layerfile. Webapp.io will pick up on the
+Layerfile and build your React application according to the steps in your
+Layerfile.
+
+## Video Tutorial
+
+Check out our React video tutorial for a step-by-step breakdown on how to set up
+webapp.io with preview environments for a React application:
+
+<iframe
+  width="100%"
+  src="https://www.youtube.com/embed/4DnWABYyv0s"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+[View Project Source Code](https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-react).

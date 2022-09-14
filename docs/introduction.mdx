@@ -1,0 +1,259 @@
+---
+title: "Introduction"
+description: "Explore webapp.io's guides and examples"
+---
+
+## What is webapp.io?
+
+We integrate with an existing repository on GitHub, GitLab, or
+Bitbucket to provide customizable full-stack preview environments directly into
+every pull request.
+
+<video class="rounded" autoPlay muted>
+  <source
+    src="https://webapp.io/static/assets/what-is-webapp-arrows.mp4"
+    type="video/mp4"
+  />
+</video>
+
+1. Install webapp.io onto your repository
+2. Add a [Layerfile](../layerfile-reference/intro) (a set of instructions that
+   tells webapp.io how to setup and run your application)
+3. Get a preview environment for every commit
+
+Every time you push a new change, webapp.io leverages snapshots to create new
+copies of virtual machines (not containers!) in seconds by re-using instructions
+that have not been updated.
+
+As an example, instead of running `npm install` for every push you make,
+webapp.io takes a snapshot so that on a subsequent push we can skip the
+`npm install` step (unless your dependencies have changed).
+
+### Beyond Preview Environments
+
+Webapp.io is well suited for creating full-stack preview environment for every
+commit, but that’s far from the only thing it can do! We also support the
+following:
+
+- Pull Request Template Builder (create a template to access important
+  information for your webapp directly from your pull request)
+- Polyrepositories (if you have multiple repo's running your project, we support
+  it)
+- Preview Environments on your Domain
+- OAuth (logging in with external sites)
+
+And much more! Check out our [Advanced Workflows](/advanced-workflows/duplicate-vm) documentation for more information.
+
+If you'd like to make any improvements to these docs, you can
+[edit these docs](https://github.com/webappio/docs/tree/master/home) directly.
+
+Happy coding!
+
+## Livechat Example Walkthrough
+
+### 1. Fork Example Repo
+
+Go to the [GitHub repository for the Livechat example](https://github.com/webappio/livechat-example) and fork the repository.
+
+<img class="rounded" src="https://webapp.io/static/assets/github-repo.png" />
+
+Screenshot of the Livechat Example repo
+
+<img
+  class="rounded"
+  src="https://webapp.io/static/assets/forked-repo-no-name.png"
+/>
+
+Screenshot after clicking on the button in GitHub to fork the repository.
+
+### 2. Clone To Local
+
+Clone the new Livechat Example repository to your local machine.
+
+<img class="rounded" src="https://webapp.io/static/assets/clone-locally.png" />
+
+Click on the "Code" button to get the URL to clone locally.
+
+```bash Shell
+git clone (INSERT URL HERE)
+```
+
+### 3. Sign up to webapp.io
+
+[Sign up to webapp.io](https://webapp.io/sign-up) and install webapp.io on your GitHub account, **ensuring that webapp.io has access to the repository you created.**
+
+<img class="rounded" src="https://webapp.io/static/assets/webapp-signup.png" />
+
+Screenshot of the sign-up page for webapp.io
+
+<img
+  class="rounded"
+  src="https://webapp.io/static/assets/install-webapp-on-repo.png"
+/>
+
+Screenshot of the installations buttons on webapp.io
+
+### 4. Make a Local Change
+
+Make a change to the project locally, and push your changes to the repository you created.
+
+```bash
+git add .
+git commit -m "making some change to Livechat example"
+git push
+```
+
+### 5. View Website
+
+Go to your dashboard on webapp.io to see your run, click on “Details”,“main-layerfile”, then “View website”.
+
+<img class="rounded" src="https://webapp.io/static/assets/run-page.png" />
+
+<img class="rounded" src="https://webapp.io/static/assets/detail-page.png" />
+
+Click on "main-layerfile" here, followed by "View Website".
+
+### 6. View Preview Environment
+
+Wait for the server to start, you'll be redirected to a preview environment with the Livechat Example.
+
+<img
+  class="rounded"
+  src="https://webapp.io/static/assets/livechat-example.png"
+/>
+
+That's all you need to view the full-stack preview environment with webapp.io!
+Next, try making another change to one of the views (i.e., in
+`/services/web/src/views/login/login.js`) and push a new commit to see another
+preview environment with your changes.
+
+## Quickstart
+
+To view the power of preview environments in action, let's go through an example
+with our open-source version of Slack,
+[Livechat Example](https://github.com/webappio/livechat-example), that uses
+[Docker Compose](https://docs.docker.com/compose/). For the purpose of this
+quickstart guide, the codebase is monorepository, so all of the services are
+within a single folder (/services).
+
+Our Livechat Example contains the following within the `/services` folder:
+
+- `/api` (our api to handle all requests)
+- `/cypress` (for running tests)
+- `/migrate` (for populating our database)
+- `/web` (our React frontend)
+
+Most importantly, in the root directory, we have our **Layerfile** which is a
+**set of instructions that tells webapp.io how to install, build, and run** the
+Livechat Example. This Layerfile for our Livechat example is shown below:
+
+```bash Layerfile
+FROM vm/ubuntu:18.04
+
+# Install docker
+RUN apt-get update && \
+apt-get install apt-transport-https ca-certificates curl software-properties-common && \
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+apt-get update && \
+apt install docker-ce
+
+# Install docker-compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+chmod +x /usr/local/bin/docker-compose
+
+# Copy repository files
+COPY / /root
+
+RUN /root/pull-images.sh
+RUN REPEATABLE docker-compose build --parallel
+RUN BACKGROUND docker-compose up
+
+# EXPOSE WEBSITE creates an internet visible link
+EXPOSE WEBSITE localhost:8000
+
+```
+
+[View a Preview Environment for the Livechat Example](https://webapp.io/sign-up)
+
+## Limits
+
+### General Limits
+
+The following general limits are applied to all Webapp.io accounts to prevent
+abuse.
+
+| -                                  | Starter   | Team      | Enterprise     |
+| ---------------------------------- | --------- | --------- | -------------- |
+| Team members per organization      | 10        | Unlimited | Custom         |
+| Number of Layerfiles created       | Unlimited | Unlimited | Unlimited      |
+| Preview Environments               |           |           |                |
+| Snapshots of Environments          | 1         | 50        | Custom         |
+| CI/CD                              |           |           |                |
+| Concurrent builds per organization | None      | 12        | Custom servers |
+
+If your project is likely to exceed these limits, please [contact sales](https://webapp.io/contact-sales) to discuss solutions.
+
+### Domains
+
+|                          | Starter   | Team      | Enterprise |
+| ------------------------ | --------- | --------- | ---------- |
+| Domains per organization | Unlimited | Unlimited | Unlimited  |
+
+## Snapshots & Snapshot Retention
+
+A snapshot is a copy of a virtual machine at a specific moment in time. Snapshots help to load environments and configurations so that you can skip
+running steps that have not changed or that have successfully executed on
+previous commits.
+
+### Algorithm for Deleting Snapshots
+
+Listed below is a summary of how we delete snapshots. It's important to review
+this to learn the states of snapshots at different times.
+
+1. Split important snapshots into VIP, Important, and Not Important (VIP as the top tier).
+
+Important Snapshots:
+
+- Newer than 10 minutes
+- Newer than a week old and the latest snapshot for an instruction
+- Newer than a week old and contains the [EXPOSE WEBSITE](./layerfile-reference/expose-website) instruction for an open pull request.
+
+VIP Snapshots:
+
+- 30 prioritized snapshots per paying customer as determined by tier and how
+  recent the snapshots are
+
+2. Order Snapshot Importance (VIP, Important, Not Important)
+
+3. Delete Snapshots
+
+Delete Process:
+
+- Delete the oldest not important
+- Delete the oldest important
+- Delete the oldest VIP
+
+## Environmental Lifecycle
+
+Environments (Layerfiles with [EXPOSE WEBSITE](./layerfile-reference/expose-website), Layerfiles that expose a debug terminal, etc.) have three lifecycle levels:
+
+- _Deleted_, which means you can't start them without rebuilding (rebuilding deletes
+  everything, like your temporary database, registered user, and state in the environment).
+- _Stopped_, which means you see a spinner as they start - _Running_, which means
+  it's currently running
+
+### Running to Stopped
+
+The Running lifecycle to Stopped lifecycle happens for a few reasons:
+
+- After 3 minutes of inactivity if there are builds queued
+- After 60 minutes in general (this can be changed by our admin team if
+  requested)
+
+### Stopped to Deleted
+
+The Stopped lifectyle to Deleted lifecycle happens for two reasons:
+
+- Something crashes (rare)
+- Snapshot is deleted (see [Snapshots & Snapshot Retention](/introduction#snapshots-and-snapshot-retention)
