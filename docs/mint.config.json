@@ -1,0 +1,163 @@
+{
+  "name": "Webapp.io Documentation",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#1038C7",
+    "light": "#9CC6F8",
+    "dark": "#112B87",
+    "ultraLight": "#E3EFFF",
+    "ultraDark": "#0B194B"
+  },
+  "topbarCtaButton": {
+    "url": "https://webapp.io/sign-up",
+    "name": "Sign Up"
+  },
+  "topbarLinks": [
+    {
+      "name": "Sign In",
+      "url": "https://webapp.io/login"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Examples",
+      "icon": "envelope-open-text",
+      "url": "examples"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "color": "#0ea4e9",
+      "url": "https://webapp.io/blog/"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "color": "#0ea4e9",
+      "url": "https://join.slack.com/t/webappdevelopers/shared_invite/zt-12tklqflc-7y~sYb7K3kkLyqY_hHofXg"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Home",
+      "pages": [
+        "introduction",
+        "why-webapp"
+      ]
+    },
+    {
+      "group": "Layerfile Reference",
+      "pages": [
+        "layerfile-reference/what-are-layerfiles",
+        "layerfile-reference/layerfile-graph",
+        "layerfile-reference/library",
+        "layerfile-reference/build-env",
+        "layerfile-reference/button",
+        "layerfile-reference/cache",
+        "layerfile-reference/checkpoint",
+        "layerfile-reference/clone",
+        "layerfile-reference/copy",
+        "layerfile-reference/env",
+        "layerfile-reference/expose-website",
+        "layerfile-reference/from",
+        "layerfile-reference/label",
+        "layerfile-reference/memory",
+        "layerfile-reference/run",
+        "layerfile-reference/secret-env",
+        "layerfile-reference/setup-file",
+        "layerfile-reference/skip-remaining-if",
+        "layerfile-reference/split",
+        "layerfile-reference/user",
+        "layerfile-reference/wait",
+        "layerfile-reference/workdir",
+        "layerfile-reference/aws"
+      ]
+    },
+    {
+      "group": "Common Problems",
+      "pages": [
+        "common-problems/step-rerunning",
+        "common-problems/lock-run-repeatable",
+        "common-problems/yarn-error"
+      ]
+    },
+    {
+      "group": "Tuning Performance",
+      "pages": [
+        "tuning-performance/the-layerfile-cache",
+        "tuning-performance/split",
+        "tuning-performance/run-repeatable"
+      ]
+    },
+    {
+      "group": "Advanced Workflows",
+      "pages": [
+        "advanced-workflows/duplicate-vm",
+        "advanced-workflows/docker-login",
+        "advanced-workflows/routing",
+        "advanced-workflows/oauth",
+        "advanced-workflows/using-yarn",
+        "advanced-workflows/groups-and-permissions",
+        "advanced-workflows/layerfile-analytics",
+        "advanced-workflows/prioritize-snapshots"
+      ]
+    },
+    {
+      "group": "API Docs",
+      "pages": ["api-docs/setup", "api-docs/ci-jobs"]
+    },
+    {
+      "group": "Customize Notifications",
+      "pages": [
+        "customize-notifications/build-speed-chart",
+        "customize-notifications/custom-scripts",
+        "customize-notifications/layerfile-status",
+        "customize-notifications/link-to-preview-environment",
+        "customize-notifications/performance-graphs-for-specific-pages",
+        "customize-notifications/site-performance-graph",
+        "customize-notifications/slack-notification-template"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "integrations/configcat",
+        "integrations/coveralls",
+        "integrations/cypress",
+        "integrations/doppler",
+        "integrations/ghost-inspector",
+        "integrations/reflect",
+        "integrations/slack"
+      ]
+    },
+    {
+      "group": "Community",
+      "pages": ["community/slack", "community/social-media"]
+    },
+    {
+      "group": "Examples",
+      "pages": [
+        "examples/angular",
+        "examples/cypress",
+        "examples/django",
+        "examples/docker-compose",
+        "examples/docker",
+        "examples/kubernetes",
+        "examples/laravel",
+        "examples/node",
+        "examples/rails",
+        "examples/react",
+        "examples/something-else"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/webappio",
+    "instagram": "https://www.instagram.com/webapp.io",
+    "hacker-news": "https://news.ycombinator.com/from?site=webapp.io"
+  }
+}

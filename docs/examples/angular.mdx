@@ -1,0 +1,181 @@
+---
+title: "Angular Example"
+---
+
+1. [Setting up the Angular Application](./angular#setting-up-the-angular-application)
+
+2. [Layerfile](./angular#layerfile)
+
+3. [Setting up the Layerfile](./angular#setting-up-the-layerfile)
+
+4. [Adding the Layerfile](./angular#adding-the-layerfile)
+
+5. [Video Tutorial](./angular#video-tutorial)
+
+6. [Project Source Code](https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-angular)
+
+## Setting up the Angular Application
+
+**(You can skip this section if you already have an Angular app running.)**
+
+To build your Angular application, ensure you have both node and npm installed.
+You can verify with the following commands: `node --version` `npm --version`. If
+installed correctly these will both give you a number as an output.
+
+Next, install the Angular CLI with `npm install -g @angular/cli`;
+
+After installed, go to a folder and run the following command
+`ng new webappio-angular-example`. This will create a new Angular app in the
+folder 'webappio-angular-example'. When running this command, you'll be prompted
+to use Angular routing (we selected yes), and select a stylesheet (we selected
+SCSS).
+
+Once your app is finished installing, go into your directory with the command
+`cd webappio-angular-example`, and run the command `ng serve -o --poll=2000`.
+This will open the angular application on your computer on your localhost. You
+can now go in and change the title of the page or make another change to your
+Angular application to see the changes in effect.
+
+Summary of Steps:
+
+1. `node --version`
+2. `npm --version`
+3. `npm install -g @angular/cli`
+4. `ng new webappio-angular-example`
+5. `cd webappio-angular-example`
+6. `ng serve -o --poll=2000`
+
+## Layerfile
+
+Listed below is an example Layerfile for webapp.io which you can use to setup a
+basic Angular application. We'll breakdown this Layerfile in the section below
+for a set of detailed explanation on what each one of the instructions do.
+
+```docker Layerfile
+# Set the image
+FROM vm/ubuntu:18.04
+
+# Install nodejs and npm
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN sudo npm install npm@latest -g
+
+# Install angular
+RUN npm install -g @angular/cli
+
+# Get files from repository
+COPY . .
+
+# Install project dependencies
+RUN npm install
+
+# Run angular app
+RUN BACKGROUND ng serve --host 0.0.0.0 --disable-host-check
+
+# Show website on preview environment at port 4200
+EXPOSE WEBSITE http://localhost:4200
+```
+
+## Setting up the Layerfile
+
+If you haven't already, please sign up to [webapp.io](/sign-up), and install
+webapp.io onto your repository.
+
+First let's breakdown each instruction in our Layerfile.
+
+### 1: Set the Image
+
+`FROM vm/ubuntu:18.04`
+
+The `FROM` instruction tells webapp.io what base to use to run tests from. There
+can only be one `FROM` line, and in this case we're using the `ubuntu:18.04`
+virtual machine image.
+
+If you're familiar with AWS Ec2 Instances, this is similar to creating a virtual
+machine from the ubuntu 18.04 image.
+
+### 2. Install NodeJS and NPM
+
+`RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+
+`RUN sudo apt-get install -y nodejs`
+
+`RUN sudo npm install npm@latest -g`
+
+The `RUN` instruction will run the given script, and fails the Layerfile if the
+script fails. In this case, we're using the `RUN` command to install the
+dependencies we need to build and run the Angular application.
+
+In this case we're using the `RUN` instruction to download Node JS and npm.
+
+### 3. Install Angular
+
+`RUN npm install -g @angular/cli`
+
+Similar to the previous step, we use the `RUN` command but this time we're using
+it to install Angular. This was the same step you ran when setting up Angular
+locally.
+
+### 4. Get Repository Files
+
+`COPY . .`
+
+The `COPY` instruction moves files from your repository to the virtual machine.
+The Layerfile will pick up on the files in the repository that you are making
+the commit for, and will copy those files into the virtual machine so you can
+run you project.
+
+### 5. Install Dependencies
+
+`RUN npm install`
+
+Similar to the `RUN` commands above, this will execute the given script
+`npm install`, which will install the dependencies for the Angular app.
+
+### 6. Start the Angular App
+
+`RUN BACKGROUND ng serve --host 0.0.0.0 --disable-host-check`
+
+The `RUN BACKGROUND` instruction is the `RUN` instruction with the `BACKGROUND`
+flag. This tells webapp.io to continue to the next step in the Layerfile instead
+of waiting for the given script to run. The reason why we do this is that
+`ng serve` will essentially block the terminal while the Angular app is running.
+We want to continue to the next step so that's why we use `RUN BACKGROUND` here.
+
+### 7. Expose Angular App on the Virtual Machine
+
+`EXPOSE WEBSITE http://localhost:4200`
+
+The `EXPOSE WEBSITE` instruction creates a link to view the virtual machine at a
+specific port. We use `EXPOSE WEBSITE` to expose the virtual machine on port
+4200 which is where the Angular application runs after running `ng serve`. We
+use `EXPOSE WEBSITE` here so we can get a link to our Angular app to share with
+stakeholders involved in our projects.
+
+## Adding the Layerfile
+
+The last step in this process is to add the Layerfile to your repository. Simply
+create a file called `Layerfile` (no file extension) in the root of your Angular
+application. If you haven't already, install webapp.io onto your repository
+containing your Angular app. Once done, simply create a commit and push your
+Angular app to the repository with the new Layerfile. Webapp.io will pick up on
+the Layerfile and build your Angular application according to the steps in your
+Layerfile.
+
+## Video Tutorial
+
+Check out our Angular video tutorial before for a step-by-step breakdown on how
+to set up webapp.io with preview environments for an Angular application:
+
+<div className="Docs_VideoFrame">
+  <iframe
+    width="100%"
+    src="https://www.youtube.com/embed/hA_rL3Iyigo"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+</div>
+
+[View Project Source Code](https://github.com/joshuadsouza/webappio-docs-examples/tree/master/webappio-angular)

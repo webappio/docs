@@ -1,0 +1,46 @@
+---
+title: "CLONE"
+---
+
+<Warning>
+
+CLONE is only available if "Use new hypervisor" is enabled in [your
+organization's settings](https://webapp.io/dashboard/org-settings).
+
+</Warning>
+
+`CLONE [repository URL] (DEFAULT=branch-name) (files...) [destination]`
+
+The `CLONE` instruction moves files from a repository to the runner.
+
+Files can be:
+
+- relative (to the layerfile location for sources, and WORKDIR location, or
+  /root if not specified for destination)
+- absolute (from the root of the repository for sources, and filesystem root for
+  destination)
+
+The `CLONE` directive will automatically add authentication credentials if your account
+is connected with the associated repository.
+
+If the current Layerfile's branch is, e.g., `feat-1`, then `CLONE` will try to
+check out the `feat-1` branch from `[repository URL]`. If that branch doesn't
+exist, it will fall back to the branch specified by `DEFAULT=`.
+
+This facilitates multi-repository development by allowing changes to be made to
+libraries concurrently without needing them to be merged to be used.
+
+`CLONE` watches files in the same manner as `COPY`, this means that steps will
+only re-run if files in the cloned repository change.
+
+### Examples
+
+- Use `CLONE https://github.com/webappio/library.git DEFAULT=master /library` to
+  clone the current branch (e.g., feat-1) if it exists, falling back to master
+  otherwise to the `/library` directory in the runner.
+- Use `CLONE https://github.com/my-project/hello.git /hello-project` to copy the
+  entire repository contents to the destination `/hello-project` in the runner.
+- Use
+  `CLONE https://github.com/my-project/hello.git DEFAULT=main /package.json /package-lock.json ./`
+  to copy `package.json` and `package-lock.json` from the specified project,
+  into the working directory in the runner.

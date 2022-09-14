@@ -1,0 +1,37 @@
+---
+title: "Laravel Example"
+---
+
+```docker Layerfile
+#Use an Ubuntu 18.04 base for our staging server
+FROM vm/ubuntu:18.04
+
+# To note: Layerfiles create entire VMs, *not* containers!
+
+# Install php5 & composer
+RUN apt-get update && \\
+    apt-get install software-properties-common && \\
+    yes | add-apt-repository ppa:ondrej/php && \\
+    apt-get update && \\
+    apt-get install curl php7.3-cli php7.3-mbstring php7.3-zip php7.3-dom \\
+            git unzip
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php && \\
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \\
+    rm composer-setup.php
+
+# Install laravel
+ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=~/.config/composer/vendor/bin:$PATH
+RUN composer global require laravel/installer
+
+# Create sample blog
+RUN laravel new blog
+
+WORKDIR blog
+RUN composer install
+RUN BACKGROUND php artisan serve --host 0.0.0.0 --port 80
+
+# Expose website creates a unique link to view the website running in the server
+EXPOSE WEBSITE http://localhost:80
+```
+
+[Try this example live](/sign-up)
