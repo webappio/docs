@@ -5,9 +5,13 @@ description: "Explore webapp.io's guides and examples"
 
 ## What is webapp.io?
 
-We integrate with an existing repository on GitHub, GitLab, or
-Bitbucket to provide customizable full-stack preview environments directly into
-every pull request.
+Webapp.io is a Serverless VM platform.
+
+We build VMs in *seconds* every time you push code to GitHub, GitLab, or BitBucket.
+
+- Our VMs automatically hibernate when they aren't being used
+- We let you duplicate VMs to make copies of your stack and run acceptance tests in parallel
+- We take snapshots of the VM as it builds, so that future builds can entirely skip `docker pull` or `npm install`
 
 <video class="rounded" autoPlay muted>
   <source
@@ -16,40 +20,24 @@ every pull request.
   />
 </video>
 
-1. Install webapp.io onto your repository
-2. Add a [Layerfile](../layerfile-reference/intro) (a set of instructions that
-   tells webapp.io how to setup and run your application)
-3. Get a preview environment for every commit
+### What happens when I sign up?
 
-Every time you push a new change, webapp.io leverages snapshots to create new
-copies of virtual machines (not containers!) in seconds by re-using instructions
-that have not been updated.
+1. You'll install webapp.io onto a GitHub, GitLab or BitBucket repository
+2. Our onboarding will guide you to build a [Layerfile](../layerfile-reference/intro) which defines your VM build
+3. You commit your Layerfile, and we'll automatically build it into a VM every time you push a commit.
 
-As an example, instead of running `npm install` for every push you make,
-webapp.io takes a snapshot so that on a subsequent push we can skip the
-`npm install` step (unless your dependencies have changed).
 
-### Beyond Preview Environments
+### What can serverless VMs be used for?
 
-Webapp.io is well suited for creating full-stack preview environment for every
-commit, but that’s far from the only thing it can do! We also support the
-following:
+Our users primarily use serverless VMs for three things:
 
-- Pull Request Template Builder (create a template to access important
-  information for your webapp directly from your pull request)
-- Polyrepositories (if you have multiple repo's running your project, we support
-  it)
-- Preview Environments on your Domain
-- OAuth (logging in with external sites)
+1. Preview environments - by making a Layerfile with the [EXPOSE WEBSITE](../layerfile-reference/expose-website) directive, you immediately get an environment deployed for every pull request.
+2. Acceptance tests - by making a Layerfile with [SPLIT 5](../layerfile-reference/split), you can build your stack and fork it five times to run tests in parallel.
+3. Hosting - by using [Prioritize Snapshot](../advanced-workflows/prioritize-snapshots), you can make ephemeral environments stick around and not shut off.
 
-And much more! Check out our [Advanced Workflows](/advanced-workflows/duplicate-vm) documentation for more information.
+At webapp.io, we're building a *serverless VM platform*. You can even create multiple Layerfiles and combine them into powerful DevOps workflows to help your team ship 10x faster.
 
-If you'd like to make any improvements to these docs, you can
-[edit these docs](https://github.com/webappio/docs/tree/master/home) directly.
-
-Happy coding!
-
-## Livechat Example Walkthrough
+## Comprehensive step-by-step tutorial
 
 ### 1. Fork Example Repo
 
