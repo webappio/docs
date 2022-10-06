@@ -2,9 +2,9 @@
   "name": "Webapp.io Documentation",
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "https://webapp.io"
   },
-  "logoHref": "https://webapp.io",
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#1038C7",
@@ -45,10 +45,7 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": [
-        "introduction",
-        "why-webapp"
-      ]
+      "pages": ["introduction", "why-webapp"]
     },
     {
       "group": "Layerfile Reference",
@@ -163,7 +160,7 @@
   },
   "analytics": {
     "mixpanel": {
-        "projectToken": "9216fddb2a6d3f348c9d9e149ef830ba"
+      "projectToken": "9216fddb2a6d3f348c9d9e149ef830ba"
     }
   }
 }
