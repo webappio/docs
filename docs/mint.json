@@ -157,10 +157,5 @@
     "twitter": "https://twitter.com/webappio",
     "instagram": "https://www.instagram.com/webapp.io",
     "hacker-news": "https://news.ycombinator.com/from?site=webapp.io"
-  },
-  "analytics": {
-    "mixpanel": {
-      "projectToken": "9216fddb2a6d3f348c9d9e149ef830ba"
-    }
   }
 }
