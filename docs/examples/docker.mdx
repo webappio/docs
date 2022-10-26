@@ -66,8 +66,9 @@ app.listen(port, () => {
 After creating your `app.js` file, create another file called `Dockerfile` in
 the root of your folder, and add the following contents:
 
-````docker Dockerfile FROM node:12-alpine RUN apk add --no-cache python2 g++ make WORKDIR
-/app COPY . . RUN npm install --production CMD ["node", "app.js"] EXPOSE 80 ```
+```docker Dockerfile FROM node:12-alpine RUN apk add --no-cache python2 g++ make WORKDIR
+/app COPY . . RUN npm install --production CMD ["node", "app.js"] EXPOSE 80
+```
 
 
 Once your dockerfile is created, you can use the following commands to run your Docker
@@ -119,7 +120,7 @@ RUN docker build -t image .
 RUN docker run -d -p 80:80 image
 
 EXPOSE WEBSITE http://localhost:80
-````
+```
 
 ## Setting up the Layerfile
 
@@ -171,7 +172,7 @@ into the virtual machine so you can run you project.
 
 ### 4. Build the Docker image
 
-## `RUN docker build -t image .`
+`RUN docker build -t image .`
 
 Similar to the `RUN` commands above, this will execute the given script
 `docker build -t image .`, which will install build the Docker image for the
