@@ -106,7 +106,7 @@
     },
     {
       "group": "API Docs",
-      "pages": ["api-docs/setup", "api-docs/ci-jobs"]
+      "pages": ["api-docs/setup", "api-docs/ci-jobs", "api-docs/layerfile-runners"]
     },
     {
       "group": "Customize Notifications",
