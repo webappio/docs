@@ -38,6 +38,15 @@ channel(s)
 <img src="https://webapp.io/static/assets/save-repo.png" class="tw-pt-12" />
 <p class="tw-pb-12">Save the repository components.</p>
 
+## Control Slack Messages
+
+To control what slack messages are send to the connected channel add a
+`Skip remaining if` block to your template. The `Skip remaining if` block allows
+you to specify a branch name and equality to determine whether or not to render
+the rest of the message. If the statement is evaluated to be `TRUE` the remaining
+blocks in the template will be skipped. If the `Skip remaining if` block is the
+first block in the template the message will not be sent.
+
 # Slack Notification Channel
 
 For a tutorial on how to send messages to a Slack channel, check out the video
