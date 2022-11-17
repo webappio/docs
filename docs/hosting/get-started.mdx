@@ -1,0 +1,66 @@
+---
+title: "Get Started"
+description: "Deploy your project with webapp.io's virtual machines"
+---
+
+Once you've signed up for webapp.io and installed webapp.io on your GitHub repository, you can try out our hosting option with one of our example projects or you can deploy your own code.
+
+<Note>
+It's easier to allow access to all repositories when connecting to GitHub. If not, please remember to give GitHub access to each new repository you create for webapp.io.
+</Note>
+
+
+## Add a Custom Domain
+
+Before deploying your project, make sure to add a custom domain to your webapp.io account. 
+
+To add a domain, check out our docs on <a href="/advanced-workflows/routing">routing</a>.
+
+## Example Projects
+
+Get started by following one of our example guides below. After completing the guide and deploying your application with a Layerfile, add a Custom Domain, and click on the "Deploy" button.
+
+- <a href="/examples/angular">Angular</a>
+- <a href="/examples/django">Django</a>
+- <a href="/examples/docker-compose">Docker Compose</a>
+- <a href="/examples/docker">Docker</a>
+- <a href="/examples/kubernetes">Kubernetes</a>
+- <a href="/examples/laravel">Laravel</a>
+- <a href="/examples/node">Node JS</a>
+- <a href="/examples/rails">Rails</a>
+- <a href="/examples/react">React</a>
+- <a href="/examples/something-else">Generic (HTML)</a>
+
+
+## Your own Code
+
+1. Create a Layerfile for your project
+2. Commit your Layerfile to your repository
+3. Deploy to your custom domain
+
+### Create a Layerfile for your project
+
+A Layerfile is a set of instructions that tell webapp.io how to build and run your application (Layerfile's are similar to Dockerfiles). 
+
+To deploy your application on webapp.io, create a Layerfile and add it to your project repository. To learn how to build a Layerfile, refer to our docs on <a href="/layerfile-reference/what-are-layerfiles">Layerfiles</a>.
+
+### Commit your Layerfile to your repository
+
+Once you've created a Layerfile for your project, add the Layerfile to your project repository and commit it.
+
+Once you've committed your project with the Layerfile, a runner will start to build your application in a virtual machine.
+
+Once the runner has finished building your application, you'll have access to the following:
+
+- Virtual Machine Analytics (CPU, Disk, and Memory)
+- Debugging Terminal (to SSH into your virtual machine) 
+- A preview environment (if your run is successful)
+
+
+### Deploy to your custom domain
+
+Considering you've added a Custom Domain to your webapp.io account and your Layerfile run was successful, you'll have the option to Deploy the virtual machine. 
+
+Deploying the virtual machine will create a new run and will assign the selected Custom Domain to the virtual machine if the run is successful.
+
+Once complete, you can access your project at your domain.

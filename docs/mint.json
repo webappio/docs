@@ -133,6 +133,16 @@
       ]
     },
     {
+      "group": "Hosting",
+      "pages": [
+        "hosting/introduction",
+        "hosting/get-started",
+        "hosting/tutorial",
+        "hosting/free-hosting",
+        "hosting/features-and-comparables"
+      ]
+    },
+    {
       "group": "Community",
       "pages": ["community/slack", "community/social-media"]
     },
