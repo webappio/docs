@@ -51,7 +51,7 @@
       "group": "Comparisons",
       "pages": [
         "comparisons/comparison-circleci",
-        "comparisons/comparison-github-actions",
+        "comparisons/comparison-github-actions"
       ]
     },
     {
