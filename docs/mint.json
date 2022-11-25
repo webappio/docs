@@ -48,6 +48,13 @@
       "pages": ["introduction", "why-webapp"]
     },
     {
+      "group": "Comparisons",
+      "pages": [
+        "comparisons/comparison-circleci",
+        "comparisons/comparison-github-actions",
+      ]
+    },
+    {
       "group": "Layerfile Reference",
       "pages": [
         "layerfile-reference/what-are-layerfiles",

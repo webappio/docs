@@ -87,7 +87,7 @@ Next create a file called `Dockerfile` in the `server` folder with the following
 code:
 
 ```docker Dockerfile
-FROM node:12-alpine
+FROM node:18-buster
 RUN apk add --no-cache python2 g++ make
 WORKDIR /app
 COPY . .
@@ -106,7 +106,7 @@ Once in the client, create a file called `Dockerfile` with the following
 contents:
 
 ```docker Dockerfile
-FROM node:12-alpine
+FROM node:18-buster
 RUN apk add --no-cache python2 g++ make WORKDIR
 /app ENV PATH /app/node_modules/.bin:$PATH COPY package.json ./ COPY package-lock.json
 ./ RUN npm install COPY . . CMD ["npm", "start"]

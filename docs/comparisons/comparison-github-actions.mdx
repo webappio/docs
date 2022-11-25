@@ -1,0 +1,53 @@
+---
+title: "webapp.io vs Github Actions"
+---
+
+[Github Actions (GHA)](https://github.com/actions/) is a first-party Continuous Integration offering by GitHub, focusing on triggering certain actions when certain events occur.
+
+### Price comparison
+webapp.io charges a flat fee per developer, whereas Github Actions charges per minute of compute time.
+
+For a team with:
+- 10 developers
+- 50 commits per day
+- 8 parallel CI tasks per commit
+- 10 minutes of compute per task
+- 6 vCPUs per runner
+- Docker Layer Caching (docker builds)
+
+Github Actions would charge:
+- $2816 (Linux VM, 50 commits * 22 work days * 80 minutes * $0.032/min)
+
+Webapp.io would charge:
+- $49 per seat, or $490/mo on the team plan.
+
+### When would you choose Webapp.io over Github Actions?
+
+Webapp.io is specifically built for full-stack webapps, so it comes with several "killer features" which aren't included in Github Actions.
+
+#### Skipping steps automatically with our file watcher
+
+Webapp.io has a powerful caching system which automatically makes builds faster:
+
+- As your build progresses, webapp.io monitors which files are used by which build steps at the hardware level.
+- For example, you don't have to micromanage cache keys for steps like `npm install` or `docker build`, because we'll know which files are used by those steps.
+- This would often mean 2x - 10x faster builds for common webapp workloads like starting databases and installing dependencies with no extra configuration.
+- For more information, see the [webapp.io tuning performance documentation](/tuning-performance/the-layerfile-cache)
+
+#### Share docker build state with RUN REPEATABLE
+
+Webapps often require building and starting many Docker containers for things like databases, backends, and caches.
+
+Companies wanting to run the equivalent of `docker-compose build` would have to use third party actions and push/pull from a registry when using Github Actions.
+
+In comparison, webapp.io has a directive to completely share the state of a build to a subsequent build with the [RUN REPEATABLE](/tuning-performance/run-repeatable) directive.
+
+This means your team has significantly faster Docker builds at no extra cost, since the runner can share all of its images and build cache from previous builds.
+
+The configuration in webapp.io would look as simple as `RUN REPEATABLE docker-compose build --parallel`
+
+#### Always-available debug terminal
+
+When a webapp.io build fails, the VM is hibernated and kept around - a button to "view debugging terminal" is available below the run logs, and will automatically wake up the instance and set up a SSH connection via your browser.
+
+This means failures which aren't immediately obvious from the terminal output can be effortlessly debugged using webapp.io.
