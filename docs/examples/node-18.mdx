@@ -1,0 +1,91 @@
+---
+title: "Node v18 on Ubuntu 18.04 (Gatsby JS)"
+---
+
+<Info>
+Node v18 is currently not supported by Ubuntu 18.04. Please refer to [this issue](https://github.com/nodesource/distributions/issues/1392) for more details.
+</Info>
+
+If your app was built using Node v18, consider running your application through Docker or Docker Compose.
+
+Listed below is the repository for an example Gatsby JS app that was installed with Node v18.12.1. [Gatsby JS currently requires Node v18 or higher to work.](https://www.gatsbyjs.com/docs/tutorial/part-0/#:~:text=To%20get%20up%20and%20running,that%20comes%20bundled%20with%20Node.)
+
+<br />
+
+<Card title="GitHub Repository" icon="link" href="https://github.com/joshuadsouza/webappio-gatsby-node18">
+  Gatsby JS Project (with Node v18 on Ubuntu 18.04)
+</Card>
+
+<br />
+
+
+## Tutorial 
+
+### Install the Gatsby CLI
+
+Install the Gatsby CLI with the following command in your terminal.
+
+```shell
+npm install -g gatsby-cli
+```
+
+### Start a Gatsby Project
+
+After you've installed the Gatsby CLI, use the following command in a directory of your choice to start a gatsby project.
+
+```shell
+gatsby new
+```
+
+
+### Add a Dockerfile
+
+Once you've created the Gatsby JS project, add the following Dockerfile to the base of the project:
+
+```docker Dockerfile
+# Get the Node 18 image from Docker
+FROM node:18-alpine
+
+# Copy files and install dependencies
+WORKDIR /usr/src/app
+COPY . .
+RUN npm install
+RUN npm install -g gatsby-cli
+
+RUN gatsby build
+
+RUN npm install --global serve
+
+CMD serve /usr/src/app/public
+
+EXPOSE 3000
+```
+
+
+### Add a Layerfile
+
+Once you've added the Dockerfile, add the following Layerfile to the base of the project:
+
+```docker Layerfile
+FROM vm/ubuntu:18.04
+
+# Install the latest version of Docker, as in the official Docker installation tutorial.
+RUN apt-get update && \
+    apt-get install ca-certificates curl gnupg lsb-release && \
+    sudo mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" |\
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && \
+    apt-get install docker-ce docker-ce-cli containerd.io
+
+COPY . .
+
+RUN docker build -t image .
+RUN BACKGROUND docker run -d -p 80:3000 image
+
+EXPOSE WEBSITE http://localhost:80
+```
+
+The last step is to push your code to your repository. If you've connected your repository to webapp.io, webapp.io will listen for the new commit and run the instructions in the Layerfile.

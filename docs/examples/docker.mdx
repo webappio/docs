@@ -1,5 +1,5 @@
 ---
-title: "Docker Example"
+title: "Docker"
 ---
 
 1. [Setting up the Docker Application](./docker#setting-up-the-docker-application).
@@ -66,8 +66,14 @@ app.listen(port, () => {
 After creating your `app.js` file, create another file called `Dockerfile` in
 the root of your folder, and add the following contents:
 
-```docker Dockerfile FROM node:12-alpine RUN apk add --no-cache python2 g++ make WORKDIR
-/app COPY . . RUN npm install --production CMD ["node", "app.js"] EXPOSE 80
+```docker Dockerfile
+FROM node:12-alpine 
+RUN apk add --no-cache python2 g++ make 
+WORKDIR /app 
+COPY . . 
+RUN npm install --production 
+CMD ["node", "app.js"] 
+EXPOSE 80
 ```
 
 
