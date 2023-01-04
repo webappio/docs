@@ -45,7 +45,7 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": ["introduction", "why-webapp"]
+      "pages": ["introduction", "why-webapp", "tutorial"]
     },
     {
       "group": "Comparisons",
@@ -58,6 +58,7 @@
       "group": "Layerfile Reference",
       "pages": [
         "layerfile-reference/what-are-layerfiles",
+        "layerfile-reference/layerfile-linting",
         "layerfile-reference/layerfile-graph",
         "layerfile-reference/library",
         "layerfile-reference/build-env",
@@ -164,9 +165,11 @@
         "examples/kubernetes",
         "examples/laravel",
         "examples/node",
+        "examples/node-18",
         "examples/rails",
         "examples/react",
-        "examples/something-else"
+        "examples/something-else",
+        "examples/postgres"
       ]
     }
   ],
