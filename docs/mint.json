@@ -11,7 +11,10 @@
     "light": "#9CC6F8",
     "dark": "#112B87",
     "ultraLight": "#E3EFFF",
-    "ultraDark": "#0B194B"
+    "ultraDark": "#0B194B",
+    "background": {
+      "dark": "#151515"
+    }
   },
   "topbarCtaButton": {
     "url": "https://webapp.io/sign-up",
@@ -147,6 +150,7 @@
         "hosting/get-started",
         "hosting/tutorial",
         "hosting/free-hosting",
+        "hosting/domains",
         "hosting/features-and-comparables"
       ]
     },
