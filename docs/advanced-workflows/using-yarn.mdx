@@ -10,7 +10,7 @@ To install Yarn, your Layerfile will include something like this:
 ```docker Layerfile
 FROM vm/ubuntu:18.04
 # To note: Layerfiles create entire VMs, *not* containers!
-RUN curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \
+RUN curl -fSsL https://deb.nodesource.com/setup_14.x | bash && \
     curl -fSsL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \

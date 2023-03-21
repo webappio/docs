@@ -56,7 +56,7 @@ for a set of detailed explanation on what each one of the instructions do.
 FROM vm/ubuntu:18.04
 
 # Install nodejs and npm
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 RUN sudo npm install npm@latest -g
 
@@ -96,7 +96,7 @@ machine from the ubuntu 18.04 image.
 
 ### 2. Install NodeJS and NPM
 
-`RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+`RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
 
 `RUN sudo apt-get install -y nodejs`
 
