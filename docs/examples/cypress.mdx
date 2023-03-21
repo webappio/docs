@@ -13,7 +13,7 @@ FROM vm/ubuntu:18.04
 
 # To note: Layerfiles create entire VMs, *not* containers!
 
-RUN curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
+RUN curl -fSsL https://deb.nodesource.com/setup_14.x | bash && \\
     apt-get install nodejs python3 make gcc build-essential
 
 # Cypress OS dependencies
@@ -87,7 +87,7 @@ RUN apt update
 RUN apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
 # Install node
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \\
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash && \\
     apt install nodejs && \\
     rm -f /etc/apt/sources.list.d/nodesource.list
 RUN npm install -g http-server

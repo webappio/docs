@@ -246,7 +246,7 @@ RUN curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-co
 RUN chmod +x /usr/local/bin/docker-compose
 
 # Install React
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 RUN sudo npm install npm@latest -g
 
@@ -329,7 +329,7 @@ will install docker compose on the virtual machine so we can run
 
 ### 5. Install React
 
-`RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+`RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
 
 `RUN sudo apt-get install -y nodejs`
 

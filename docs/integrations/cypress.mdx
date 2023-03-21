@@ -118,7 +118,7 @@ Layerfile does.
 FROM vm/ubuntu:18.04
 
 # To note: Layerfiles create entire VMs, *not* containers!
-RUN curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \
+RUN curl -fSsL https://deb.nodesource.com/setup_14.x | bash && \
     apt-get install nodejs python3 make gcc build-essential \
     libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 \
     libnss3 libxss1 libasound2 libxtst6 xauth xvfb && \
@@ -144,7 +144,7 @@ EXPOSE WEBSITE http://localhost:8000
 This tells webapp.io what base to run tests from.
 
 ```docker Layerfile
-RUN curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \
+RUN curl -fSsL https://deb.nodesource.com/setup_14.x | bash && \
     apt-get install nodejs python3 make gcc build-essential \
     libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 \
     libnss3 libxss1 libasound2 libxtst6 xauth xvfb && \
@@ -236,7 +236,7 @@ display the cypress results. We can use the following Layerfile to do so:
 FROM vm/ubuntu:18.04
 
 # Install required dependencies for Node JS
-RUN curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
+RUN curl -fSsL https://deb.nodesource.com/setup_14.x | bash && \\
     apt-get install nodejs python3 make gcc build-essential \\
     libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 \
     libnss3 libxss1 libasound2 libxtst6 xauth xvfb && \\
@@ -352,7 +352,7 @@ Now, update your Layerfile with the following contents:
 FROM vm/ubuntu:18.04
 
 # Install required dependencies for Node JS
-RUN curl -fSsL https://deb.nodesource.com/setup_12.x | bash && \\
+RUN curl -fSsL https://deb.nodesource.com/setup_14.x | bash && \\
     apt-get install nodejs python3 make gcc build-essential \\
     libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 \
     libnss3 libxss1 libasound2 libxtst6 xauth xvfb && \\

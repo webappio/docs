@@ -65,7 +65,7 @@ FROM vm/ubuntu:18.04
 
 MEMORY 2G
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 RUN sudo npm install npm@latest -g
 
@@ -108,7 +108,7 @@ available.
 
 ### 3. Install NodeJS and NPM
 
-`RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -`
+`RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
 
 `RUN sudo apt-get install -y nodejs`
 

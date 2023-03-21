@@ -17,7 +17,7 @@ SDKs for 10+ platforms.
 
 ```docker Layerfile
 FROM vm/ubuntu:18.04
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt install nodejs
 COPY . .
 RUN npm install
