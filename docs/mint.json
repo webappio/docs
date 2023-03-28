@@ -111,8 +111,7 @@
         "advanced-workflows/oauth",
         "advanced-workflows/using-yarn",
         "advanced-workflows/groups-and-permissions",
-        "advanced-workflows/layerfile-analytics",
-        "advanced-workflows/prioritize-snapshots"
+        "advanced-workflows/layerfile-analytics"
       ]
     },
     {
