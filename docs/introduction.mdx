@@ -33,7 +33,7 @@ Our users primarily use serverless VMs for three things:
 
 1. Preview environments - by making a Layerfile with the [EXPOSE WEBSITE](../layerfile-reference/expose-website) directive, you immediately get an environment deployed for every pull request.
 2. Acceptance tests - by making a Layerfile with [SPLIT 5](../layerfile-reference/split), you can build your stack and fork it five times to run tests in parallel.
-3. Hosting - by using [Prioritize Snapshot](../advanced-workflows/prioritize-snapshots), you can make ephemeral environments stick around and not shut off.
+3. Hosting - by using [webapp.io hosting](../hosting/introduction), you can make ephemeral environments stick around and not shut off.
 
 At webapp.io, we're building a *serverless VM platform*. You can even create multiple Layerfiles and combine them into powerful DevOps workflows to help your team ship 10x faster.
 
@@ -109,7 +109,7 @@ Important Snapshots:
 
 VIP Snapshots:
 
-- 30 prioritized snapshots per paying customer as determined by tier and how
+- Prioritized snapshots per paying customer as determined by tier and how
   recent the snapshots are
 
 2. Order Snapshot Importance (VIP, Important, Not Important)
