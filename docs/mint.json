@@ -48,7 +48,7 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": ["introduction", "why-webapp", "tutorial"]
+      "pages": ["introduction", "why-webapp", "tutorial", "snapshots"]
     },
     {
       "group": "Comparisons",

@@ -1,6 +1,6 @@
 ---
-title: "Introduction"
-description: "Explore webapp.io's guides and examples"
+title: "Documentation"
+description: "Explore our guides and examples to integrate webapp.io"
 ---
 
 ## What is webapp.io?
@@ -11,7 +11,7 @@ We build testing VMs in *seconds* every time you push code to GitHub, GitLab, or
 
 - Our VMs automatically hibernate when they aren't being used
 - We let you duplicate VMs to make copies of your stack and run acceptance tests in parallel
-- We take snapshots of the VM as it builds, so that future builds can entirely skip `docker pull` or `npm install`
+- We take [snapshots](/snapshots) of the VM as it builds, so that future builds can entirely skip `docker pull` or `npm install`
 
 <video className="rounded" autoPlay muted>
   <source
@@ -80,68 +80,4 @@ abuse.
 | Security reviews |  |  |  | ✔ |
 | Pay by invoice |  |  |  | ✔ |
 
-If your project is likely to exceed these limits, please [contact sales](https://webapp.io/contact-sales) to discuss solutions.
-
-### Domains
-
-|                          | Starter   | Team      | Scale      |
-| ------------------------ | --------- | --------- | ---------- |
-| Domains per organization | Unlimited | Unlimited | Unlimited  |
-
-## Snapshots & Snapshot Retention
-
-A snapshot is a copy of a virtual machine at a specific moment in time. Snapshots help to load environments and configurations so that you can skip
-running steps that have not changed or that have successfully executed on
-previous commits.
-
-### Algorithm for Deleting Snapshots
-
-Listed below is a summary of how we delete snapshots. It's important to review
-this to learn the states of snapshots at different times.
-
-1. Split important snapshots into VIP, Important, and Not Important (VIP as the top tier).
-
-Important Snapshots:
-
-- Newer than 10 minutes
-- Newer than a week old and the latest snapshot for an instruction
-- Newer than a week old and contains the [EXPOSE WEBSITE](./layerfile-reference/expose-website) instruction for an open pull request.
-
-VIP Snapshots:
-
-- Prioritized snapshots per paying customer as determined by tier and how
-  recent the snapshots are
-
-2. Order Snapshot Importance (VIP, Important, Not Important)
-
-3. Delete Snapshots
-
-Delete Process:
-
-- Delete the oldest not important
-- Delete the oldest important
-- Delete the oldest VIP
-
-## Environmental Lifecycle
-
-Environments (Layerfiles with [EXPOSE WEBSITE](./layerfile-reference/expose-website), Layerfiles that expose a debug terminal, etc.) have three lifecycle levels:
-
-- _Deleted_, which means you can't start them without rebuilding (rebuilding deletes
-  everything, like your temporary database, registered user, and state in the environment).
-- _Stopped_, which means you see a spinner as they start - _Running_, which means
-  it's currently running
-
-### Running to Stopped
-
-The Running lifecycle to Stopped lifecycle happens for a few reasons:
-
-- After 3 minutes of inactivity if there are builds queued
-- After 60 minutes in general (this can be changed by our admin team if
-  requested)
-
-### Stopped to Deleted
-
-The Stopped lifectyle to Deleted lifecycle happens for two reasons:
-
-- Something crashes (rare)
-- Snapshot is deleted (see [Snapshots & Snapshot Retention](/introduction#snapshots-and-snapshot-retention)
+If your project is likely to exceed these limits, please [contact sales](https://webapp.io/contact/sales) to discuss solutions.
