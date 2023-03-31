@@ -1,0 +1,68 @@
+---
+title: "Snapshots & Environment Lifecycles"
+description: "How we save and manage each VMs state"
+---
+
+## Snapshots & Snapshot Retention
+
+A snapshot is a copy of a virtual machine at a specific moment in time. Snapshots help to load environments and configurations so that you can skip
+running steps that have not changed or that have successfully executed on
+previous commits.
+
+### Algorithm for Deleting Snapshots
+
+Listed below is a summary of how we delete snapshots. It's important to review
+this to learn the states of snapshots at different times.
+
+1. webapp.io splits important snapshots into VIP, Important, and Not Important (VIP as the top tier).
+
+**VIP Snapshots:**
+
+- Prioritized snapshots per paying customer as determined by tier and how
+  recent the snapshots are
+
+**Important Snapshots:**
+
+- Newer than 10 minutes
+- Newer than a week old and the latest snapshot for an instruction
+- Newer than a week old and contains the [EXPOSE WEBSITE](./layerfile-reference/expose-website) instruction for an open pull request.
+
+2. Order Snapshot Importance (VIP, Important, Not Important)
+
+3. Delete Snapshots
+
+Listed below is the process on how webapp.io will carry out deleting the prioritized snapshots.
+
+- Delete the oldest not important
+- Delete the oldest important
+- Delete the oldest VIP
+
+## Environmental Lifecycle
+
+Environments (Layerfiles with [EXPOSE WEBSITE](./layerfile-reference/expose-website), Layerfiles that expose a debug terminal, etc.) have three lifecycle levels:
+
+- _Deleted_, which means you can't start them without rebuilding (rebuilding deletes
+  everything, like your temporary database, registered user, and state in the environment).
+- _Stopped_, which means you see a spinner as they start
+- _Running_, which means it's currently running
+
+### Running to Stopped
+
+The Running lifecycle to Stopped lifecycle happens for a few reasons:
+
+- After 3 minutes of inactivity if there are builds queued
+- After 60 minutes in general (this can be changed by our admin team if
+  requested)
+
+<Note>
+    A stopped state indicates that your snapshot is still available but has been stopped due to the reasons above.
+
+    If you have deployed a VM with (webapp.io hosting)[/hosting/introduction] your VM will stop based on the same reasoning above. However your VM snapshot will not be deleted - giving your end-users a fast cold-start experience.
+</Note>
+
+### Stopped to Deleted
+
+The Stopped lifectyle to Deleted lifecycle happens for two reasons:
+
+- Something crashes (rare)
+- Snapshot is deleted (see [Snapshots & Snapshot Retention](/snapshots))

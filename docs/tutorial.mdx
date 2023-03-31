@@ -24,7 +24,7 @@ Our Livechat Example contains the following within the `/services` folder:
 
 Most importantly, in the root directory, we have our **Layerfile** which is a
 **set of instructions that tells webapp.io how to install, build, and run** the
-Livechat Example. This Layerfile for our Livechat example is shown below:
+Livechat Example. The Layerfile for the Livechat example is shown below:
 
 ```docker Layerfile
 FROM vm/ubuntu:18.04
@@ -130,6 +130,10 @@ Wait for the server to start, you'll be redirected to a preview environment with
 />
 
 That's all you need to view the full-stack preview environment with webapp.io!
-Next, try making another change to one of the views (i.e., in
-`/services/web/src/views/login/login.js`) and push a new commit to see another
-preview environment with your changes.
+
+## Conclusion
+In this tutorial we've gone through the steps needed to set up the CI/CD and preview environments for the Livechat example on webapp.io.
+
+<Note>
+The full-stack Livechat example is just one example of many webapps you can run on webapp.io. If your webapp runs locally, webapp.io should be able to support - regardless of what stack you use.
+</Note>
