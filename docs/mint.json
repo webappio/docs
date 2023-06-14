@@ -82,8 +82,7 @@
         "layerfile-reference/split",
         "layerfile-reference/user",
         "layerfile-reference/wait",
-        "layerfile-reference/workdir",
-        "layerfile-reference/aws"
+        "layerfile-reference/workdir"
       ]
     },
     {
