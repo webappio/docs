@@ -9,13 +9,11 @@ The `FROM` instruction tells webapp.io what base to use to run tests from.
 There can only be one `FROM` line in a Layerfile, and it must always be the
 first directive in the Layerfile.
 
-For now, only `FROM vm/ubuntu:18.04` is allowed as a top level, but inheriting
+For now, only `FROM vm/ubuntu:18.04` and `FROM vm/ubuntu:22.04` are allowed as a top level, but inheriting
 from other Layerfiles is possible.
 
 <Info>
-Node v18 is currently not supported by Ubuntu 18.04. Please refer to [this issue](https://github.com/nodesource/distributions/issues/1392) for more details.
-
-To build a project with Node v18, consider using Docker or Docker Compose. A tutorial can be found [here](/examples/node-18).
+Ubuntu 22.04 is only supported if the "Use new hypervisor for faster snapshots" setting is enabled, otherwise the run will fail with an internal error.
 </Info>
 
 ### Examples
